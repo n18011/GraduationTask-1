@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
+const gamed = [
+  'うるま市大会',
+  '那覇市大会',
+  '浦添市大会'
+]
+
+const gaming = [
+  '名護市大会',
+  '北中城村大会',
+  '読谷村大会',
+  '北谷町大会'
+]
+
+const GameList = ({ games }) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ul>
+      {games.map(game => (
+        <li>{game}</li>
+      ))}
+    </ul>
+  )
 }
 
-export default App;
+export default () => {
+  return (
+    <>
+      <h3>進行中</h3>
+      <GameList games={gamed} />
+      <h3>過去の大会</h3>
+      <GameList games={gaming} />
+    </>
+  )
+}
