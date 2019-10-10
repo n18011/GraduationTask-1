@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.4.3",
+    "challonge": "^2.2.0",
     "firebase": "^7.0.0",
     "firebaseui": "^4.2.0",
     "node-fetch": "^2.6.0",
