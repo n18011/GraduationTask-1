@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 
 var firebaseConfig = {
-  apiKey: 'AIzaSyBGGRy9mUGb08QVJCP7tLwUzMbD0LLJgOI',
+  apiKey: process.env.API_KEY,
   authDomain: 'graduation-task-d7fc3.firebaseapp.com',
   databaseURL: 'https://graduation-task-d7fc3.firebaseio.com',
   projectId: 'graduation-task-d7fc3',
