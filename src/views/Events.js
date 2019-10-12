@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from 'react'
-const challonge = require('challonge')
-
-const client = challonge.createClient({
-  apiKey: process.env.CHALLONGE_KEY
-})
+import firebase from '../Firebase'
 
 export default () => {
   const [ image, setImage ] = useState('')
   const [ isLoading, setIsLoding ] = useState(false)
 
   useEffect(() => {
-    client.tournaments.show({
-      id: 'n18011Test',
-      callback: (err, data) => {
-        console.log(err + ' => ' + data)
-      }
+    fetch('/graduation-task-d7fc3/us-central1/helloWorld', {
+      method: 'GET'
+    }).then(res => {
+      console.log(res)
     })
   }, [])
-
   if (!isLoading) {
     return (
     <>
