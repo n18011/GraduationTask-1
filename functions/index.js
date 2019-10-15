@@ -4,22 +4,30 @@ const functions = require('firebase-functions')
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 const admin = require('firebase-admin')
 admin.initializeApp(functions.config().firebase)
+/*
 const challonge = require('challonge')
 const client = challonge.createClient({
   apiKey: 'THQwE1NobDxeWTRbAb8ACEtrUV4jDse7C6N7PwvU'
 })
+*/
+const express = require('express')
+const request = require('superagent')
+const app = express()
 
-exports.bigben = functions.https.onRequest((req, res) => {
-  const hours = (new Date().getHours() % 12) + 1 // London is UTC + 1hr;
-  res.status(200).send(`<!doctype html>
-    <head>
-      <title>Time</title>
-    </head>
-    <body>
-      ${'BONG '.repeat(hours)}
-    </body>
-  </html>`)
+app.get('/api', (req, res) => {
+  const date = new Date()
+  const hours = (date.getHours() % 12) + 1 // London is UTC + 1hr;
+  res.json({ bongs: 'BONG '.repeat(hours) })
 })
+
+app.get('/api/show', (req, res) => {
+  request.get('https://n18011:THQwE1NobDxeWTRbAb8ACEtrUV4jDse7C6N7PwvU@api.challonge.com/v1/tournaments.json')
+    .end((err, resp) => {
+      res.json(resp)
+    })
+})
+
+exports.bigben = functions.https.onRequest(app)
 
 /*
 exports.helloWorld = functions.https.onRequest((request, response) => {
