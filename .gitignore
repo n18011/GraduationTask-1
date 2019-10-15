@@ -5,12 +5,15 @@
 /.env
 /.pnp
 .pnp.js
+firestore.indexes.json
+firestore.rules
 
 # testing
 /coverage
 
 # production
 /build
+/functions
 
 # misc
 .DS_Store

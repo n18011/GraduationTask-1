@@ -1,19 +1,4 @@
 {
-  "indexes": [
-    {
-      "collectionGroup": "大会",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "fuga",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "hoge",
-          "order": "ASCENDING"
-        }
-      ]
-    }
-  ],
+  "indexes": [],
   "fieldOverrides": []
 }

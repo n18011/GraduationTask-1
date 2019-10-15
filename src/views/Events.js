@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import firebase from '../Firebase'
 
+/*
+    fetch('https://n18011.microcms.io/api/v1/portfolio2', {
+      method: 'GET',
+      headers: {
+        'X-API-KEY': '00859d77-e51b-47ec-ba97-cd4b2265ecfc'
+      }
+    }).then(res => {
+      return res.json()
+    })
+      .then(json => {
+        console.log(JSON.stringify(json))
+      })
+      */
 export default () => {
-  const [ image, setImage ] = useState('')
   const [ isLoading, setIsLoding ] = useState(false)
 
   useEffect(() => {
-    fetch('/graduation-task-d7fc3/us-central1/helloWorld', {
-      method: 'GET'
-    }).then(res => {
-      console.log(res)
-    })
   }, [])
+
   if (!isLoading) {
     return (
     <>
@@ -21,7 +28,6 @@ export default () => {
   } else {
     return (
       <>
-        <h1>{image}</h1>
       </>
     )
   }
