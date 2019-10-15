@@ -11,7 +11,7 @@ import Login from './views/Login'
 import Divide from './views/Divide'
 import Events from './views/Events'
 import Result from './views/Result'
-import Held from './views/Held'
+import Held from './components/Held'
 import PlayerHome from './views/PlayerHome'
 import NotHold from './views/NotHold'
 import PlayerApply from './views/PlayerApply'
@@ -29,10 +29,10 @@ export default () => {
       <Route exact path='/' component={Top} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/divide' component={Divide} />
-      <Route exact path='/events/:eid' component={Events} />
+      <Route exact path='/events' component={Events} />
       <Route exact path='/events/:eid/matchs/:mid' component={Result} />
       <Route exact path='/held' component={Held} />
-      <Route exact path='/pleyer/:pid' component={PlayerHome} />
+      <Route exact path='/player/:pid' component={PlayerHome} />
       <Route exact path='/nothold' component={NotHold} />
       <Route exact path='/player/:pid/apply' component={PlayerApply} />
       <Route exact path='/player/:pid/join' component={Join} />

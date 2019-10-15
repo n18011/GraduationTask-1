@@ -5,12 +5,16 @@
 /.env
 /.pnp
 .pnp.js
+firestore.indexes.json
+firestore.rules
+challonge.js
 
 # testing
 /coverage
 
 # production
 /build
+/functions
 
 # misc
 .DS_Store
