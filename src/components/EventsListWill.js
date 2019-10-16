@@ -2,7 +2,6 @@ import React from 'react'
 
 import {
   Grid,
-  Typography,
   Paper,
   Table,
   TableHead,
@@ -25,10 +24,9 @@ const rows = [
 export default () => {
   return (
     <>
-      <Grid container direction='column' justify='center' alignItems='center'>
-        <Grid item xs>
+      <Grid container direction='column' justify='center' alignItems='center' >
         <Grid item container justify='center' alignItems='center' xs>
-          <Grid item md={8} xs={11}>
+          <Grid item md={9} xs={11}>
             <Paper>
               <Table>
                 <TableHead>
