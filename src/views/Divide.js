@@ -5,32 +5,30 @@ import {
   Card,
   CardHeader,
   CardActions,
-  Button,
-  Typography
+  Button
 } from '@material-ui/core'
 
-export default () => {
+export default () => { // ページ遷移時stateで pid or aid をもっている必要がある
   return (
     <>
-      <h1>Hello, Divide</h1>
-      <Grid container >
-        <Grid item md={4} xs>
-          <Card>
-            <CardHeader title={'選手'} />
-            <CardActions >
-              <Button color='primary' href='/player/:pid'>ページへ</Button>
-            </CardActions>
-          </Card>
-        </Grid>
-        <Grid item >hidden</Grid>
-        <Grid item md={4} xs>
-          <Card>
-            <CardHeader title={'主催者'} />
-            <CardActions >
-              <Button color='primary' href='/admin/:aid'>ページへ</Button>
-            </CardActions>
-          </Card>
-
+      <Grid container justify='center'>
+        <Grid container spacing={3} item md={6} xs={12}>
+          <Grid item md={5} xs>
+            <Card>
+              <CardHeader title={'選手'} />
+              <CardActions >
+                <Button color='primary' href='/player/:pid'>ページへ</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item md={5} xs>
+            <Card>
+              <CardHeader title={'主催者'} />
+              <CardActions >
+                <Button color='primary' href='/admin/:aid'>ページへ</Button>
+              </CardActions>
+            </Card>
+          </Grid>
         </Grid>
       </Grid>
     </>

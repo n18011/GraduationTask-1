@@ -18,9 +18,9 @@
         "destination": "/index.html"
       },
       {
-   "source": "/bigben",
-   "function": "bigben"
- }
+        "source": "/bigben",
+        "function": "bigben"
+      }
     ]
   }
 }
