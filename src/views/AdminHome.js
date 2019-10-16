@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import {
   Grid,
@@ -10,6 +10,9 @@ import EventsCard from '../components/EventsCard' // propsに開催中のデー�
 import EventsListWill from '../components/EventsListWill' // propsに開催予定のデータ入力
 
 export default () => {
+    useEffect(() => {
+
+    },[])
   return (
     <>
       <Grid container justify='center' alignItems='center'>
