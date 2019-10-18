@@ -29,7 +29,7 @@ export default () => {
       <Route exact path='/' component={Top} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/divide' component={Divide} />
-      <Route exact path='/bigben/api' component={Events} />
+      <Route exact path='/events' component={Events} />
       <Route exact path='/events/:eid/matchs/:mid' component={Result} />
       <Route exact path='/held' component={Held} />
       <Route exact path='/player/:pid' component={PlayerHome} />

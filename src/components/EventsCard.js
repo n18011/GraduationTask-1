@@ -7,7 +7,7 @@ import {
   Typography
 } from '@material-ui/core'
 
-    /*const cards = [
+/* const cards = [
   {
     title: 'A大会',
     time: '2019/10/30',
@@ -23,8 +23,8 @@ import {
     time: '2019/11/30',
     place: '那覇'
   }
-    ]*/ 
-export default ({cards}) => {
+    ] */
+export default ({ cards }) => {
   return (
     <>
       <Grid container spacing={3} justify='center' alignItems='center'>
@@ -37,7 +37,7 @@ export default ({cards}) => {
                   <Grid container item xs>
                     <Grid item xs>
                       <Typography color='textSecondary'>日時</Typography>
-                      <Typography variant='body2'>{card.time}</Typography>
+                      <Typography variant='body2'>{card.where}</Typography>
                     </Grid>
                     <Grid item xs>
                       <Typography color='textSecondary'>場所</Typography>
