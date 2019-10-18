@@ -1,8 +1,6 @@
 import React, { useState, useMemo } from 'react'
-
 import db from '../Firebase'
-
-import EventsCard from '../components/EventsCard'
+import EventsListWill from '../components/EventsListWill'
 
 export default () => {
   const [events, setEvents] = useState([])
@@ -12,7 +10,7 @@ export default () => {
     // 更新イベント監視
     col.where('status.willhold', '==', true).onSnapshot(query => {
       const data = []
-      query.forEach(doc => data.push({ ...doc.data(), docId: doc.id }))
+      query.forEach(doc => data.push({ ...doc.data(), id: doc.id }))
       setEvents(data)
     })
 
@@ -21,7 +19,7 @@ export default () => {
 
   return (
     <>
-      <EventsCard cards={events} />
+      <EventsListWill cards={events} />
     </>
   )
 }

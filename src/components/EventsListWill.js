@@ -10,18 +10,18 @@ import {
   TableCell
 } from '@material-ui/core'
 
-const createData = (name, time, place) => {
+    /*const createData = (name, time, place) => {
   return { name, time, place }
-}
+}*/
 
-const rows = [
+    /*const rows = [
   createData('A大会', '2019/10/30', '北谷'),
   createData('B大会', '2019/11/01', 'うるま'),
   createData('C大会', '2019/11/30', '那覇')
-]
+]*/
 
 // 開催済み大会一覧
-export default () => {
+export default ({cards}) => {
   return (
     <>
       <Grid container direction='column' justify='center' alignItems='center' >
@@ -37,11 +37,11 @@ export default () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map(row => (
-                    <TableRow key={row.name}>
-                      <TableCell component='th' scope='row'>{row.name}</TableCell>
+                  {cards.map(row => (
+                    <TableRow key={row.id}>
+                      <TableCell component='th' scope='row'>{row.id}</TableCell>
                       <TableCell align='right'>{row.time}</TableCell>
-                      <TableCell align='right'>{row.place}</TableCell>
+                      <TableCell align='right'>{row.where}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
