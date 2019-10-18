@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import db from '../Firebase'
-import EventsCard from '../components/EventsCard'
+import EventsListWill from '../components/EventsListWill'
 
 export default () => {
     const [events, setEvents] = useState([])
@@ -23,7 +23,7 @@ export default () => {
         },[])
     return (
         <div>
-            <EventsCard cards={events}></EventsCard>
+            <EventsListWill cards={events} />
         </div>
   )
 }
