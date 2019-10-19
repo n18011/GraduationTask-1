@@ -5,9 +5,6 @@
 /.env
 /.pnp
 .pnp.js
-firestore.indexes.json
-firestore.rules
-challonge.js
 
 # testing
 /coverage
@@ -15,6 +12,8 @@ challonge.js
 # production
 /build
 /functions
+/functions/challonge-client.js
+/functions/Firebase.js
 
 # misc
 .DS_Store
