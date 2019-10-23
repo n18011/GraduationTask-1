@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import db from '../Firebase'
+import {db} from '../Firebase'
 import EventsCard from '../components/EventsCard'
 import EventsListWill from '../components/EventsListWill'
 
@@ -7,7 +7,7 @@ export default () => {
     const [willevents, setWevents] = useState([])
     const [heldevents, setHevents] = useState([])
 
-    const wcollection = useMemo(() => {
+    useMemo(() => {
       const col = db.collection('events')
             
         col.where('status.willhold', '==', true).onSnapshot(query => {
@@ -18,7 +18,7 @@ export default () => {
                 return col
             }, [])
 
-    const hcollection = useMemo(() => {
+    useMemo(() => {
       const col = db.collection('events')
     
         col.where('status.held', '==', true).onSnapshot(query => {

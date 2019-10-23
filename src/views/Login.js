@@ -47,7 +47,6 @@ export default () => {
     </div>
   )
 }
-*/
 import React, { useState, useContext, useEffect, useCallback } from 'react'
 import { isEmail } from 'validator'
 import styled from 'styled-components'
@@ -300,4 +299,4 @@ export default () => {
       </Grid>
     </Grid>
   )
-}
+} */
