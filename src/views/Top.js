@@ -5,7 +5,7 @@ import EventsListWill from '../components/EventsListWill'
 
 export default () => {
     const [willevents, setWevents] = useState([])
-    const [holdevents, setHevents] = useState([])
+    const [heldevents, setHevents] = useState([])
 
     const wcollection = useMemo(() => {
       const col = db.collection('events')
@@ -31,7 +31,7 @@ export default () => {
   return (
       <>
           <EventsCard cards={willevents} />
-          <EventsListWill cards={holdevents} />
+          <EventsListWill cards={heldevents} />
     </>
   )
 }
