@@ -13,6 +13,7 @@ import EventsListWill from '../components/EventsListWill' // propsに開催予�
 export default () => {
   const [nowevents, setNevents] = useState([])
   const [willevents, setWevents] = useState([])
+  const [info, setInfo] = useState([])
 
   useMemo(() => {
     const col = db.collection('events')
@@ -20,7 +21,6 @@ export default () => {
     col.where('status.nowhold', '==', true).onSnapshot(query => {
       const data = []
       query.forEach(doc => data.push({ ...doc.data(), id: doc.id }))
-      console.log(data)
       setNevents(data)
     })
   }, [])
@@ -35,7 +35,6 @@ export default () => {
         const evname = eventsName[i]
         data.push({ 'id': evname })
       }
-      console.log(data)
       setWevents(data)
     })
   }, [])
