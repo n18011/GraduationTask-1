@@ -3,18 +3,15 @@ import request from 'superagent'
 
 export default () => {
   useMemo(() => {
-    const post = async () => {
-      await request.post('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments')
+    const post = () => {
+      request.put('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no1')
         .set('Content-Type', 'application/json')
         .send({
           tournament: {
-            name: 'n18011no1',
-            url: 'n18011no1',
-            tournamentType: 'single elimination'
+            name: 'n18011no2'
           }
         })
         .end((err, res) => {
-          console.log(err)
           console.log(res)
         })
     }
