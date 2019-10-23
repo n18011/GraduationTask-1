@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react'
-import db from '../Firebase'
+import { db } from '../Firebase'
 import EventsListWill from '../components/EventsListWill'
 
 export default () => {
   const [events, setEvents] = useState([])
-  const collection = useMemo(() => {
+  useMemo(() => {
     const col = db.collection('events')
 
     // 更新イベント監視
