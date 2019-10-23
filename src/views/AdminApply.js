@@ -1,19 +1,120 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   Typography,
-  Paper
+  Paper,
+  Button,
+  Stepper,
+  Step,
+  StepLabel,
+  Link
 } from '@material-ui/core'
 
+import { makeStyles } from '@material-ui/core/styles'
+
+import CreateForm from '../components/CreateForm'
+import OtherForm from '../components/OtherForm'
+import Review from '../components/Review'
+import { CreateFormProvider } from '../components/createFormContext'
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3)
+    }
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3)
+  },
+  text: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3)
+  }
+}))
+
+const steps = ['大会情報', 'その他', '確認']
+
+function getStepContent (step) {
+  switch (step) {
+    case 0:
+      return <CreateForm />
+    case 1:
+      return <OtherForm />
+    case 2:
+      return <Review />
+    default:
+      throw new Error('Unknown step')
+  }
+}
+
 export default () => {
+  const [activeStep, setActiveStep] = useState(0)
+
+  const handleNext = () => {
+    setActiveStep(activeStep + 1)
+  }
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1)
+  }
+
+  const classes = useStyles()
   return (
     <>
-      <h1>Hello, AdminApply</h1>
-      <Paper>
-        <Typography variant='h4'>
-        大会申し込み
-        </Typography>
-      </Paper>
+      <CreateFormProvider>
+        <Paper className={classes.paper}>
+          <Typography component='h1' variant='h4' align='center'>
+          大会を作る
+          </Typography>
+          <Stepper activeStep={activeStep} className={classes.stepper}>
+            {steps.map(label => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <React.Fragment>
+            {activeStep === steps.length ? (
+              <React.Fragment>
+                <Typography className={classes.text} variant='h5' gutterBottom>
+                  Thank you for your order.
+                </Typography>
+                <Typography className={classes.text} variant='h6'>
+                  <Link href='/admin/:aid'>
+                管理者ページ
+                  </Link>
+            に戻る
+                </Typography>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                {getStepContent(activeStep)}
+                <div className={classes.buttons}>
+                  {activeStep !== 0 && (
+                    <Button onClick={handleBack} className={classes.button}>
+                      Back
+                    </Button>
+                  )}
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  </Button>
+                </div>
+              </React.Fragment>
+            )}
+          </React.Fragment>
+        </Paper>
+      </CreateFormProvider>
     </>
   )
 }
