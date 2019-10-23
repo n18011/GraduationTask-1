@@ -18,11 +18,11 @@ export default () => {
     const col = db.collection('events')
 
     col.where('status.nowhold', '==', true).onSnapshot(query => {
-      const data = []
-      query.forEach(doc => data.push({ ...doc.data(), id: doc.id }))
+      const data =[]
+      query.forEach(doc => data.push({ ...doc.data(), id: doc.id}))
       setNevents(data)
     })
-  }, [])
+  },[])
 
   useMemo(() => {
     const col = db.collection('users')
@@ -56,7 +56,7 @@ export default () => {
 
           <Grid item >
             <Typography variant='h4'>
-        開催中大会
+              開催中大会
             </Typography>
           </Grid>
           <Grid item>
