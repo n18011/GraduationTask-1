@@ -3,7 +3,11 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 var firebaseConfig = {
+<<<<<<< HEAD
   apiKey: 'AIzaSyBGGRy9mUGb08QVJCP7tLwUzMbD0LLJgOI',
+=======
+  apiKey: "AIzaSyBGGRy9mUGb08QVJCP7tLwUzMbD0LLJgOI",
+>>>>>>> n18008/master
   authDomain: 'graduation-task-d7fc3.firebaseapp.com',
   databaseURL: 'https://graduation-task-d7fc3.firebaseio.com',
   projectId: 'graduation-task-d7fc3',
@@ -13,6 +17,13 @@ var firebaseConfig = {
 }
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
+<<<<<<< HEAD
 export default firebase
 export const db = firebase.firestore()
 export const auth = firebase.auth()
+=======
+export const db = firebase.firestore()
+export const auth = firebase.auth()
+export default firebase
+
+>>>>>>> n18008/master

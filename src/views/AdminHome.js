@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react'
+import React, {useMemo, useState} from 'react'
+import {db} from '../Firebase'
 
 import {
   Grid,
@@ -10,9 +11,38 @@ import EventsCard from '../components/EventsCard' // propsに開催中のデー�
 import EventsListWill from '../components/EventsListWill' // propsに開催予定のデータ入力
 
 export default () => {
-    useEffect(() => {
+    const [nowevents, setNevents] = useState([])
+    const [willevents, setWevents] = useState([])
 
+    useMemo(() => {
+        const col = db.collection('events')
+
+        col.where('status.nowhold', '==', true).onSnapshot(query => {
+            const data =[]
+            query.forEach(doc => data.push({ ...doc.data(), id: doc.id}))
+            setNevents(data)
+        })
     },[])
+
+    useMemo(() => {
+        const col = db.collection('users')
+    
+        col.doc('U001').get().then(function(doc) {
+            const data = []
+            const eventsName = Object.keys(doc.data().holdplans)
+            for (var i = 0; eventsName.length > i ; i++) {
+                const evname = eventsName[i]
+                data.push({'id': evname})
+            }
+            setWevents(data)
+        })
+    }, [])
+
+    useMemo(() => {
+        const test = willevents
+        console.log(Object.values(test[0]))
+            }, [willevents])
+
   return (
     <>
       <Grid container justify='center' alignItems='center'>
@@ -30,7 +60,7 @@ export default () => {
             </Typography>
           </Grid>
           <Grid item>
-            <EventsCard />
+            <EventsCard cards={nowevents}/>
           </Grid>
 
           <Grid item>
@@ -39,7 +69,7 @@ export default () => {
             </Typography>
           </Grid>
           <Grid item>
-            <EventsListWill />
+            <EventsListWill cards={willevents}/>
           </Grid>
 
         </Grid>
