@@ -18,38 +18,21 @@ export default () => {
     const col = db.collection('events')
 
     col.where('status.nowhold', '==', true).onSnapshot(query => {
-<<<<<<< HEAD
       const data =[]
       query.forEach(doc => data.push({ ...doc.data(), id: doc.id}))
       setNevents(data)
     })
   },[])
-=======
-      const data = []
-      query.forEach(doc => data.push({ ...doc.data(), id: doc.id }))
-      setNevents(data)
-    })
-  }, [])
->>>>>>> 595a170e2c10f7cf03eb6a548e71f7a8d0975dfe
 
   useMemo(() => {
     const col = db.collection('users')
 
-<<<<<<< HEAD
-    col.doc('U001').get().then(function(doc) {
-      const data = []
-      const eventsName = Object.keys(doc.data().holdplans)
-      for (var i = 0; eventsName.length > i ; i++) {
-        const evname = eventsName[i]
-        data.push({'id': evname})
-=======
     col.doc('U001').get().then(function (doc) {
       const data = []
       const eventsName = Object.keys(doc.data().holdplans)
       for (var i = 0; eventsName.length > i; i++) {
         const evname = eventsName[i]
         data.push({ 'id': evname })
->>>>>>> 595a170e2c10f7cf03eb6a548e71f7a8d0975dfe
       }
       setWevents(data)
     })
