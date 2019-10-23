@@ -13,7 +13,6 @@ import EventsListWill from '../components/EventsListWill' // propsに開催予�
 export default () => {
   const [nowevents, setNevents] = useState([])
   const [willevents, setWevents] = useState([])
-  const [info, setInfo] = useState([])
 
   useMemo(() => {
     const col = db.collection('events')
@@ -38,6 +37,11 @@ export default () => {
       setWevents(data)
     })
   }, [])
+
+  useMemo(() => {
+    const test = willevents
+    console.log(Object.values(test[0]))
+  }, [willevents])
 
   return (
     <>
