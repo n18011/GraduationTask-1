@@ -13,6 +13,7 @@ import EventsListWill from '../components/EventsListWill' // propsに開催予�
 export default () => {
   const [nowevents, setNevents] = useState([])
   const [willevents, setWevents] = useState([])
+  const [evarray, setEvarray] = useState([])
 
   useMemo(() => {
     const col = db.collection('events')
@@ -28,20 +29,27 @@ export default () => {
     const col = db.collection('users')
 
     col.doc('U001').get().then(function (doc) {
-      const data = []
+      const evarray = []
       const eventsName = Object.keys(doc.data().holdplans)
       for (var i = 0; eventsName.length > i; i++) {
         const evname = eventsName[i]
-        data.push({ 'id': evname })
+        evarray.push(evname)
       }
-      setWevents(data)
+      console.log(evarray)
+      setEvarray(evarray)
     })
   }, [])
 
   useMemo(() => {
-    const test = willevents
-    console.log(Object.values(test[0]))
-  }, [willevents])
+    const data = []
+    for (var i = 0; evarray.length > i; i++) {
+      db.collection('events').doc(evarray[i]).get().then(function (doc) {
+        
+        })}
+    console.log(data)
+    setWevents(data)
+
+  }, [evarray])
 
   return (
     <>
