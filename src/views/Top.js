@@ -1,28 +1,37 @@
-import React, { useMemo } from 'react'
-import request from 'superagent'
+import React, { useState, useMemo } from 'react'
+import db from '../Firebase'
+import EventsCard from '../components/EventsCard'
+import EventsListWill from '../components/EventsListWill'
 
 export default () => {
-  useMemo(() => {
-    const post = async () => {
-      await request.post('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments')
-        .set('Content-Type', 'application/json')
-        .send({
-          tournament: {
-            name: 'n18011no1',
-            url: 'n18011no1',
-            tournamentType: 'single elimination'
-          }
+    const [willevents, setWevents] = useState([])
+    const [holdevents, setHevents] = useState([])
+
+    const wcollection = useMemo(() => {
+      const col = db.collection('events')
+            
+        col.where('status.willhold', '==', true).onSnapshot(query => {
+         const data =[]
+         query.forEach(doc => data.push({ ...doc.data(), id: doc.id}))
+                    setWevents(data)
+                })
+                return col
+            }, [])
+
+    const hcollection = useMemo(() => {
+      const col = db.collection('events')
+    
+        col.where('status.held', '==', true).onSnapshot(query => {
+            const data = []
+            query.forEach(doc => data.push({id: doc.id}))
+            setHevents(data)
         })
-        .end((err, res) => {
-          console.log(err)
-          console.log(res)
-        })
-    }
-    post()
-  }, [])
+    }, [])
+
   return (
-    <>
-      <h1>Hello, Top</h1>
+      <>
+          <EventsCard cards={willevents} />
+          <EventsListWill cards={holdevents} />
     </>
   )
 }
