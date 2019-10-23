@@ -2,9 +2,7 @@ import React, { useContext } from 'react'
 
 import {
   Grid,
-  Typography,
-  ListItem,
-  ListItemText
+  Typography
 } from '@material-ui/core'
 
 import { CreateFormContext } from './createFormContext'

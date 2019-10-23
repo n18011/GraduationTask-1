@@ -57,10 +57,6 @@ export default () => {
     setActiveStep(activeStep + 1)
   }
 
-  const handleBack = () => {
-    setActiveStep(activeStep - 1)
-  }
-
   const classes = useStyles()
   return (
     <>
@@ -68,7 +64,7 @@ export default () => {
         <Typography component='h1' variant='h4' align='center'>
         大会に申し込む
         </Typography>
-        {activeStep == 0 ? (
+        {activeStep === 0 ? (
           <>
             {Object.keys(values).map(value => (
         <>
