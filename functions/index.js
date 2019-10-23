@@ -41,9 +41,10 @@ app.route('/tournaments')
       callback: (err, data) => {
         if (err) {
           console.log(err)
-          return err
+          res.json(err)
+        } else {
+          res.json(data)
         }
-        res.json(data)
       }
     })
   })
@@ -55,10 +56,8 @@ app.route('/tournaments')
       tournament,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-          return err
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -71,9 +70,8 @@ app.route('/tournaments/:tournament')
       id,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -87,9 +85,8 @@ app.route('/tournaments/:tournament')
       tournament,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -101,9 +98,8 @@ app.route('/tournaments/:tournament')
       id,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -115,9 +111,8 @@ app.post('/tournaments/:tournament/start', async (req, res) => {
     id,
     callback: (err, data) => {
       if (err) {
-        console.log(err)
-      }
-      res.json(data)
+        console.log(err); res.json(err)
+      } else { res.json(data) }
     }
   })
 })
@@ -129,9 +124,8 @@ app.post('/tournaments/:tournament/finalize', async (req, res) => {
     id,
     callback: (err, data) => {
       if (err) {
-        console.log(err)
-      }
-      res.json(data)
+        console.log(err); res.json(err)
+      } else { res.json(data) }
     }
   })
 })
@@ -143,9 +137,8 @@ app.post('/tournaments/:tournament/reset', async (req, res) => {
     id,
     callback: (err, data) => {
       if (err) {
-        console.log(err)
-      }
-      res.json(data)
+        console.log(err); res.json(err)
+      } else { res.json(data) }
     }
   })
 })
@@ -157,9 +150,8 @@ app.post('/tournaments/:tournament/process_check_ins', async (req, res) => {
     id,
     callback: (err, data) => {
       if (err) {
-        console.log(err)
-      }
-      res.json(data)
+        console.log(err); res.json(err)
+      } else { res.json(data) }
     }
   })
 })
@@ -171,9 +163,8 @@ app.post('/tournaments/:tournament/abort_check_in', async (req, res) => {
     id,
     callback: (err, data) => {
       if (err) {
-        console.log(err)
-      }
-      res.json(data)
+        console.log(err); res.json(err)
+      } else { res.json(data) }
     }
   })
 })
@@ -189,9 +180,8 @@ app.get('/tournaments/:tournament/matches', async (req, res) => {
     id,
     callback: (err, data) => {
       if (err) {
-        console.log(err)
-      }
-      res.json(data)
+        console.log(err); res.json(err)
+      } else { res.json(data) }
     }
   })
 })
@@ -206,9 +196,8 @@ app.route('/tournaments/:tournament/matches/:match_id')
       matchId,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -224,9 +213,8 @@ app.route('/tournaments/:tournament/matches/:match_id')
       match,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -243,9 +231,8 @@ app.route('/tournaments/:tournament/participants')
       id,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -259,9 +246,8 @@ app.route('/tournaments/:tournament/participants')
       participant,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -276,9 +262,8 @@ app.route('/tournaments/:tournament/participants/:participant_id')
       participantId,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -294,9 +279,8 @@ app.route('/tournaments/:tournament/participants/:participant_id')
       participant,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -310,9 +294,8 @@ app.route('/tournaments/:tournament/participants/:participant_id')
       participantId,
       callback: (err, data) => {
         if (err) {
-          console.log(err)
-        }
-        res.json(data)
+          console.log(err); res.json(err)
+        } else { res.json(data) }
       }
     })
   })
@@ -324,9 +307,8 @@ app.get('/tournaments/:tournament/participants/randomize', async (req, res) => {
     id,
     callback: (err, data) => {
       if (err) {
-        console.log(err)
-      }
-      res.json(data)
+        console.log(err); res.json(err)
+      } else { res.json(data) }
     }
   })
 })
