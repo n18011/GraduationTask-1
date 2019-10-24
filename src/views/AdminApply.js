@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react'
+
 
 import {
   Typography,
@@ -15,7 +16,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import CreateForm from '../components/CreateForm'
 import OtherForm from '../components/OtherForm'
 import Review from '../components/Review'
+import SendButton from '../components/SendButton'
 import { CreateFormProvider } from '../components/createFormContext'
+
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -101,14 +104,17 @@ export default () => {
                       Back
                     </Button>
                   )}
+                  {activeStep === steps.length - 1 ? (
+                    <SendButton></SendButton>
+                  ) :(
                   <Button
                     variant='contained'
                     color='primary'
                     onClick={handleNext}
                     className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
+                  >Next</Button>
+                  )
+                  }
                 </div>
               </React.Fragment>
             )}
