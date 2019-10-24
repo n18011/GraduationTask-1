@@ -13,7 +13,6 @@ import EventsListWill from '../components/EventsListWill' // propsに開催予�
 export default () => {
   const [nowevents, setNevents] = useState([])
   const [willevents, setWevents] = useState([])
-  const [evarray, setEvarray] = useState([])
 
   useMemo(() => {
     const col = db.collection('events')
@@ -21,35 +20,30 @@ export default () => {
     col.where('status.nowhold', '==', true).onSnapshot(query => {
       const data = []
       query.forEach(doc => data.push({ ...doc.data(), id: doc.id }))
+      console.log(data)
       setNevents(data)
     })
   }, [])
 
   useMemo(() => {
-    const col = db.collection('users')
-
-    col.doc('U001').get().then(function (doc) {
-      const evarray = []
-      const eventsName = Object.keys(doc.data().holdplans)
-      for (var i = 0; eventsName.length > i; i++) {
-        const evname = eventsName[i]
-        evarray.push(evname)
+    const evinfo = []
+    db.collection('users').doc('U001').get().then(
+      function(doc) {
+        const evarray = Object.keys(doc.data().holdplans)
+        for (var i = 0; evarray.length > i; i++) {
+          db.collection('events').doc(evarray[i]).get().then(
+            function(evdoc) {
+              const pushObj = {...evdoc.data(), id: evdoc.id}
+              evinfo.push(pushObj)
+              console.log(evinfo)
+              setWevents(evinfo)
+            }
+          )
+        }
       }
-      console.log(evarray)
-      setEvarray(evarray)
-    })
+    )
   }, [])
 
-  useMemo(() => {
-    const data = []
-    for (var i = 0; evarray.length > i; i++) {
-      db.collection('events').doc(evarray[i]).get().then(function (doc) {
-        
-        })}
-    console.log(data)
-    setWevents(data)
-
-  }, [evarray])
 
   return (
     <>
