@@ -5,24 +5,24 @@ import { db } from '../Firebase'
 const CreateFormContext = createContext()
 
 const CreateFormProvider = ({ children }) => {
-  const now = new Date()
+  const now = new Date(new Date().setHours(9, 0, 0))
   const [values, setValues] = useState({
     name: '',
-    textmask: '(  )    -    ',
-    adress: '',
     where: '',
+    when: now,
+    time: now,
+    applicat: now,
+    public: now,
     cost: '1000',
     max_player: '80',
-    cheif: '',
     coat: '20',
     currency: '5', // <--game_format 型違う注意
-    comment: '何かありましたら、ご連絡ください。',
+    cheif: '',
+    adress: '',
+    textmask: '(  )    -    ',
     rule: '協会規定に基づく',
-    status: 'willhold', // <-- 型違う注意
-    public: now,
-    when: now,
-    applicat: now,
-    time: now.setHours(9, 0, 0)
+    comment: '何かありましたら、ご連絡ください。',
+    status: 'willhold' // <-- 型違う注意
   })
 
   const handleDateChange = name => date => {
@@ -50,7 +50,7 @@ const CreateFormProvider = ({ children }) => {
 
     // firebaseへの送信機能
     const eventName = values.name
-    const eventInfo = values
+    const eventInfo = values // <--TODO:POSTするデータを直すべし
     delete eventInfo.name
     const dbce = db.collection('events')
     dbce.doc(eventName).set(eventInfo)
