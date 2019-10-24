@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react'
 import request from 'superagent'
-import {db} from '../Firebase'
+import { db } from '../Firebase'
 
 const CreateFormContext = createContext()
 
@@ -13,7 +13,7 @@ const CreateFormProvider = ({ children }) => {
     where: '',
     cost: '1000',
     max_player: '80',
-    cheif: '(管理者とは限ら)ないです。',
+    cheif: '',
     coat: '20',
     currency: '5', // <--game_format 型違う注意
     comment: '何かありましたら、ご連絡ください。',
@@ -34,7 +34,7 @@ const CreateFormProvider = ({ children }) => {
   }
 
   const handleSend = () => {
-        /*const name = values.name
+    /* const name = values.name
     const url = values.name
     const tournamentType = 'single elimination'
     await request.post('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments')
@@ -46,13 +46,13 @@ const CreateFormProvider = ({ children }) => {
         } })
       .end((err, res) => {
         console.log(res.body)
-      })*/
+      }) */
 
-        // firebaseへの送信機能
+    // firebaseへの送信機能
     const eventName = values.name
     const eventInfo = values
     delete eventInfo.name
-    const dbce =db.collection('events')
+    const dbce = db.collection('events')
     dbce.doc(eventName).set(eventInfo)
   }
 

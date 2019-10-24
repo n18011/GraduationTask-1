@@ -57,7 +57,8 @@ export default () => {
           <TextField
             id='standard-read-only-input'
             label='主催者'
-            defaultValue={values.master}
+            value={values.cheif}
+            onChange={handleChange('cheif')}
             className={classes.textField}
           />
         </Grid>
@@ -68,6 +69,8 @@ export default () => {
             label='メールアドレス'
             name='mail adress'
             className={classes.textField}
+            value={values.adress}
+            onChange={handleChange('adress')}
           />
         </Grid>
 
@@ -90,7 +93,8 @@ export default () => {
             multiline
             fullWidth
             rows='4'
-            defaultValue='協会規定に則る'
+            value={values.rule}
+            onChange={handleChange('rule')}
             margin='normal'
           />
         </Grid>
@@ -102,7 +106,8 @@ export default () => {
             multiline
             fullWidth
             rows='4'
-            defaultValue='何かありましたら、ご連絡ください。'
+            value={values.comment}
+            onChange={handleChange('comment')}
             margin='normal'
           />
         </Grid>
