@@ -1,7 +1,6 @@
 import React from 'react'
 
 import {
-  Grid,
   Link,
   Paper,
   Table,
@@ -25,39 +24,34 @@ import {
 export default ({ cards }) => {
   return (
     <>
-      <Grid container direction='column' justify='center' alignItems='center' >
-        <Grid item container justify='center' alignItems='center' xs>
-          <Grid item md={9} xs={11}>
-            <Paper>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>name</TableCell>
-                    <TableCell align='right'>time</TableCell>
-                    <TableCell align='right'>place</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {cards.map(row => {
-                    const path = '/events/' + row.id
-                    return (
-                      <TableRow key={row.id}>
-                        <TableCell component='th' scope='row'>
-                          <Link href={path} color='inherit'>
-                            {row.id}
-                          </Link>
-                        </TableCell>
-                        <TableCell align='right'><Link href={path} color='inherit'>{row.time}</Link></TableCell>
-                        <TableCell align='right'><Link href={path} color='inherit'>{row.where}</Link></TableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Grid>
+      <Paper>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>name</TableCell>
+              <TableCell align='right'>time</TableCell>
+              <TableCell align='right'>place</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {cards.map(row => {
+              const data = JSON.stringify(row.when.toDate()).slice(1, 11)
+              const path = '/events/' + row.id
+              return (
+                <TableRow key={row.id}>
+                  <TableCell component='th' scope='row'>
+                    <Link href={path} color='inherit'>
+                      {row.id}
+                    </Link>
+                  </TableCell>
+                  <TableCell align='right'><Link href={path} color='inherit'>{data}</Link></TableCell>
+                  <TableCell align='right'><Link href={path} color='inherit'>{row.where}</Link></TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      </Paper>
     </>
   )
 }
