@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react'
+import request from 'superagent'
 
 const CreateFormContext = createContext()
 
@@ -31,8 +32,24 @@ const CreateFormProvider = ({ children }) => {
     setValues({ ...values, [name]: event.target.value })
   }
 
+  const handleSubmit = async () => {
+    const name = values.name
+    const url = values.name
+    const tournamentType = 'single elimination'
+    await request.post('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments')
+      .send({
+        tournament: {
+          name,
+          url,
+          tournamentType
+        } })
+      .end((err, res) => {
+        console.log(res.body)
+      })
+  }
+
   return (
-    <CreateFormContext.Provider value={{ values, handleChange, handleDateChange }}>
+    <CreateFormContext.Provider value={{ values, handleChange, handleDateChange, handleSubmit }}>
       {children}
     </CreateFormContext.Provider>
   )
