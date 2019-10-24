@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react'
 import request from 'superagent'
+import {db} from '../Firebase'
 
 const CreateFormContext = createContext()
 
@@ -32,8 +33,8 @@ const CreateFormProvider = ({ children }) => {
     setValues({ ...values, [name]: event.target.value })
   }
 
-  const handleSubmit = async () => {
-    const name = values.name
+  const handleSend = () => {
+        /*const name = values.name
     const url = values.name
     const tournamentType = 'single elimination'
     await request.post('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments')
@@ -45,11 +46,19 @@ const CreateFormProvider = ({ children }) => {
         } })
       .end((err, res) => {
         console.log(res.body)
-      })
+      })*/
+
+        // firebaseへの送信機能
+        const eventName = values.name
+        const eventInfo = values
+        delete eventInfo.name
+        const dbce =db.collection('events')
+        let setEvent = dbce.doc(eventName).set(eventInfo)
+        let setSmatch = dbce.doc(eventName).collection('matchs').set()
   }
 
   return (
-    <CreateFormContext.Provider value={{ values, handleChange, handleDateChange, handleSubmit }}>
+    <CreateFormContext.Provider value={{ values, handleChange, handleDateChange, handleSend }}>
       {children}
     </CreateFormContext.Provider>
   )
