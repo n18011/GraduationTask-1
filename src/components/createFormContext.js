@@ -49,11 +49,11 @@ const CreateFormProvider = ({ children }) => {
       })*/
 
         // firebaseへの送信機能
-        const eventName = values.name
-        const eventInfo = values
-        delete eventInfo.name
-        const dbce =db.collection('events')
-        let setEvent = dbce.doc(eventName).set(eventInfo)
+    const eventName = values.name
+    const eventInfo = values
+    delete eventInfo.name
+    const dbce =db.collection('events')
+    dbce.doc(eventName).set(eventInfo)
   }
 
   return (

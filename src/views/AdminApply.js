@@ -105,7 +105,7 @@ export default () => {
                     </Button>
                   )}
                   {activeStep === steps.length - 1 ? (
-                    <SendButton></SendButton>
+                    <SendButton handler={handleNext}></SendButton>
                   ) :(
                   <Button
                     variant='contained'

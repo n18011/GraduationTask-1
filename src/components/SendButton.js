@@ -6,13 +6,18 @@ import {
 
 import {CreateFormContext} from './createFormContext'
 
-export default () => {
+export default ({handler}) => {
   const { handleSend } = useContext(CreateFormContext)
+
+  const handles = () => {
+    handleSend()
+    handler()
+  }
   return(
                   <Button
                     variant='contained'
                     color='primary'
-                    onClick={handleSend}
+                    onClick={() => handles()}
                   >Place order</Button>
   )
 }
