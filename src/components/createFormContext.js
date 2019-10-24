@@ -54,7 +54,6 @@ const CreateFormProvider = ({ children }) => {
         delete eventInfo.name
         const dbce =db.collection('events')
         let setEvent = dbce.doc(eventName).set(eventInfo)
-        let setSmatch = dbce.doc(eventName).collection('matchs').set()
   }
 
   return (
