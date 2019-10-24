@@ -2,6 +2,7 @@ import React from 'react'
 
 import {
   Grid,
+  Link,
   Paper,
   Table,
   TableHead,
@@ -10,18 +11,18 @@ import {
   TableCell
 } from '@material-ui/core'
 
-    /*const createData = (name, time, place) => {
+/* const createData = (name, time, place) => {
   return { name, time, place }
-}*/
+} */
 
-    /*const rows = [
+/* const rows = [
   createData('A大会', '2019/10/30', '北谷'),
   createData('B大会', '2019/11/01', 'うるま'),
   createData('C大会', '2019/11/30', '那覇')
-]*/
+] */
 
 // 開催済み大会一覧
-export default ({cards}) => {
+export default ({ cards }) => {
   return (
     <>
       <Grid container direction='column' justify='center' alignItems='center' >
@@ -37,13 +38,20 @@ export default ({cards}) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {cards.map(row => (
-                    <TableRow key={row.id}>
-                      <TableCell component='th' scope='row'>{row.id}</TableCell>
-                      <TableCell align='right'>{row.time}</TableCell>
-                      <TableCell align='right'>{row.where}</TableCell>
-                    </TableRow>
-                  ))}
+                  {cards.map(row => {
+                    const path = '/events/' + row.id
+                    return (
+                      <TableRow key={row.id}>
+                        <TableCell component='th' scope='row'>
+                          <Link href={path} color='inherit'>
+                            {row.id}
+                          </Link>
+                        </TableCell>
+                        <TableCell align='right'><Link href={path} color='inherit'>{row.time}</Link></TableCell>
+                        <TableCell align='right'><Link href={path} color='inherit'>{row.where}</Link></TableCell>
+                      </TableRow>
+                    )
+                  })}
                 </TableBody>
               </Table>
             </Paper>
