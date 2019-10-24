@@ -5,7 +5,7 @@ import {
   Route
 } from 'react-router-dom'
 
-import { AuthContext, AuthProvider } from './components/Auth'
+import { AuthProvider } from './components/Auth'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Header from './components/Header'
