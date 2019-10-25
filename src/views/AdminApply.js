@@ -1,5 +1,4 @@
-import React, { useState} from 'react'
-
+import React, { useState } from 'react'
 
 import {
   Typography,
@@ -18,7 +17,6 @@ import OtherForm from '../components/OtherForm'
 import Review from '../components/Review'
 import SendButton from '../components/SendButton'
 import { CreateFormProvider } from '../components/createFormContext'
-
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -41,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const steps = ['大会情報', 'その他', '確認']
+const steps = ['大会情報', '連絡項目', '確認']
 
 function getStepContent (step) {
   switch (step) {
@@ -105,14 +103,14 @@ export default () => {
                     </Button>
                   )}
                   {activeStep === steps.length - 1 ? (
-                    <SendButton handler={handleNext}></SendButton>
-                  ) :(
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={handleNext}
-                    className={classes.button}
-                  >Next</Button>
+                    <SendButton handler={handleNext} />
+                  ) : (
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      onClick={handleNext}
+                      className={classes.button}
+                    >Next</Button>
                   )
                   }
                 </div>
