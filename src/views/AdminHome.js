@@ -44,7 +44,7 @@ export default () => {
 
   return (
     <>
-      <Grid container direction='column' spacing={3} md={10}>
+      <Grid item container direction='column' spacing={3} md={10}>
 
         <Grid item xs>
           <Typography variant='h4'>
