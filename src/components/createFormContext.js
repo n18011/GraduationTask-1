@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react'
-import request from 'superagent'
 import { db } from '../Firebase'
 
 const CreateFormContext = createContext()
@@ -13,9 +12,9 @@ const CreateFormProvider = ({ children }) => {
     time: now,
     applicat: now,
     public: now,
-    cost: '1000',
-    max_player: '80',
-    coat: '20',
+    cost: 1000,
+    max_player: 80,
+    coat: 20,
     currency: '5', // <--game_format 型違う注意
     cheif: '',
     adress: '',
@@ -50,8 +49,11 @@ const CreateFormProvider = ({ children }) => {
 
     // firebaseへの送信機能
     const eventName = values.name
-    const eventInfo = values // <--TODO:POSTするデータを直すべし
-    delete eventInfo.name
+    const eventInfo = {
+      ...values,
+      game_format: { [values.currency]: true },
+      status: { willhold: true }
+    }
     const dbce = db.collection('events')
     dbce.doc(eventName).set(eventInfo)
   }

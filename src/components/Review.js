@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import {
   Grid,
@@ -50,19 +50,20 @@ export default () => {
   // 申し込み期日
   const applicat = JSON.stringify(values.applicat).slice(1, 11)
 
-  const result = {
+  const review = {
     ...values,
     time,
     when,
     applicat,
     public: publicV
   }
+
   return (
     <>
       <Typography variant='h6' gutterBottom>
       大会情報
       </Typography>
-      {Object.keys(result).map(value => (
+      {Object.keys(review).map(value => (
         <>
           <Grid container spacing={1} direction='column'>
             {
@@ -75,7 +76,7 @@ export default () => {
                   </Grid>
                   <Grid item xs>
                     <Typography color='textPrimary' gutterBottom>
-                      {JSON.stringify(result[value]).slice(1, -1)}
+                      {typeof (review[value]) !== 'number' ? JSON.stringify(review[value]).slice(1, -1) : review[value]}
                     </Typography>
                   </Grid>
                 </>
