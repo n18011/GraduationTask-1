@@ -35,7 +35,7 @@ export default () => {
               const pushObj = { ...evdoc.data(), id: evdoc.id }
               evinfo.push(pushObj)
               setWevents(evinfo)
-            }
+              }
           )
         }
       }
