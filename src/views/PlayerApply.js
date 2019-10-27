@@ -77,7 +77,7 @@ export default ({ match }) => {
           {EID}大会に申し込む
         </Typography>
         {activeStep === 0 ? (
-          null
+          <></>
         ) : (
           <React.Fragment>
             <Typography className={classes.text} variant='h5' gutterBottom>
