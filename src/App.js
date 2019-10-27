@@ -29,6 +29,7 @@ import AdminChange from './views/AdminChange'
 const useStyles = makeStyles(theme => ({
   layout: {
     width: 'auto',
+    marginTop: theme.spacing(4),
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
@@ -55,7 +56,7 @@ export default () => {
           <Route exact path='/held' component={Held} />
           <Route exact path='/player/:pid' component={PlayerHome} />
           <Route exact path='/nothold' component={NotHold} />
-          <Route exact path='/player/:pid/apply' component={PlayerApply} />
+          <Route exact path='/events/:eid/apply' component={PlayerApply} />
           <Route exact path='/player/:pid/join' component={Join} />
           <Route exact path='/events/:eid/matchs/:mid/users/:uid' component={PlayerResult} />
           <Route exact path='/player/:pid/delete' component={PlayerDelete} />

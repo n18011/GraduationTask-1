@@ -50,15 +50,16 @@ const japanese = {
 
 // 完了コンポーネント
 // トップへのところのLink hrefを変えればプレイヤー、管理者トップへ切り替え可
-export default () => {
+export default ({ match }) => {
+  const EID = match.params.eid // <-- link元のEIDが入る
   var values = {} // firestoreからeventドキュメントのフィールド全て持ってくる
   const [activeStep, setActiveStep] = useState(0)
 
   db.collection('events').doc('v1-name').get().then(
     function (evinfo) {
-      Object.keys(evinfo.data()).forEach(function(key) {
+      Object.keys(evinfo.data()).forEach(function (key) {
         values[key] = evinfo.data()[key]
-        }
+      }
       )
     }
   )
@@ -73,7 +74,7 @@ export default () => {
     <>
       <Paper className={classes.paper}>
         <Typography component='h1' variant='h4' align='center'>
-        大会に申し込む
+          {EID}大会に申し込む
         </Typography>
         {activeStep === 0 ? (
           <>
