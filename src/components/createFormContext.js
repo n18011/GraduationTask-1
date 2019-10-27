@@ -56,6 +56,10 @@ const CreateFormProvider = ({ children }) => {
     }
     const dbce = db.collection('events')
     dbce.doc(eventName).set(eventInfo)
+
+    db.collection('users').doc('U001').set({
+      holdplans: { [values.name]: true }
+    }, { merge: true })
   }
 
   return (

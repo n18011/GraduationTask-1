@@ -29,7 +29,7 @@ export default ({ cards }) => {
   return (
     <>
       <Grid container spacing={3} justify='center' alignItems='center'>
-        {cards.map(card => {
+        {cards ? cards.map(card => {
           const data = JSON.stringify(card.when.toDate()).slice(1, 11)
           const path = '/events/' + card.id
           return (
@@ -55,7 +55,7 @@ export default ({ cards }) => {
               </Link>
             </Grid>
           )
-        })}
+        }) : null}
       </Grid>
     </>
   )
