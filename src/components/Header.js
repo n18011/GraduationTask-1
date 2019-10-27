@@ -25,6 +25,7 @@ export default () => {
         <li><Link to='/login'>login</Link></li>
         <li><Link to='/divide'>divide</Link></li>
         <li><Link to='/events/'>events</Link></li>
+        <li><Link to='/events/:eid'>event</Link></li>
         <li><Link to='/events/:eid/matchs/:mid'>result</Link></li>
         <li><Link to='/held'>held</Link></li>
         <li><Link to='/player/:pid'>PlayerHome</Link></li>
