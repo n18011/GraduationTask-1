@@ -33,7 +33,7 @@ const CreateFormProvider = ({ children }) => {
     setValues({ ...values, [name]: event.target.value })
   }
 
-  const handleSend = async () => {
+  const handleSend = () => {
     /*
     const name = values.name
     const url = values.name
@@ -43,11 +43,9 @@ const CreateFormProvider = ({ children }) => {
       url,
       tournamentType
     }
-    const post = async () => {
-      await request.post('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments').send({ tournament }).end((err, res) => {
+      request.post('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments').send({ tournament }).end((err, res) => {
         console.log(res.body)
       })
-    }
     */
 
     // firebaseへの送信機能
@@ -63,7 +61,6 @@ const CreateFormProvider = ({ children }) => {
     db.collection('users').doc('U001').set({
       holdplans: { [values.name]: true }
     }, { merge: true })
-    await post()
   }
 
   return (
