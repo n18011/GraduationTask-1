@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { db } from '../Firebase'
 
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -50,8 +51,18 @@ const japanese = {
 // 完了コンポーネント
 // トップへのところのLink hrefを変えればプレイヤー、管理者トップへ切り替え可
 export default () => {
-  const values = { name: '', coat: '20' }// firestoreからeventドキュメントのフィールド全て持ってくる
+  var values = {} // firestoreからeventドキュメントのフィールド全て持ってくる
   const [activeStep, setActiveStep] = useState(0)
+
+  db.collection('events').doc('v1-name').get().then(
+    function (evinfo) {
+      Object.keys(evinfo.data()).forEach(function(key) {
+        values[key] = evinfo.data()[key]
+        }
+      )
+    }
+  )
+  console.log(values)
 
   const handleNext = () => {
     setActiveStep(activeStep + 1)
