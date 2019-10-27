@@ -3,6 +3,11 @@ import { db } from '../Firebase'
 import EventsCard from '../components/EventsCard'
 import EventsListWill from '../components/EventsListWill'
 
+import {
+  Grid,
+  Typography
+} from '@material-ui/core'
+
 export default () => {
   const [willevents, setWevents] = useState([])
   const [heldevents, setHevents] = useState([])
@@ -30,8 +35,20 @@ export default () => {
 
   return (
       <>
-        <EventsCard cards={willevents} />
-        <EventsListWill cards={heldevents} />
+        <Grid container direction='column' spacing={3} md={10}>
+
+          <Grid item xs>
+            <Typography variant='h4'>申し込み可能大会</Typography>
+          </Grid>
+
+          <Grid item xs>
+            <EventsCard cards={willevents} />
+          </Grid>
+
+          <Grid item xs>
+            <EventsListWill cards={heldevents} />
+          </Grid>
+        </Grid>
     </>
   )
 }
