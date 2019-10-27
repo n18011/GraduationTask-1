@@ -34,7 +34,7 @@ export default ({ cards }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {cards.map(row => {
+            {cards ? cards.map(row => {
               const data = JSON.stringify(row.when.toDate()).slice(1, 11)
               const path = '/events/' + row.id
               return (
@@ -48,7 +48,7 @@ export default ({ cards }) => {
                   <TableCell align='right'><Link href={path} color='inherit'>{row.where}</Link></TableCell>
                 </TableRow>
               )
-            })}
+            }) : null}
           </TableBody>
         </Table>
       </Paper>
