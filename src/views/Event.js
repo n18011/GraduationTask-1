@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default () => {
+export default ({ match }) => {
+  const { params } = match
   return (
     <>
-    Hello, Events!
+    Hello, {params.eid}!
     </>
   )
 }
