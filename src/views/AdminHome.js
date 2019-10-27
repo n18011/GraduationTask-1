@@ -26,15 +26,19 @@ export default () => {
 
   useMemo(() => {
     const evinfo = []
+    const evcounter = []
     db.collection('users').doc('U001').get().then(
       function (doc) {
         const evarray = Object.keys(doc.data().holdplans)
+        evcounter.push(evarray.length)
         for (var i = 0; evarray.length > i; i++) {
           db.collection('events').doc(evarray[i]).get().then(
             function (evdoc) {
               const pushObj = { ...evdoc.data(), id: evdoc.id }
               evinfo.push(pushObj)
-              setWevents(evinfo)
+              if (evinfo.length === evcounter[0]) {
+                setWevents(evinfo)
+              }
             }
           )
         }
