@@ -29,6 +29,7 @@ import AdminChange from './views/AdminChange'
 const useStyles = makeStyles(theme => ({
   layout: {
     width: 'auto',
+    marginTop: theme.spacing(4),
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {

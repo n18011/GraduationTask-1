@@ -24,6 +24,64 @@ import MenuIcon from '@material-ui/icons/Menu'
 const useStyles = makeStyles(theme => ({
 
 }))
+const links = [
+  {
+    link: '/',
+    title: 'Top'
+  },
+  {
+    link: '/login',
+    title: 'Login'
+  },
+  {
+    link: '/divide',
+    title: 'divede'
+  },
+  {
+    link: '/events/:eid/matchs/:mid',
+    title: 'result'
+  },
+  {
+    link: '/held',
+    title: 'held'
+  },
+  {
+    link: '/player/:pid',
+    title: 'playerhome'
+  },
+  {
+    link: '/nothold',
+    title: 'nothold'
+  },
+  {
+    link: '/events/:eid/apply',
+    title: 'playerapply'
+  },
+  {
+    link: '/player/:pid/join',
+    title: 'join'
+  },
+  {
+    link: '/events/:eid/matchs/:mid/users/:uid',
+    title: 'playerresult'
+  },
+  {
+    link: '/events/:eid/delete',
+    title: 'playerdelete'
+  },
+  {
+    link: '/admin/:aid',
+    title: 'adminhome'
+  },
+  {
+    link: '/admin/:aid/input',
+    title: 'adminapply'
+  },
+  {
+    link: '/admin/:aid/change',
+    title: 'adminchange'
+  }
+]
 
 export default () => {
   const classes = useStyles()
@@ -47,10 +105,11 @@ export default () => {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? 'inbox' : 'mail'}</ListItemIcon>
-            <ListItemText primary={text} />
+        {links.map((text, index) => (
+          <ListItem button key={text.title}>
+            <Link to={text.link} >
+              <ListItemText primary={text.title} />
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -77,23 +136,6 @@ export default () => {
       <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
         {sideList('left')}
       </Drawer>
-      <ul>
-        <li><Link to='/'>Top</Link></li>
-        <li><Link to='/login'>login</Link></li>
-        <li><Link to='/divide'>divide</Link></li>
-        <li><Link to='/events/'>events</Link></li>
-        <li><Link to='/events/:eid/matchs/:mid'>result</Link></li>
-        <li><Link to='/held'>held</Link></li>
-        <li><Link to='/player/:pid'>PlayerHome</Link></li>
-        <li><Link to='/nothold'>NotHold</Link></li>
-        <li><Link to='/events/:eid'>PlayerApply</Link></li>
-        <li><Link to='/player/:pid/join'>join</Link></li>
-        <li><Link to='/events/:eid/matchs/:mid/users/:uid'>PlayerResult</Link></li>
-        <li><Link to='/player/:pid/delete'>PlayerDelete</Link></li>
-        <li><Link to='/admin/:aid'>AdminHome</Link></li>
-        <li><Link to='/admin/:aid/input'>AdminApply</Link></li>
-        <li><Link to='/admin/:aid/change'>AdminChange</Link></li>
-      </ul>
     </>
   )
 }
