@@ -55,7 +55,7 @@ export default ({ match }) => {
   var values = {} // firestoreからeventドキュメントのフィールド全て持ってくる
   const [activeStep, setActiveStep] = useState(0)
 
-  db.collection('events').doc('v1-name').get().then(
+  db.collection('events').doc(EID).get().then(
     function (evinfo) {
       Object.keys(evinfo.data()).forEach(function (key) {
         values[key] = evinfo.data()[key]
@@ -77,38 +77,7 @@ export default ({ match }) => {
           {EID}大会に申し込む
         </Typography>
         {activeStep === 0 ? (
-          <>
-            {Object.keys(values).map(value => (
-        <>
-          <Grid container spacing={1} direction='column'>
-            {
-              japanese[value] ? (
-                <>
-                  <Grid item xs={6}>
-                    <Typography color='textPrimary' gutterBottom>
-                      {japanese[value]}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography color='textSecondary' gutterBottom>
-                      {JSON.stringify(values[value]).slice(1, -1)}
-                    </Typography>
-                  </Grid>
-                </>
-              ) : (<></>)
-            }
-          </Grid>
-        </>
-            ))}
-            <Button
-              variant='contained'
-              color='primary'
-              onClick={handleNext}
-              className={classes.button}
-            >
-                    参加
-            </Button>
-          </>
+          null
         ) : (
           <React.Fragment>
             <Typography className={classes.text} variant='h5' gutterBottom>
