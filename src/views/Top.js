@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react'
 import { db } from '../Firebase'
 import EventsCard from '../components/EventsCard'
-import EventsListWill from '../components/EventsListWill'
 
 import {
   Grid,
-  Typography
+  Typography,
+  Link
 } from '@material-ui/core'
 
 export default () => {
@@ -46,7 +46,9 @@ export default () => {
           </Grid>
 
           <Grid item xs>
-            <EventsListWill cards={heldevents} />
+            <Typography variant='h4'>
+              <Link href='/held' color='inherit'>過去の大会一覧</Link>
+            </Typography>
           </Grid>
         </Grid>
     </>
