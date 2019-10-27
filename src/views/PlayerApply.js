@@ -78,6 +78,9 @@ export default ({ match }) => {
   }
 
   const handleNext = () => {
+    db.collection('users').doc('U001').set({ // doc.idはログインしてるuser
+      join: { [values.name]: true }
+    }, { merge: true })
     setActiveStep(activeStep + 1)
   }
 

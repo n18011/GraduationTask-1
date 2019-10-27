@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react'
 import { db } from '../Firebase'
+import request from 'superagent'
 
 const CreateFormContext = createContext()
 
@@ -33,10 +34,10 @@ const CreateFormProvider = ({ children }) => {
   }
 
   const handleSend = () => {
-    /* const name = values.name
+    const name = values.name
     const url = values.name
     const tournamentType = 'single elimination'
-    await request.post('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments')
+    request.post('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments')
       .send({
         tournament: {
           name,
@@ -45,7 +46,7 @@ const CreateFormProvider = ({ children }) => {
         } })
       .end((err, res) => {
         console.log(res.body)
-      }) */
+      })
 
     // firebaseへの送信機能
     const eventName = values.name
