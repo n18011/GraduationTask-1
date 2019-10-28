@@ -9,7 +9,8 @@ import {
 
 import EventsCard from '../components/EventsCard' // propsで開催状況データを入力
 
-export default () => {
+export default ({ match }) => {
+  const PID = match.params.pid
   const [nowevents, setNevents] = useState([])
   const [eventjoin, setEvjoin] = useState([])
 
@@ -24,19 +25,21 @@ export default () => {
   useMemo(() => {
     const evJoin = []
     const evcounter = []
-    db.collection('users').doc('U001').get().then(
-      function(doc) {
+    db.collection('users').doc(PID).get().then(
+      function (doc) {
         const evarray = Object.keys(doc.data().join)
         evcounter.push(evarray.length)
         for (var i = 0; evarray.length > i; i++) {
           db.collection('events').doc(evarray[i]).get().then(
             function (evdoc) {
-              const pushObj = { ...evdoc.data(), id: evdoc.id}
+              const pushObj = { ...evdoc.data(), id: evdoc.id }
               evJoin.push(pushObj)
               if (evJoin.length === evcounter[0]) {
-                setEvjoin(evJoin)}
+                setEvjoin(evJoin)
+              }
             }
-          )}
+          )
+        }
       }
     )
   }, [])
@@ -58,7 +61,7 @@ export default () => {
             </Typography>
           </Grid>
           <Grid item>
-            <EventsCard cards={eventjoin}/>
+            <EventsCard cards={eventjoin} />
           </Grid>
           <Grid item>
             <Typography variant='h4'>

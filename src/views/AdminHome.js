@@ -10,7 +10,8 @@ import {
 import EventsCard from '../components/EventsCard' // propsに開催中のデータ入力
 import EventsListWill from '../components/EventsListWill' // propsに開催予定のデータ入力
 
-export default () => {
+export default ({ match }) => {
+  const AID = match.params.aid
   const [nowevents, setNevents] = useState([])
   const [willevents, setWevents] = useState([])
 
@@ -27,7 +28,7 @@ export default () => {
   useMemo(() => {
     const evinfo = []
     const evcounter = []
-    db.collection('users').doc('U001').get().then(
+    db.collection('users').doc(AID).get().then(
       function (doc) {
         const evarray = Object.keys(doc.data().holdplans)
         evcounter.push(evarray.length)
