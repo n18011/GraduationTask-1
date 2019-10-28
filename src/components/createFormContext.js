@@ -33,7 +33,7 @@ const CreateFormProvider = ({ children }) => {
     setValues({ ...values, [name]: event.target.value })
   }
 
-  const handleSend = () => {
+  const handleSend = (aid) => {
     /*
     const name = values.name
     const url = values.name
@@ -58,7 +58,7 @@ const CreateFormProvider = ({ children }) => {
     const dbce = db.collection('events')
     dbce.doc(eventName).set(eventInfo)
 
-    db.collection('users').doc('U001').set({
+    db.collection('users').doc(aid).set({
       holdplans: { [values.name]: true }
     }, { merge: true })
   }
