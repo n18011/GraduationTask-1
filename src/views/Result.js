@@ -9,28 +9,29 @@ import {
 
 import { makeStyles } from '@material-ui/core/styles'
 
-import ResultCard from '../components/ResultCard'
-
 const useStyles = makeStyles(theme => ({
   card: {
     marginLeft: theme.spacing(3),
     marginBottom: theme.spacing(3)
+  },
+  textField: {
+    marginLeft: theme.spacing(3)
+  },
+  text: {
+    marginTop: theme.spacing(2)
   }
 }))
 // VS以外の全てのTypography部にデータが入る
 export default () => {
   const classes = useStyles()
   const [values, setValues] = React.useState({
-    name: 'Cat in the Hat',
-    age: '',
     set1: 5,
     set2: 0,
     set3: 0,
     set4: 0,
-    set5: null,
-    multiline: 'Controlled',
-    currency: 'EUR'
+    set5: null
   })
+
   const products = [
     {
       player1: '11',
@@ -65,8 +66,49 @@ export default () => {
           <Paper>
 
             <Grid item xs>
-              <Typography variant='h5' align='center'>
+              <Typography variant='h5' align='center' className={classes.text}>
                 Player1
+              </Typography>
+            </Grid>
+
+            <Grid item xs>
+              {products.map((product, index) => (
+                <>
+
+                  <TextField
+                    id='filled-number'
+                    label={index + 1}
+                    defaultvalue={`values.set${index + 1}`}
+                    onChange={handleChange(`set${index + 1}`)}
+                    type='number'
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true
+                    }}
+                    margin='normal'
+                  />
+                </>
+              ))
+              }
+            </Grid>
+
+            <Grid item xs>
+              <Typography variant='h5' align='center' gutterBottom>結果</Typography>
+            </Grid>
+
+          </Paper>
+        </Grid>
+
+        <Grid item xs={2}>
+          <Typography variant='h4' align='center'>VS</Typography>
+        </Grid>
+
+        <Grid item xs container direction='column'>
+          <Paper>
+
+            <Grid item xs>
+              <Typography variant='h5' align='center' className={classes.text}>
+                Player2
               </Typography>
             </Grid>
 
@@ -74,44 +116,27 @@ export default () => {
               {products.map((product, index) => (
                 <>
 
-                  <Grid item xs={6}>
-                    <typography variant='body1' gutterBottom>{index + 1}</typography>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <TextField
-                      id='filled-number'
-                      label={index + 1}
-                      defaultvalue={`values.set${index + 1}`}
-                      onChange={handleChange(`set${index + 1}`)}
-                      type='number'
-                      className={classes.textField}
-                      InputLabelProps={{
-                        shrink: true
-                      }}
-                      margin='normal'
-                      variant='filled'
-                    />
-                  </Grid>
+                  <TextField
+                    id='filled-number'
+                    label={index + 1}
+                    defaultvalue={`values.set${index + 1}`}
+                    onChange={handleChange(`set${index + 1}`)}
+                    type='number'
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true
+                    }}
+                    margin='normal'
+                  />
                 </>
               ))
               }
             </Grid>
 
             <Grid item xs>
-              <Typography variant='body1' align='center'>結果</Typography>
+              <Typography variant='h5' align='center' gutterBottom>結果</Typography>
             </Grid>
 
-          </Paper>
-        </Grid>
-
-        <Grid item xs>
-          <Typography variant='h4' align='center'>VS</Typography>
-        </Grid>
-
-        <Grid item xs>
-          <Paper>
-            <Typography variant='h4'>fasdfasd</Typography>
           </Paper>
         </Grid>
 

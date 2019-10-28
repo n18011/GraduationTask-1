@@ -13,9 +13,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
-  Divider,
-  Button,
   Drawer,
   IconButton
 } from '@material-ui/core'

@@ -10,7 +10,6 @@ import {
 
 export default () => {
   const [willevents, setWevents] = useState([])
-  const [heldevents, setHevents] = useState([])
 
   useMemo(() => {
     const col = db.collection('events')
@@ -23,19 +22,9 @@ export default () => {
     return col
   }, [])
 
-  useMemo(() => {
-    const col = db.collection('events')
-
-    col.where('status.held', '==', true).onSnapshot(query => {
-      const data = []
-      query.forEach(doc => data.push({ id: doc.id }))
-      setHevents(data)
-    })
-  }, [])
-
   return (
       <>
-        <Grid container direction='column' spacing={3} md={10}>
+        <Grid container direction='column' spacing={3} item md={10}>
 
           <Grid item xs>
             <Typography variant='h4'>申し込み可能大会</Typography>

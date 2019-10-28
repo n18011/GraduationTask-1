@@ -7,7 +7,8 @@ import {
 
 import EventsCard from '../components/EventsCard' // propsにプレイヤーが過去に参加した大会データを入力
 
-export default () => {
+export default ({ match }) => {
+  const PID = match.params.pid
   return (
     <>
       <Grid container justify='center' alignItems='center' >
