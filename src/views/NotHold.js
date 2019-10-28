@@ -4,6 +4,7 @@ import EventsListWill from '../components/EventsListWill'
 
 import {
   Paper,
+  Typography,
   Table,
   TableHead,
   TableBody,
@@ -29,6 +30,7 @@ export default () => {
 
   return (
     <>
+      <Typography variant='h5' align='center' gutterBottom>申し込み可能な大会</Typography>
       <Paper>
         <Table>
           <TableHead>
