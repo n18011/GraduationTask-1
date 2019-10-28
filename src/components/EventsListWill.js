@@ -35,7 +35,7 @@ export default ({ cards }) => {
           </TableHead>
           <TableBody>
             {cards ? cards.map(row => {
-              const data = JSON.stringify(row.when.toDate()).slice(1, 11)
+              const data = row.when ? JSON.stringify(row.when.toDate()).slice(1, 11) : ''
               const path = '/events/' + row.id
               return (
                 <TableRow key={row.id}>
