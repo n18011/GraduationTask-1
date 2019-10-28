@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react'
 import { db } from '../Firebase'
-import EventsListWill from '../components/EventsListWill'
 
 import {
   Paper,
