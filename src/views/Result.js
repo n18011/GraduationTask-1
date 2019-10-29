@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 // VS以外の全てのTypography部にデータが入る
 export default () => {
   const classes = useStyles()
+  /*
   const [values, setValues] = React.useState({
     set1: 5,
     set2: 0,
@@ -31,6 +32,7 @@ export default () => {
     set4: 0,
     set5: null
   })
+  */
 
   const products = [
     {
@@ -55,9 +57,11 @@ export default () => {
     }
   ]
 
+  /*
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
   }
+  */
   return (
     <>
       <Grid container alignItems='center' justify='center'>
@@ -78,8 +82,7 @@ export default () => {
                   <TextField
                     id='filled-number'
                     label={index + 1}
-                    defaultvalue={`values.set${index + 1}`}
-                    onChange={handleChange(`set${index + 1}`)}
+                    value={product.player1}
                     type='number'
                     className={classes.textField}
                     InputLabelProps={{
@@ -119,8 +122,7 @@ export default () => {
                   <TextField
                     id='filled-number'
                     label={index + 1}
-                    defaultvalue={`values.set${index + 1}`}
-                    onChange={handleChange(`set${index + 1}`)}
+                    value={product.player2}
                     type='number'
                     className={classes.textField}
                     InputLabelProps={{
