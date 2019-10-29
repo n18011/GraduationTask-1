@@ -37,6 +37,7 @@ export default ({ match }) => {
         if (P1.length === matchLen) {
           for (var j = 0; matchLen > j; j++) {
             infomation[j].player1Name = P1[j]
+            console.log(P1)
           }
         }
       })
@@ -45,7 +46,8 @@ export default ({ match }) => {
         P2.push(res.body.participant.name)
         if (P2.length === matchLen) {
           for (var j = 0; matchLen > j; j++) {
-            infomation[j].player2Name = P2[j]
+            infomation[j].player2Name = P2[matchLen-1-j]
+            console.log(P2)
             if (j === matchLen-1) {
               setName(infomation)
             }
