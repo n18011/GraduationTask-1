@@ -17,28 +17,32 @@ export default ({ match }) => {
         }
         if (i === length - 1) {
           setInfo(info)
-          console.log(info)
         }
       }
     })
   }, [])
   useMemo(() => {
-    infomation.map(info => {
-      const players = []
+    const player1Id = []
+    const player2Id = []
+    infomation.forEach(info => {
       const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/${info.player1Id}`
       request.get(url).end((err, res) => {
+        player1Id.push(res.body.participant.name)
         console.log(res.body.participant.name)
-        players.push(res.body.participant.name)
+        console.log(player1Id)
       })
       const url2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/${info.player2Id}`
       request.get(url2).end((err, res) => {
-        console.log(res.body.participant.name)
-        players.push(res.body.participant.name)
+        player2Id.push(res.body.participant.name)
       })
-      console.log(players)
+    })
+    for (var i = 0; player1Id.length > i; i++) {
+      infomation[i].player1Name = player1Id[i]
+      infomation[i].player2Name = player2Id[i]
     }
-    )
-  }, [])
+
+    console.log('a' + 'i')
+  }, [infomation])
 
   return (
     <>
