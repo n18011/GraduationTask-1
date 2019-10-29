@@ -32,7 +32,9 @@ export default ({ match }) => {
       const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/` + infomation[i].player1Id
       const url2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/` + infomation[i].player2Id
 
-      request.get(url).end((err, res) => {
+      const main = async () => {
+
+        let func1 = () => {request.get(url).end((err, res) => {
         P1[res.body.participant.id] = res.body.participant.name
         const keyarray = Object.keys(P1)
         var j = 0
@@ -55,9 +57,10 @@ export default ({ match }) => {
             j++;
           }
         }
-      })
+        })
+        }
 
-      request.get(url2).end((err, res) => {
+        let func2 = () => {request.get(url2).end((err, res) => {
         P2[res.body.participant.id] = res.body.participant.name
         const keyarray = Object.keys(P2)
         var j = 0
@@ -81,7 +84,14 @@ export default ({ match }) => {
             }
           }
         }
-      })
+        })
+        }
+
+        await func1()
+        func2()
+      
+      }
+      main()
     }
   }, [infomation]) 
 
