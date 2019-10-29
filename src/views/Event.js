@@ -6,6 +6,7 @@ export default ({ match }) => {
   const EID = match.params.eid
   const url = `https://challonge.com/ja/${EID}/module`
   const [infomation, setInfo] = useState([])
+  const [infoandname, setName] = useState([])
 
   useMemo(() => {
     const info = []
@@ -22,31 +23,46 @@ export default ({ match }) => {
       }
     })
   }, [])
+
   useMemo(() => {
-    infomation.map(info => {
-      const players = []
-      const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/${info.player1Id}`
+    const P1 = []
+    const P2 = []
+    const matchLen = Object.keys(infomation).length
+    for (var i = 0; matchLen > i; i++) {
+      const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/` + infomation[i].player1Id
+      
+      const url2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/` + infomation[i].player2Id
+
       request.get(url).end((err, res) => {
-        console.log(res.body.participant.name)
-        players.push(res.body.participant.name)
+        P1.push(res.body.participant.name)
+        if (P1.length === matchLen) {
+          for (var j = 0; matchLen > j; j++) {
+            infomation[j].player1Name = P1[j]
+          }
+        }
       })
-      const url2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/${info.player2Id}`
+
       request.get(url2).end((err, res) => {
-        console.log(res.body.participant.name)
-        players.push(res.body.participant.name)
+        P2.push(res.body.participant.name)
+        if (P2.length === matchLen) {
+          for (var j = 0; matchLen > j; j++) {
+            infomation[j].player2Name = P2[j]
+            if (j === matchLen-1) {
+              setName(infomation)
+            }
+          } 
+        }
       })
-      console.log(players)
     }
-    )
-  }, [])
+  }, [infomation])
 
   return (
     <>
       <iframe title={EID} src={url} width='100%' height='500' frameborder='0' scrolling='auto' allowtransparency='true' />
 
       <ul>
-        {infomation.map(info =>
-          <li>{info.round}回戦 第{info.suggestedPlayOrder}試合{} vs {}</li>
+        {infoandname.map(info =>
+          <li>{info.round}回戦 第{info.suggestedPlayOrder}試合{info.player1Name} vs {info.player2Name}</li>
 
         )}
       </ul>
