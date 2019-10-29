@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useMemo } from 'react'
 
 import {
   Grid,
@@ -8,6 +8,9 @@ import {
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
+import request from 'superagent'
+
+import { db } from '../Firebase'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -24,45 +27,41 @@ const useStyles = makeStyles(theme => ({
 // VS以外の全てのTypography部にデータが入る
 export default () => {
   const classes = useStyles()
-  const [values, setValues] = React.useState({
-    set1: 5,
-    set2: 0,
-    set3: 0,
-    set4: 0,
-    set5: null
-  })
+  const [values, setValues] = useState([
+  ])
 
-  const products = [
-    {
-      player1: '11',
-      player2: '8'
-    },
-    {
-      player1: '11',
-      player2: '8'
-    },
-    {
-      player1: '8',
-      player2: '11'
-    },
-    {
-      player1: '11',
-      player2: '13'
-    },
-    {
-      player1: '11',
-      player2: '8'
-    }
-  ]
+  /*
+  useMemo(() => {
+    const data = []
+    const eventCols = db.collection('events').doc('E001')
+    const matchCols = eventCols.collection('matchs').doc('M001')
+    matchCols.collection('point_details').get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          data.push(doc.data())
+        })
+        setValues(data)
+      })
+  }, [])
+  */
+  useMemo(() => {
+    request.get('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670632').end((err, res) => {
+      console.log(res.body.match.scoresCsv)
+      const scores = res.body.match.scoresCsv.split(',')
+    })
+  }, [])
 
+  /*
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
   }
+  */
   return (
     <>
       <Grid container alignItems='center' justify='center'>
 
         <Grid item xs container direction='column'>
+
           <Paper>
 
             <Grid item xs>
@@ -72,14 +71,13 @@ export default () => {
             </Grid>
 
             <Grid item xs>
-              {products.map((product, index) => (
+              {values.map((product, index) => (
                 <>
 
                   <TextField
                     id='filled-number'
                     label={index + 1}
-                    defaultvalue={`values.set${index + 1}`}
-                    onChange={handleChange(`set${index + 1}`)}
+                    value={product.player1}
                     type='number'
                     className={classes.textField}
                     InputLabelProps={{
@@ -113,14 +111,13 @@ export default () => {
             </Grid>
 
             <Grid item container>
-              {products.map((product, index) => (
+              {values.map((product, index) => (
                 <>
 
                   <TextField
                     id='filled-number'
                     label={index + 1}
-                    defaultvalue={`values.set${index + 1}`}
-                    onChange={handleChange(`set${index + 1}`)}
+                    value={product.player2}
                     type='number'
                     className={classes.textField}
                     InputLabelProps={{
