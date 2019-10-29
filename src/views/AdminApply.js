@@ -41,22 +41,22 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['大会情報', '連絡項目', '確認']
 
-function getStepContent (step) {
-  switch (step) {
-    case 0:
-      return <CreateForm />
-    case 1:
-      return <OtherForm />
-    case 2:
-      return <Review />
-    default:
-      throw new Error('Unknown step')
-  }
-}
-
-export default () => {
+export default ({ match }) => {
+  const AID = match.params.aid
   const [activeStep, setActiveStep] = useState(0)
 
+  function getStepContent (step) {
+    switch (step) {
+      case 0:
+        return <CreateForm />
+      case 1:
+        return <OtherForm />
+      case 2:
+        return <Review />
+      default:
+        throw new Error('Unknown step')
+    }
+  }
   const handleNext = () => {
     setActiveStep(activeStep + 1)
   }
@@ -103,7 +103,7 @@ export default () => {
                     </Button>
                   )}
                   {activeStep === steps.length - 1 ? (
-                    <SendButton handler={handleNext} />
+                    <SendButton aid={AID} handler={handleNext} />
                   ) : (
                     <Button
                       variant='contained'
