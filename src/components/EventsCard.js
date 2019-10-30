@@ -3,6 +3,7 @@ import {
   Grid,
   Card,
   Link,
+  Button,
   CardHeader,
   CardContent,
   Typography
@@ -25,7 +26,9 @@ import {
     place: '那覇'
   }
     ] */
-export default ({ cards }) => {
+export default ({ cards, button }) => {
+  const handleClick = () => {
+  }
   return (
     <>
       <Grid container spacing={3} justify='center' alignItems='center'>
@@ -37,6 +40,8 @@ export default ({ cards }) => {
               <Link href={path}>
                 <Card >
                   <CardHeader title={card.id} />
+
+                  {button ? <Button onClick={handleClick}>send</Button> : ''}
                   <CardContent >
                     <Grid container direction='column'>
                       <Grid container item xs>
