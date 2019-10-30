@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 
 import {
   Grid,
@@ -8,6 +8,9 @@ import {
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
+import request from 'superagent'
+
+import { db } from '../Firebase'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -24,62 +27,73 @@ const useStyles = makeStyles(theme => ({
 // VS以外の全てのTypography部にデータが入る
 export default () => {
   const classes = useStyles()
-  const [values, setValues] = React.useState({
-    set1: 5,
-    set2: 0,
-    set3: 0,
-    set4: 0,
-    set5: null
-  })
+  const [players, setPlayers] = useState({})
+  const [values, setValues] = useState([])
+  const [scoreCountP1, setScoreCountP1] = useState(0)
+  const [scoreCountP2, setScoreCountP2] = useState(0)
 
-  const products = [
-    {
-      player1: '11',
-      player2: '8'
-    },
-    {
-      player1: '11',
-      player2: '8'
-    },
-    {
-      player1: '8',
-      player2: '11'
-    },
-    {
-      player1: '11',
-      player2: '13'
-    },
-    {
-      player1: '11',
-      player2: '8'
-    }
-  ]
+  useMemo(() => {
+    const eventCols = db.collection('events').doc('E001')
+    const matchCols = eventCols.collection('matchs').doc('M001')
+    matchCols.get()
+      .then(doc => {
+        setPlayers(doc.data().players)
+      })
+  }, [])
 
+  useMemo(() => {
+    request.get('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670632').end((err, res) => {
+      const scores = res.body.match.scoresCsv.split(',')
+      const data = []
+      scores.map(score => {
+        const setPoint = score.split('-')
+        data.push({ player1: setPoint[0], player2: setPoint[1] })
+      })
+      setValues(data)
+    })
+  }, [])
+
+  useEffect(() => {
+    var p1point = 0
+    var p2point = 0
+    values.map(value => {
+      if (Number(value.player1) < Number(value.player2)) {
+        p2point++
+      } else {
+        p1point++
+      }
+    })
+    setScoreCountP1(p1point)
+    setScoreCountP2(p2point)
+  }, [values])
+
+  /*
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
   }
+  */
   return (
     <>
       <Grid container alignItems='center' justify='center'>
 
         <Grid item xs container direction='column'>
+
           <Paper>
 
             <Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
-                Player1
+                {players.player1}
               </Typography>
             </Grid>
 
             <Grid item xs>
-              {products.map((product, index) => (
+              {values.map((product, index) => (
                 <>
 
                   <TextField
                     id='filled-number'
                     label={index + 1}
-                    defaultvalue={`values.set${index + 1}`}
-                    onChange={handleChange(`set${index + 1}`)}
+                    value={product.player1}
                     type='number'
                     className={classes.textField}
                     InputLabelProps={{
@@ -93,7 +107,7 @@ export default () => {
             </Grid>
 
             <Grid item xs>
-              <Typography variant='h5' align='center' gutterBottom>結果</Typography>
+              <Typography variant='h5' align='center' gutterBottom>{scoreCountP1}</Typography>
             </Grid>
 
           </Paper>
@@ -108,19 +122,18 @@ export default () => {
 
             <Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
-                Player2
+                {players.player2}
               </Typography>
             </Grid>
 
             <Grid item container>
-              {products.map((product, index) => (
+              {values.map((product, index) => (
                 <>
 
                   <TextField
                     id='filled-number'
                     label={index + 1}
-                    defaultvalue={`values.set${index + 1}`}
-                    onChange={handleChange(`set${index + 1}`)}
+                    value={product.player2}
                     type='number'
                     className={classes.textField}
                     InputLabelProps={{
@@ -134,7 +147,7 @@ export default () => {
             </Grid>
 
             <Grid item xs>
-              <Typography variant='h5' align='center' gutterBottom>結果</Typography>
+              <Typography variant='h5' align='center' gutterBottom>{scoreCountP2}</Typography>
             </Grid>
 
           </Paper>
