@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 
 import {
   Grid,
@@ -27,29 +27,45 @@ const useStyles = makeStyles(theme => ({
 // VS以外の全てのTypography部にデータが入る
 export default () => {
   const classes = useStyles()
-  const [values, setValues] = useState([
-  ])
+  const [players, setPlayers] = useState({})
+  const [values, setValues] = useState([])
+  const [scoreCountP1, setScoreCountP1] = useState(0)
+  const [scoreCountP2, setScoreCountP2] = useState(0)
 
-  /*
   useMemo(() => {
-    const data = []
     const eventCols = db.collection('events').doc('E001')
     const matchCols = eventCols.collection('matchs').doc('M001')
-    matchCols.collection('point_details').get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          data.push(doc.data())
-        })
-        setValues(data)
+    matchCols.get()
+      .then(doc => {
+        setPlayers(doc.data().players)
       })
   }, [])
-  */
+
   useMemo(() => {
     request.get('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670632').end((err, res) => {
-      console.log(res.body.match.scoresCsv)
       const scores = res.body.match.scoresCsv.split(',')
+      const data = []
+      scores.map(score => {
+        const setPoint = score.split('-')
+        data.push({ player1: setPoint[0], player2: setPoint[1] })
+      })
+      setValues(data)
     })
   }, [])
+
+  useEffect(() => {
+    var p1point = 0
+    var p2point = 0
+    values.map(value => {
+      if (Number(value.player1) < Number(value.player2)) {
+        p2point++
+      } else {
+        p1point++
+      }
+    })
+    setScoreCountP1(p1point)
+    setScoreCountP2(p2point)
+  }, [values])
 
   /*
   const handleChange = name => event => {
@@ -66,7 +82,7 @@ export default () => {
 
             <Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
-                Player1
+                {players.player1}
               </Typography>
             </Grid>
 
@@ -91,7 +107,7 @@ export default () => {
             </Grid>
 
             <Grid item xs>
-              <Typography variant='h5' align='center' gutterBottom>結果</Typography>
+              <Typography variant='h5' align='center' gutterBottom>{scoreCountP1}</Typography>
             </Grid>
 
           </Paper>
@@ -106,7 +122,7 @@ export default () => {
 
             <Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
-                Player2
+                {players.player2}
               </Typography>
             </Grid>
 
@@ -131,7 +147,7 @@ export default () => {
             </Grid>
 
             <Grid item xs>
-              <Typography variant='h5' align='center' gutterBottom>結果</Typography>
+              <Typography variant='h5' align='center' gutterBottom>{scoreCountP2}</Typography>
             </Grid>
 
           </Paper>
