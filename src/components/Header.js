@@ -124,8 +124,9 @@ export default () => {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography variant='h5' color='inherit' noWrap>
-            大会運営アプリ
+            Parima
           </Typography>
         </Toolbar>
       </AppBar>
