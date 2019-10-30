@@ -27,9 +27,13 @@ import AdminApply from './views/AdminApply'
 import AdminChange from './views/AdminChange'
 
 const useStyles = makeStyles(theme => ({
+  main: {
+    backgroundColor: theme.palette.background.paper
+  },
   layout: {
     width: 'auto',
     marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {

@@ -1,6 +1,16 @@
 import React, { useMemo, useState } from 'react'
 import request from 'superagent'
 
+import {
+  Paper,
+  Link,
+  Table,
+  TableHead,
+  TableBody,
+  TableCell,
+  TableRow
+} from '@material-ui/core'
+
 // 現時点では大会が開かれていると見れる
 export default ({ match }) => {
   const EID = match.params.eid
@@ -97,12 +107,47 @@ export default ({ match }) => {
     <>
       <iframe title={EID} src={url} width='100%' height='500' frameborder='0' scrolling='auto' allowtransparency='true' />
 
-      <ul>
-        {infoandname.map(info =>
-          <li>{info.round}回戦 第{info.suggestedPlayOrder}試合{info.player1Name} vs {info.player2Name}</li>
+      <Paper>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>ラウンド</TableCell>
+              <TableCell>試合番号</TableCell>
+              <TableCell>選手1</TableCell>
+              <TableCell>選手2</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {infoandname.map(info =>
+              <TableRow>
+                <TableCell>
+                  <Link color='inherit'>
+                    {info.round}回戦
+                  </Link>
+                </TableCell>
 
-        )}
-      </ul>
+                <TableCell>
+                  <Link color='inherit'>
+                  第{info.suggestedPlayOrder}試合
+                  </Link>
+                </TableCell>
+
+                <TableCell>
+                  <Link color='inherit'>
+                    {info.player1Name}
+                  </Link>
+                </TableCell>
+
+                <TableCell>
+                  <Link color='inherit'>
+                    {info.player2Name}
+                  </Link>
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </Paper>
     </>
   )
 }

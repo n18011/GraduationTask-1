@@ -64,7 +64,10 @@ export default ({ match }) => {
         </Grid>
 
         <Grid item xs>
-          <EventsCard cards={nowevents} />
+          <EventsCard
+            cards={nowevents}
+            button
+          />
         </Grid>
 
         <Grid item xs>
@@ -73,7 +76,10 @@ export default ({ match }) => {
           </Typography>
         </Grid>
         <Grid item xs>
-          <EventsListWill cards={willevents} />
+          <EventsListWill
+            cards={willevents}
+            button
+          />
         </Grid>
 
       </Grid>

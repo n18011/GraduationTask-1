@@ -2,6 +2,7 @@ import React from 'react'
 
 import {
   Link,
+  Button,
   Paper,
   Table,
   TableHead,
@@ -21,7 +22,9 @@ import {
 ] */
 
 // 開催済み大会一覧
-export default ({ cards }) => {
+export default ({ cards, button }) => {
+  const handleClickStart = () => {
+  }
   return (
     <>
       <Paper>
@@ -31,6 +34,7 @@ export default ({ cards }) => {
               <TableCell>name</TableCell>
               <TableCell align='right'>time</TableCell>
               <TableCell align='right'>place</TableCell>
+              {button ? <TableCell align='right'>button</TableCell> : ''}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -46,6 +50,7 @@ export default ({ cards }) => {
                   </TableCell>
                   <TableCell align='right'><Link href={path} color='inherit'>{data}</Link></TableCell>
                   <TableCell align='right'><Link href={path} color='inherit'>{row.where}</Link></TableCell>
+                  {button ? <TableCell align='right'><Button onClick={handleClickStart}>start</Button></TableCell> : ''}
                 </TableRow>
               )
             }) : null}
