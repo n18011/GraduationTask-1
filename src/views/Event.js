@@ -25,75 +25,73 @@ export default ({ match }) => {
 
   useMemo(() => {
     const P1 = {}
-    const P2 = {} 
+    const P2 = {}
     const matchLen = Object.keys(infomation).length
 
-    for(var i = 0; matchLen > i; i++) {
+    for (var i = 0; matchLen > i; i++) {
       const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/` + infomation[i].player1Id
       const url2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/` + infomation[i].player2Id
 
       const main = async () => {
-
-        let func1 = () => {request.get(url).end((err, res) => {
-          P1[res.body.participant.id] = res.body.participant.name
-          const keyarray = Object.keys(P1)
-          var j = 0
-          if (keyarray.length === matchLen) {
-            while(matchLen > j) {
-              var n = 0
-              while(matchLen > n) {
-                console.log(infomation[j].player1Id)
-                console.log(keyarray[n])
-                if (infomation[j].player1Id.toString() === keyarray[n]) {
-                  console.log('OK')
-                  infomation[j].player1Name = P1[keyarray[n]]
-                  break
+        let func1 = () => {
+          request.get(url).end((err, res) => {
+            P1[res.body.participant.id] = res.body.participant.name
+            const keyarray = Object.keys(P1)
+            var j = 0
+            if (keyarray.length === matchLen) {
+              while (matchLen > j) {
+                var n = 0
+                while (matchLen > n) {
+                  console.log(infomation[j].player1Id)
+                  console.log(keyarray[n])
+                  if (infomation[j].player1Id.toString() === keyarray[n]) {
+                    console.log('OK')
+                    infomation[j].player1Name = P1[keyarray[n]]
+                    break
+                  } else {
+                    console.log('Bad')
+                    n++
+                  }
                 }
-                else {
-                  console.log('Bad')
-                  n++
-                }
+                j++
               }
-              j++;
             }
-          }
-        })
+          })
         }
 
-        let func2 = () => {request.get(url2).end((err, res) => {
-          P2[res.body.participant.id] = res.body.participant.name
-          const keyarray = Object.keys(P2)
-          var j = 0
-          if (keyarray.length === matchLen) {
-            while(matchLen > j) {
-              var n = 0
-              while(matchLen > n) {
-                if(infomation[j].player2Id.toString() === keyarray[n]) {
-                  console.log('N2OK')
-                  infomation[j].player2Name = P2[keyarray[n]]
-                  break
+        let func2 = () => {
+          request.get(url2).end((err, res) => {
+            P2[res.body.participant.id] = res.body.participant.name
+            const keyarray = Object.keys(P2)
+            var j = 0
+            if (keyarray.length === matchLen) {
+              while (matchLen > j) {
+                var n = 0
+                while (matchLen > n) {
+                  if (infomation[j].player2Id.toString() === keyarray[n]) {
+                    console.log('N2OK')
+                    infomation[j].player2Name = P2[keyarray[n]]
+                    break
+                  } else {
+                    console.log('N2Bad')
+                    n++
+                  }
                 }
-                else {
-                  console.log('N2Bad')
-                  n++
+                j++
+                if (j === matchLen) {
+                  setName(infomation)
                 }
-              }
-              j++;
-              if (j === matchLen) {
-                setName(infomation)
               }
             }
-          }
-        })
+          })
         }
 
         await func1()
         func2()
-
       }
       main()
     }
-  }, [infomation]) 
+  }, [infomation])
 
   return (
     <>
