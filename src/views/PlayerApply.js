@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { db } from '../Firebase'
+import request from 'superagent'
 
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -57,8 +58,8 @@ export default ({ match }) => {
 
   useMemo(() => {
     db.collection('events').doc(EID).get().then(
-      function (evinfo) {
-        setValues({ ...evinfo.data(), name: evinfo.id })
+      async function (evinfo) {
+        await setValues({ ...evinfo.data(), name: evinfo.id })
       }
     )
   }, [])
@@ -78,7 +79,18 @@ export default ({ match }) => {
   }
 
   const handleNext = () => {
-    db.collection('users').doc('U001').set({ // doc.idはログインしてるuser
+    const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${EID}/participants`
+    const participant = { name: 'U002' }
+    // TODO: challongeにプレイヤーを追加する処理
+    request.post(url).send({ participant }).end((err, res) => {
+      if (err) {
+        console.log(err)
+      }
+      console.log(res.body)
+    })
+
+    // firestoreに追加
+    db.collection('users').doc('U003').set({ // doc.idはログインしてるuser
       join: { [values.name]: true }
     }, { merge: true })
     setActiveStep(activeStep + 1)

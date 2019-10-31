@@ -9,7 +9,7 @@ import { CreateFormContext } from './createFormContext'
 export default ({ aid, handler }) => {
   const { handleSend } = useContext(CreateFormContext)
 
-  const handles = () => {
+  const handles = (aid) => {
     handleSend(aid)
     handler()
   }
@@ -17,7 +17,7 @@ export default ({ aid, handler }) => {
     <Button
       variant='contained'
       color='primary'
-      onClick={() => handles()}
+      onClick={() => handles(aid)}
     >Place order</Button>
   )
 }
