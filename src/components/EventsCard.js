@@ -27,7 +27,7 @@ import {
   }
     ] */
 export default ({ cards, button }) => {
-  const handleClick = () => {
+  const handleClickStart = () => {
   }
   return (
     <>
@@ -41,7 +41,7 @@ export default ({ cards, button }) => {
                 <Card >
                   <CardHeader title={card.id} />
 
-                  {button ? <Button onClick={handleClick}>send</Button> : ''}
+                  {button ? <Button onClick={handleClickStart}>send</Button> : ''}
                   <CardContent >
                     <Grid container direction='column'>
                       <Grid container item xs>
