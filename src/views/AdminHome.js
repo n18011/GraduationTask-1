@@ -66,6 +66,7 @@ export default ({ match }) => {
         <Grid item xs>
           <EventsCard
             cards={nowevents}
+            pid={AID}
             button
           />
         </Grid>
