@@ -11,7 +11,7 @@ import {
 export default () => { // ページ遷移時stateで pid or aid をもっている必要がある
   return (
     <>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} justify='center'>
         <Grid item md={5} xs>
           <Card>
             <CardHeader title={'選手'} />
