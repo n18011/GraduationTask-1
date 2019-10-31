@@ -1,6 +1,7 @@
 import React from 'react'
 import { db } from '../Firebase.js'
-import { Field } from '../Firebase.js'
+
+import request from 'superagent'
 
 import {
   Link,
@@ -24,23 +25,32 @@ import {
 ] */
 
 // 開催済み大会一覧
-export default ({ cards, button, pid}) => {
-
+export default ({ cards, button, pid }) => {
   const handleClickStart = (id) => {
-    /*    db.collection('events').doc(id).update({status:{willhold:false}}) */
-    db.collection('events').doc(id).update({status:{nowhold: true}})
+    // challongeのトーナメント表をランダムにする
+    const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/E009/participants/randomize`
+    request.post(url).end((err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(res.body)
+      }
+    })
+    // TODO:challongeのトーナメントを開始する処理
+
+    // firestoreに追加する処理
+    db.collection('events').doc(id).update({ status: { nowhold: true } })
     db.collection('users').doc(pid).get().then(
-      function(doc){
+      function (doc) {
         console.log(doc.data().holdplans)
         const newpush = doc.data().holdplans
         delete newpush[id]
         console.log(newpush)
-        db.collection('users').doc(pid).update({holdplans:newpush}
+        db.collection('users').doc(pid).update({ holdplans: newpush }
         )
       }
     )
   }
-  
 
   return (
     <>
