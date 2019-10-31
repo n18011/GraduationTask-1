@@ -1,4 +1,6 @@
 import React from 'react'
+import { db } from '../Firebase.js'
+import { Field } from '../Firebase.js'
 
 import {
   Link,
@@ -22,9 +24,24 @@ import {
 ] */
 
 // 開催済み大会一覧
-export default ({ cards, button }) => {
-  const handleClickStart = () => {
+export default ({ cards, button, pid}) => {
+
+  const handleClickStop = (id) => {
+    /*    db.collection('events').doc(id).update({status:{willhold:false}}) */
+    db.collection('events').doc(id).update({status:{nowhold: true}})
+    db.collection('users').doc(pid).get().then(
+      function(doc){
+        console.log(doc.data().holdplans)
+        const newpush = doc.data().holdplans
+        delete newpush[id]
+        console.log(newpush)
+        db.collection('users').doc(pid).update({holdplans:newpush}
+        )
+      }
+    )
   }
+  
+
   return (
     <>
       <Paper>
@@ -50,7 +67,7 @@ export default ({ cards, button }) => {
                   </TableCell>
                   <TableCell align='right'><Link href={path} color='inherit'>{data}</Link></TableCell>
                   <TableCell align='right'><Link href={path} color='inherit'>{row.where}</Link></TableCell>
-                  {button ? <TableCell align='right'><Button onClick={handleClickStart}>start</Button></TableCell> : ''}
+                  {button ? <TableCell align='right'><Button onClick={() => handleClickStop(row.id)}>start</Button></TableCell> : ''}
                 </TableRow>
               )
             }) : null}

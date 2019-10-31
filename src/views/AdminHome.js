@@ -77,6 +77,7 @@ export default ({ match }) => {
         </Grid>
         <Grid item xs>
           <EventsListWill
+            pid={AID}
             cards={willevents}
             button
           />
