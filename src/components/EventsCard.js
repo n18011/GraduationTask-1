@@ -1,4 +1,5 @@
 import React from 'react'
+import { db } from '../Firebase'
 import {
   Grid,
   Card,
@@ -6,6 +7,7 @@ import {
   Button,
   CardHeader,
   CardContent,
+  CardActions,
   Typography
 } from '@material-ui/core'
 
@@ -26,9 +28,12 @@ import {
     place: '那覇'
   }
     ] */
-export default ({ cards, button }) => {
-  const handleClickStart = () => {
+export default ({ cards, button, }) => {
+  const handleClickStop = (id) => {
+    console.log(id)
+    db.collection('events').doc(id).update({status:{held: true}})
   }
+
   return (
     <>
       <Grid container spacing={3} justify='center' alignItems='center'>
@@ -37,11 +42,9 @@ export default ({ cards, button }) => {
           const path = '/events/' + card.id
           return (
             <Grid item key={card.id} md={6} xs={6}>
-              <Link href={path}>
                 <Card >
+              <Link href={path} color='inherit'>
                   <CardHeader title={card.id} />
-
-                  {button ? <Button onClick={handleClickStart}>send</Button> : ''}
                   <CardContent >
                     <Grid container direction='column'>
                       <Grid container item xs>
@@ -56,8 +59,11 @@ export default ({ cards, button }) => {
                       </Grid>
                     </Grid>
                   </CardContent>
-                </Card>
               </Link>
+                  <CardActions>
+                  {button ? <Button onClick={() => handleClickStop(card.id)}>send</Button> : ''}
+                  </CardActions>
+                </Card>
             </Grid>
           )
         }) : null}

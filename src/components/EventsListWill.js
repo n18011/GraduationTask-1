@@ -26,7 +26,7 @@ import {
 // 開催済み大会一覧
 export default ({ cards, button, pid}) => {
 
-  const handleClickStop = (id) => {
+  const handleClickStart = (id) => {
     /*    db.collection('events').doc(id).update({status:{willhold:false}}) */
     db.collection('events').doc(id).update({status:{nowhold: true}})
     db.collection('users').doc(pid).get().then(
@@ -67,7 +67,7 @@ export default ({ cards, button, pid}) => {
                   </TableCell>
                   <TableCell align='right'><Link href={path} color='inherit'>{data}</Link></TableCell>
                   <TableCell align='right'><Link href={path} color='inherit'>{row.where}</Link></TableCell>
-                  {button ? <TableCell align='right'><Button onClick={() => handleClickStop(row.id)}>start</Button></TableCell> : ''}
+                  {button ? <TableCell align='right'><Button onClick={() => handleClickStart(row.id)}>start</Button></TableCell> : ''}
                 </TableRow>
               )
             }) : null}
