@@ -304,7 +304,7 @@ app.route('/tournaments/:tournament/participants/:participant_id')
   })
 
 // :tournament中のプレイヤーをランダムに割り振る?
-app.get('/tournaments/:tournament/participants/randomize', async (req, res) => {
+app.post('/tournaments/:tournament/participants/randomize', async (req, res) => {
   const id = req.params.tournament
   await client.participants.randomize({
     id,
