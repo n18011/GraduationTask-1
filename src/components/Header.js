@@ -63,7 +63,7 @@ const links = [
     title: 'playerresult'
   },
   {
-    link: '/events/:eid/delete',
+    link: '/player/:pid/delete',
     title: 'playerdelete'
   },
   {

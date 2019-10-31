@@ -57,7 +57,10 @@ app.route('/tournaments')
       callback: (err, data) => {
         if (err) {
           console.log(err); res.json(err)
-        } else { res.json(data) }
+        } else {
+          console.log(req.body)
+          res.json(data)
+        }
       }
     })
   })

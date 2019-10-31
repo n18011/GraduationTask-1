@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
   Typography,
@@ -42,9 +42,13 @@ const useStyles = makeStyles(theme => ({
 const steps = ['大会情報', '連絡項目', '確認']
 
 export default ({ match }) => {
-  const AID = match.params.aid
+  const [AID, setAID] = useState('')
   const [activeStep, setActiveStep] = useState(0)
 
+  useEffect(() => {
+    setAID(match.params.aid)
+    console.log(AID)
+  }, [match.params.aid])
   function getStepContent (step) {
     switch (step) {
       case 0:
