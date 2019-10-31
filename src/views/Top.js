@@ -9,15 +9,15 @@ import {
 } from '@material-ui/core'
 
 export default () => {
-  const [willevents, setWevents] = useState([])
+  const [nowEvents, setNowEvents] = useState([])
 
   useMemo(() => {
     const col = db.collection('events')
 
-    col.where('status.willhold', '==', true).onSnapshot(query => {
+    col.where('status.nowhold', '==', true).onSnapshot(query => {
       const data = []
       query.forEach(doc => data.push({ ...doc.data(), id: doc.id }))
-      setWevents(data)
+      setNowEvents(data)
     })
     return col
   }, [])
@@ -27,11 +27,11 @@ export default () => {
         <Grid container direction='column' spacing={3} item md={10}>
 
           <Grid item xs>
-            <Typography variant='h4'>申し込み可能大会</Typography>
+            <Typography variant='h4'>開催中大会</Typography>
           </Grid>
 
           <Grid item xs>
-            <EventsCard cards={willevents} />
+            <EventsCard cards={nowEvents} />
           </Grid>
 
           <Grid item xs>
