@@ -11,27 +11,21 @@ import {
   Typography
 } from '@material-ui/core'
 
-/* const cards = [
-  {
-    title: 'A大会',
-    time: '2019/10/30',
-    place: '北谷'
-  },
-  {
-    title: 'B大会',
-    time: '2019/11/01',
-    place: 'うるま'
-  },
-  {
-    title: 'C大会',
-    time: '2019/11/30',
-    place: '那覇'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles(theme => ({
+  card: {
+    '&:hover': {
+      boxShadow: '0 4px 6px 2px rgba(100, 105, 105, .3)'
+    }
   }
-    ] */
-export default ({ cards, button, }) => {
+}))
+
+export default ({ cards, button }) => {
+  const classes = useStyles()
   const handleClickStop = (id) => {
     console.log(id)
-    db.collection('events').doc(id).update({status:{held: true}})
+    db.collection('events').doc(id).update({ status: { held: true } })
   }
 
   return (
@@ -42,8 +36,8 @@ export default ({ cards, button, }) => {
           const path = '/events/' + card.id
           return (
             <Grid item key={card.id} md={6} xs={6}>
-                <Card >
-              <Link href={path} color='inherit'>
+              <Card className={classes.card}>
+                <Link href={path} color='inherit'>
                   <CardHeader title={card.id} />
                   <CardContent >
                     <Grid container direction='column'>
@@ -59,11 +53,11 @@ export default ({ cards, button, }) => {
                       </Grid>
                     </Grid>
                   </CardContent>
-              </Link>
-                  <CardActions>
+                </Link>
+                <CardActions>
                   {button ? <Button onClick={() => handleClickStop(card.id)}>send</Button> : ''}
-                  </CardActions>
-                </Card>
+                </CardActions>
+              </Card>
             </Grid>
           )
         }) : null}
