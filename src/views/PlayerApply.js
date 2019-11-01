@@ -80,8 +80,8 @@ export default ({ match }) => {
 
   const handleNext = () => {
     const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${EID}/participants`
-    const participant = { name: 'U002' }
-    // TODO: challongeにプレイヤーを追加する処理
+    const participant = { name: 'U004' }
+    // challongeにプレイヤーを追加する処理
     request.post(url).send({ participant }).end((err, res) => {
       if (err) {
         console.log(err)
@@ -90,7 +90,7 @@ export default ({ match }) => {
     })
 
     // firestoreに追加
-    db.collection('users').doc('U003').set({ // doc.idはログインしてるuser
+    db.collection('users').doc('U004').set({ // doc.idはログインしてるuser
       join: { [values.name]: true }
     }, { merge: true })
     setActiveStep(activeStep + 1)
