@@ -19,7 +19,11 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 
 const useStyles = makeStyles(theme => ({
-
+  bar: {
+    background: 'linear-gradient(45deg, #77bb88 30%, #77bbdd 90%)',
+    '&:hover': {
+    }
+  }
 }))
 const links = [
   {
@@ -104,7 +108,7 @@ export default () => {
       <List>
         {links.map((text, index) => (
           <ListItem button key={text.title}>
-            <Link to={text.link} >
+            <Link color='inherit' to={text.link} >
               <ListItemText primary={text.title} />
             </Link>
           </ListItem>
@@ -114,7 +118,7 @@ export default () => {
   )
   return (
     <>
-      <AppBar position='relative'>
+      <AppBar position='relative' className={classes.bar}>
         <Toolbar>
           <IconButton
             color='inherit'
@@ -125,7 +129,7 @@ export default () => {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant='h5' color='inherit' noWrap>
+          <Typography variant='h4' color='inherit' noWrap>
             Parima
           </Typography>
         </Toolbar>
