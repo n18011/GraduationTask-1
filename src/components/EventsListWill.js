@@ -26,17 +26,25 @@ import {
 
 // 開催済み大会一覧
 export default ({ cards, button, pid }) => {
-  const handleClickStart = (id) => {
+  const handleClickStart = async (id) => {
     // challongeのトーナメント表をランダムにする
-    const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/E009/participants/randomize`
-    request.post(url).end((err, res) => {
+    const randomize = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/E011/participants/randomize`
+    await request.post(randomize).end((err, res) => {
       if (err) {
         console.log(err)
       } else {
         console.log(res.body)
       }
     })
-    // TODO:challongeのトーナメントを開始する処理
+    // challongeのトーナメントを開始する処理
+    const start = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/E011/start`
+    await request.post(start).end((err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(res.body)
+      }
+    })
 
     // firestoreに追加する処理
     db.collection('events').doc(id).update({ status: { nowhold: true } })

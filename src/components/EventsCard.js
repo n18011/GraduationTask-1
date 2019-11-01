@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
+import request from 'superagent'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -23,9 +24,19 @@ const useStyles = makeStyles(theme => ({
 
 export default ({ cards, button }) => {
   const classes = useStyles()
-  const handleClickStop = (id) => {
-    console.log(id)
-    db.collection('events').doc(id).update({ status: { held: true } })
+  const handleClickStop = async (id) => {
+    // challongeAPIにトーナメントの終了を送信する処理(POST)
+    const finalize = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/finalize`
+    await request.post(finalize).end((err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(res.body)
+      }
+    })
+
+    // firestoreのstatusを開催済みにする
+    await db.collection('events').doc(id).update({ status: { held: true } })
   }
 
   return (
@@ -55,7 +66,7 @@ export default ({ cards, button }) => {
                   </CardContent>
                 </Link>
                 <CardActions>
-                  {button ? <Button onClick={() => handleClickStop(card.id)}>send</Button> : ''}
+                  {button ? <Button onClick={() => handleClickStop(card.id)}>終了</Button> : ''}
                 </CardActions>
               </Card>
             </Grid>
