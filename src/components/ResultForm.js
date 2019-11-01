@@ -4,7 +4,8 @@ import {
   Grid,
   Paper,
   Typography,
-  TextField
+  TextField,
+  Button
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -28,11 +29,36 @@ const useStyles = makeStyles(theme => ({
 export default ({ players }) => {
   const classes = useStyles()
   const values = ['', '', '', '', '']
+  const [points, setPoints] = useState(
+    [
+      {
+        player1: '',
+        player2: ''
+      },
+      {
+        player1: '',
+        player2: ''
+      },
+      {
+        player1: '',
+        player2: ''
+      },
+      {
+        player1: '',
+        player2: ''
+      }
+    ])
+
+  const resultSend = () => { // TODO:対戦結果を送信する処理
+    // TODO::challongeAPI側に送信する処理(Matchesのupdate)
+    // '11-9,10-13,11-5,11-4'ようなCSV形式で
+    // TODO::firestore側に送信する処理(progressを変える、得点を追加)
+  }
   return (
     <>
       <Grid container alignItems='center' justify='center'>
 
-        <Grid item xs container direction='column'>
+        <Grid item xs container direction='column' justify='center'>
 
           <Paper>
 
@@ -107,6 +133,13 @@ export default ({ players }) => {
             </Grid>
 
           </Paper>
+
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => alert('これから実装')}
+          >得点入力</Button>
+
         </Grid>
 
       </Grid>
