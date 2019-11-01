@@ -3,7 +3,7 @@ import request from 'superagent'
 
 import {
   Paper,
-  Link,
+  Button,
   Table,
   TableHead,
   TableBody,
@@ -11,10 +11,15 @@ import {
   TableRow
 } from '@material-ui/core'
 
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles(theme => ({
+}))
 // 現時点では大会が開かれていると見れる
 export default ({ match }) => {
+  const classes = useStyles()
   const EID = match.params.eid
-  const url = `https://challonge.com/ja/${EID}/module`
+  const url = `https://challonge.com/ja/${EID}/module?theme=7506&show_standings=1`
   const [infomation, setInfo] = useState([])
   const [infoandname, setName] = useState([])
 
@@ -107,7 +112,7 @@ export default ({ match }) => {
     <>
       <iframe title={EID} src={url} width='100%' height='500' frameborder='0' scrolling='auto' allowtransparency='true' />
 
-      <Paper>
+      <Paper className={classes.paper}>
         <Table>
           <TableHead>
             <TableRow>
@@ -115,33 +120,31 @@ export default ({ match }) => {
               <TableCell>試合番号</TableCell>
               <TableCell>選手1</TableCell>
               <TableCell>選手2</TableCell>
+              <TableCell>詳細</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {infoandname.map(info =>
               <TableRow>
                 <TableCell>
-                  <Link color='inherit'>
-                    {info.round}回戦
-                  </Link>
+                  {info.round}回戦
                 </TableCell>
 
                 <TableCell>
-                  <Link color='inherit'>
                   第{info.suggestedPlayOrder}試合
-                  </Link>
                 </TableCell>
 
                 <TableCell>
-                  <Link color='inherit'>
-                    {info.player1Name}
-                  </Link>
+                  {info.player1Name}
                 </TableCell>
 
                 <TableCell>
-                  <Link color='inherit'>
-                    {info.player2Name}
-                  </Link>
+                  {info.player2Name}
+                </TableCell>
+                <TableCell>
+                  <Button variant='outlined' href='{ここにPath}' onClick={() => alert('まだ未実装')} size='small'>
+                    詳細
+                  </Button>
                 </TableCell>
               </TableRow>
             )}
