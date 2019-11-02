@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
+import request from 'superagent'
 import {
   Grid,
   Paper,
@@ -8,7 +9,6 @@ import {
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
-import request from 'superagent'
 
 import { db } from '../Firebase'
 
@@ -27,6 +27,8 @@ const useStyles = makeStyles(theme => ({
 // VS以外の全てのTypography部にデータが入る
 export default ({ players, values, scoreCountP1, scoreCountP2 }) => {
   const classes = useStyles()
+
+
   return (
     <>
       <Grid container alignItems='center' justify='center'>
