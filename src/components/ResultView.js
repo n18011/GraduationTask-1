@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 // VS以外の全てのTypography部にデータが入る
-export default ({ players, values, scoreCountP1, scoreCountP2 }) => {
+export default ({ eid, mid, players, values, scoreCountP1, scoreCountP2 }) => {
   const classes = useStyles()
 
   return (
