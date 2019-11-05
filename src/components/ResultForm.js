@@ -29,15 +29,16 @@ const useStyles = makeStyles(theme => ({
 export default ({ players }) => {
   const classes = useStyles()
   const values = ['', '', '', '', '']
+  const [playerId, setPlayerid] = useState()
   const [points, setPoints] = useState(
     [
       {
-        player1: '',
-        player2: ''
+        player1: '3',
+        player2: '2'
       },
       {
-        player1: '',
-        player2: ''
+        player1: '3',
+        player2: '1'
       },
       {
         player1: '',
@@ -49,11 +50,115 @@ export default ({ players }) => {
       }
     ])
 
+  const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
+  request.get(url).end((err, res) => {
+    console.log(res.body['match'].player1Id)
+    setPlayerid({
+      player1Id : res.body['match'].player1Id,
+      player2Id : res.body['match'].player2Id
+    })
+  })
+
   const resultSend = () => { // TODO:対戦結果を送信する処理
     // TODO::challongeAPI側に送信する処理(Matchesのupdate)
     // '11-9,10-13,11-5,11-4'ようなCSV形式で
+
+
+    const pushpoint = 'https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/'
+    const setvalue = Object.keys(points).length
+    const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
+
+    var n = 0
+    var m = 0
+
+    switch(setvalue) {
+
+      case 1 : 
+        const set1Point = points[0].player1+'-'+points[0].player2
+        const csv = set1Point
+        for (var i; 1 > i; i++) {
+          if (Number(points[0].player1) > Number(points[0].player2)){
+            n++
+          }
+          else{
+            m++
+          }
+        }
+        break
+
+      case 3 :
+        csv = points[0].player1+'-'+points[0].player2+','+points[1].player1+'-'+points[1].player2+','+points[2].player1+'-'+points[2].player2
+
+
+        for (var i; 3 > i; i++) {
+          if (Number(points[0].player1) > Number(points[0].player2)){
+            n++
+          }
+          else{
+            m++
+          }
+        }
+
+        break
+
+      case 4 :
+        csv = points[0].player1+'-'+points[0].player2+','+points[1].player1+'-'+points[1].player2+','+points[2].player1+'-'+points[2].player2+','+points[3].player1+'-'+points[3].player2
+
+
+        for (var i; 4 > i; i++) {
+          if (Number(points[0].player1) > Number(points[0].player2)){
+            n++
+          }
+          else{
+            m++
+          }
+        }
+
+
+        break
+
+      case 5 :
+        csv = points[0].player1+'-'+points[0].player2+','+points[1].player1+'-'+points[1].player2+','+points[2].player1+'-'+points[2].player2+','+points[3].player1+'-'+points[3].player2+','+points[4].player1+'-'+points[4].player2
+
+
+        for (var i; 5 > i; i++) {
+          if (Number(points[0].player1) > Number(points[0].player2)){
+            n++
+          }
+          else{
+            m++
+          }
+        }
+
+        break
+    
+      default :
+        csv = '0-0'
+        console.log("error")
+        break
+    }
+
+    if (n > m) {
+      const winnerid = playerId.player1Id
+    } else {
+      const winnerid = playerId.player2Id
+    }
+
+    request.post(pushpoint).end((err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(res.body)
+      }
+    })
+
     // TODO::firestore側に送信する処理(progressを変える、得点を追加)
+    db.collection('events').doc('E001').collection('matchs').doc('M001').collection('point_details').doc('1').update({
+      player1:11,
+      player2:5
+    })
   }
+
   return (
     <>
       <Grid container alignItems='center' justify='center'>

@@ -94,7 +94,12 @@ export default ({ match }) => {
       join: { [values.name]: true }
     }, { merge: true })
     setActiveStep(activeStep + 1)
-  }
+
+
+    db.collection('users').doc('U004').set({
+      JoinEventStatus: { [values.name]: true }
+      }, {merge: true})
+    }
 
   const classes = useStyles()
   return (
