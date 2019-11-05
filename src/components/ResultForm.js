@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 // VS以外の全てのTypography部にデータが入る
-export default ({ players }) => {
+export default ({ eid, mid, players }) => {
   const classes = useStyles()
   const values = ['', '', '', '', '']
   const [points, setPoints] = useState(
@@ -64,7 +64,7 @@ export default ({ players }) => {
 
             <Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
-                {players.player1}
+                {players ? players.player1 : 'unko'}
               </Typography>
             </Grid>
 
@@ -95,8 +95,8 @@ export default ({ players }) => {
           </Paper>
         </Grid>
 
-        <Grid item xs={2}>
-          <Typography variant='h4' align='center'>VS</Typography>
+        <Grid item xs={1}>
+          <Typography variant='h4' align='center'>X</Typography>
         </Grid>
 
         <Grid item xs container direction='column'>
@@ -104,7 +104,7 @@ export default ({ players }) => {
 
             <Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
-                {players.player2}
+                {players ? players.player2 : ''}
               </Typography>
             </Grid>
 
