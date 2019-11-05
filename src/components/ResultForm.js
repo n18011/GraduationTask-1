@@ -95,8 +95,8 @@ export default ({ eid, mid, players }) => {
           </Paper>
         </Grid>
 
-        <Grid item xs={2}>
-          <Typography variant='h4' align='center'>VS</Typography>
+        <Grid item xs={1}>
+          <Typography variant='h4' align='center'>X</Typography>
         </Grid>
 
         <Grid item xs container direction='column'>

@@ -69,8 +69,8 @@ export default ({ eid, mid, players, values, scoreCountP1, scoreCountP2 }) => {
           </Paper>
         </Grid>
 
-        <Grid item xs={2}>
-          <Typography variant='h4' align='center'>VS</Typography>
+        <Grid item xs={1}>
+          <Typography variant='h4' align='center'>X</Typography>
         </Grid>
 
         <Grid item xs container direction='column'>
