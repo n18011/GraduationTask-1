@@ -5,6 +5,13 @@ import {
   Route
 } from 'react-router-dom'
 
+import {
+  Container,
+  Grid,
+  CssBaseline,
+  Box
+} from '@material-ui/core'
+
 import { AuthProvider } from './components/Auth'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -27,8 +34,14 @@ import AdminApply from './views/AdminApply'
 import AdminChange from './views/AdminChange'
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    minHeight: '100vh'
+  },
   main: {
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.default
   },
   layout: {
     width: 'auto',
@@ -37,6 +50,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      minHeight: '100vh',
       width: 600,
       marginLeft: 'auto',
       marginRight: 'auto'
@@ -50,25 +64,41 @@ export default () => {
     <AuthProvider>
 
       <Router>
-        <Header />
-        <main className={classes.layout}>
-          <Route exact path='/' component={Top} />
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/divide' component={Divide} />
-          <Route exact path='/events' component={Events} />
-          <Route exact path='/events/:eid' component={Event} />
-          <Route exact path='/events/:eid/matchs/:mid' component={Result} />
-          <Route exact path='/held' component={Held} />
-          <Route exact path='/player/:pid' component={PlayerHome} />
-          <Route exact path='/nothold' component={NotHold} />
-          <Route exact path='/events/:eid/apply' component={PlayerApply} />
-          <Route exact path='/player/:pid/join' component={Join} />
-          <Route exact path='/events/:eid/matchs/:mid/users/:uid' component={PlayerResult} />
-          <Route exact path='/player/:pid/delete' component={PlayerDelete} />
-          <Route exact path='/admin/:aid' component={AdminHome} />
-          <Route exact path='/admin/:aid/input' component={AdminApply} />
-          <Route exact path='/admin/:aid/change' component={AdminChange} />
-        </main>
+        <div className={classes.root}>
+          <CssBaseline />
+          <Header />
+
+          <Grid container>
+            <Grid item xs className={classes.left} md={2} />
+
+            <Grid item className={classes.main} xs={12} md>
+              <Box borderRadius='borderRadius' border={3} borderColor='grey.100'>
+
+                <main className={classes.layout}>
+                  <Route exact path='/' component={Top} />
+                  <Route exact path='/login' component={Login} />
+                  <Route exact path='/divide' component={Divide} />
+                  <Route exact path='/events' component={Events} />
+                  <Route exact path='/events/:eid' component={Event} />
+                  <Route exact path='/events/:eid/matchs/:mid' component={Result} />
+                  <Route exact path='/held' component={Held} />
+                  <Route exact path='/player/:pid' component={PlayerHome} />
+                  <Route exact path='/nothold' component={NotHold} />
+                  <Route exact path='/events/:eid/apply' component={PlayerApply} />
+                  <Route exact path='/player/:pid/join' component={Join} />
+                  <Route exact path='/events/:eid/matchs/:mid/users/:uid' component={PlayerResult} />
+                  <Route exact path='/player/:pid/delete' component={PlayerDelete} />
+                  <Route exact path='/admin/:aid' component={AdminHome} />
+                  <Route exact path='/admin/:aid/input' component={AdminApply} />
+                  <Route exact path='/admin/:aid/change' component={AdminChange} />
+                </main>
+              </Box>
+            </Grid>
+
+            <Grid item className={classes.right} md={2} xs />
+          </Grid>
+          <footer className={classes.footer} />
+        </div>
       </Router>
 
     </AuthProvider>
