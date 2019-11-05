@@ -4,6 +4,7 @@ import request from 'superagent'
 import {
   Paper,
   Button,
+  Link,
   Table,
   TableHead,
   TableBody,
@@ -145,9 +146,9 @@ export default ({ match }) => {
                     {info.player2Name}
                   </TableCell>
                   <TableCell>
-                    <Button variant='outlined' href={path} size='small'>
+                    <Link variant='body1' href={path} size='small' color='inherit' underline='always'>
                     詳細
-                    </Button>
+                    </Link>
                   </TableCell>
                 </TableRow>
               )
