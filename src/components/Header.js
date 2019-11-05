@@ -14,14 +14,23 @@ import {
   ListItem,
   ListItemText,
   Drawer,
-  IconButton
+  IconButton,
+  Button
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 
 const useStyles = makeStyles(theme => ({
   bar: {
-    background: 'linear-gradient(45deg, #77bb88 30%, #77bbdd 90%)',
+    background: 'linear-gradient(45deg, #77bb88 30%, #77bbdd 90%)'
+  },
+  title: {
+    flex: 1
+  },
+  link: {
+    margin: theme.spacing(1, 1.5),
     '&:hover': {
+      borderColor: '#77bb88',
+      backgroundColor: '#77bb88'
     }
   }
 }))
@@ -129,9 +138,17 @@ export default () => {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant='h4' color='inherit' noWrap>
+          <Typography variant='h4' color='inherit' className={classes.title} noWrap>
             Parima
           </Typography>
+
+          <Button href='/player/:pid' color='inherit' variant='outlined' className={classes.link}>
+            選手
+          </Button>
+
+          <Button href='/admin/:aid' color='inherit' variant='outlined' className={classes.link}>
+            主催者
+          </Button>
         </Toolbar>
       </AppBar>
       <CssBaseline />
