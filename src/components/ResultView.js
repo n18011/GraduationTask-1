@@ -28,7 +28,6 @@ const useStyles = makeStyles(theme => ({
 export default ({ players, values, scoreCountP1, scoreCountP2 }) => {
   const classes = useStyles()
 
-
   return (
     <>
       <Grid container alignItems='center' justify='center'>
@@ -39,7 +38,7 @@ export default ({ players, values, scoreCountP1, scoreCountP2 }) => {
 
             <Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
-                {players.player1}
+                {players ? players.player1 : ''}
               </Typography>
             </Grid>
 
@@ -79,7 +78,7 @@ export default ({ players, values, scoreCountP1, scoreCountP2 }) => {
 
             <Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
-                {players.player2}
+                {players ? players.player2 : ''}
               </Typography>
             </Grid>
 

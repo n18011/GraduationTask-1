@@ -64,7 +64,7 @@ export default ({ players }) => {
 
             <Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
-                {players.player1}
+                {players ? players.player1 : 'unko'}
               </Typography>
             </Grid>
 
@@ -104,7 +104,7 @@ export default ({ players }) => {
 
             <Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
-                {players.player2}
+                {players ? players.player2 : ''}
               </Typography>
             </Grid>
 

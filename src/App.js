@@ -48,6 +48,7 @@ export default () => {
   const classes = useStyles()
   return (
     <AuthProvider>
+
       <Router>
         <Header />
         <main className={classes.layout}>
