@@ -37,9 +37,6 @@ export default ({ cards, button }) => {
 
     // firestoreのstatusを開催済みにする
     await db.collection('events').doc(id).update({ status: { held: true } })
-
-    await db.collection('users').where('joineventstatus.E009', '==', true).update({ joineventstatus: { 'E009': false}
-    })
   }
 
   return (
