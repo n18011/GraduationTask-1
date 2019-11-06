@@ -12,7 +12,8 @@ import {
   Link
 } from '@material-ui/core'
 
-export default () => {
+export default ({match}) => {
+  const pid = match.params.pid
   const [events, setEvents] = useState([])
   useMemo(() => {
     const col = db.collection('events')
@@ -42,7 +43,7 @@ export default () => {
           <TableBody>
             {events ? events.map(row => {
               const data = JSON.stringify(row.when.toDate()).slice(1, 11)
-              const path = '/events/' + row.id + '/apply'
+              const path = '/events/' + row.id + '/player/' + pid + '/apply'
               return (
                 <TableRow key={row.id}>
                   <TableCell component='th' scope='row'>

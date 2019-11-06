@@ -4,17 +4,7 @@ import { db } from '../Firebase'
 
 const ResultFormContext = createContext()
 
-const ResultFormProvider = ({ children }) => {
-  const [players, setPlayers] = useState(null)
-
-  useMemo(() => {
-    const eventCols = db.collection('events').doc('E002')
-    const matchCols = eventCols.collection('matchs').doc('M001')
-    matchCols.get()
-      .then(doc => {
-        setPlayers(doc.data().players)
-      })
-  }, [])
+const ResultFormProvider = ({ children}) => {
 
   const [isProgresed, setIsProgresed] = useState(false)
 
@@ -62,7 +52,7 @@ const ResultFormProvider = ({ children }) => {
   }, [])
 
   return (
-    <ResultFormContext.Provider value={{ players, values, isProgresed, scoreCountP1, scoreCountP2 }}>
+    <ResultFormContext.Provider value={{  values, isProgresed, scoreCountP1, scoreCountP2 }}>
       {children}
     </ResultFormContext.Provider>
 

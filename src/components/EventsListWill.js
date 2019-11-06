@@ -28,7 +28,7 @@ import {
 export default ({ cards, button, pid }) => {
   const handleClickStart = async (id) => {
     // challongeのトーナメント表をランダムにする
-    const randomize = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/E011/participants/randomize`
+    const randomize = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/randomize`
     await request.post(randomize).end((err, res) => {
       if (err) {
         console.log(err)
@@ -37,7 +37,7 @@ export default ({ cards, button, pid }) => {
       }
     })
     // challongeのトーナメントを開始する処理
-    const start = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/E011/start`
+    const start = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/start`
     await request.post(start).end((err, res) => {
       if (err) {
         console.log(err)

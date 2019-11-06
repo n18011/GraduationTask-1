@@ -11,6 +11,7 @@ import EventsCard from '../components/EventsCard' // propsで開催状況デー�
 
 export default ({ match }) => {
   const PID = match.params.pid
+  const notholdPath = `/player/${PID}/nothold`
   const [nowevents, setNevents] = useState([])
   const [eventjoin, setEvjoin] = useState([])
 
@@ -74,7 +75,7 @@ export default ({ match }) => {
         </Grid>
         <Grid item>
           <Typography variant='h4'>
-            <Link href='/nothold' color='inherit'>大会参加申し込み</Link>
+            <Link href={notholdPath} color='inherit'>大会参加申し込み</Link>
           </Typography>
         </Grid>
       </Grid>
