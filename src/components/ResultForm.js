@@ -31,20 +31,28 @@ export default ({ eid, mid, players }) => {
   const values = ['', '', '', '', '']
   const [playerId, setPlayerid] = useState()
   const [points, setPoints] = useState(
-    [
-      {
+    {
+      set1:  {
         player1: 0,
         player2: 0,
       },
-      {
+      set2: {
         player1: 0,
         player2: 0,
       },
-      {
+      set3: {
         player1: 0,
         player2: 0,
       },
-    ])
+      set4: {
+        player1: 0,
+        player2: 0,
+      },
+      set5: {
+        player1: 0,
+        player2: 0,
+      },
+    })
 
   useEffect(() => {
     const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
@@ -55,7 +63,7 @@ export default ({ eid, mid, players }) => {
         player2Id : res.body['match'].player2Id
       })
     })
-  })
+  }, [])
 
   const resultSend = () => { // TODO:対戦結果を送信する処理
     // TODO::challongeAPI側に送信する処理(Matchesのupdate)
@@ -70,45 +78,45 @@ export default ({ eid, mid, players }) => {
     var csv = null
     var winnerid = null
 
-    switch(setvalue) {
+    switch (setvalue) {
 
-      case 1 : 
-        const set1Point = points[0].player1+'-'+points[0].player2
+      case 1:
+        const set1Point = points[0].player1 + '-' + points[0].player2
         csv = set1Point
         for (var i; 1 > i; i++) {
-          if (Number(points[0].player1) > Number(points[0].player2)){
+          if (Number(points[0].player1) > Number(points[0].player2)) {
             n++
           }
-          else{
+          else {
             m++
           }
         }
         break
 
-      case 3 :
-        csv = points[0].player1+'-'+points[0].player2+','+points[1].player1+'-'+points[1].player2+','+points[2].player1+'-'+points[2].player2
+      case 3:
+        csv = points[0].player1 + '-' + points[0].player2 + ',' + points[1].player1 + '-' + points[1].player2 + ',' + points[2].player1 + '-' + points[2].player2
 
 
         for (i; 3 > i; i++) {
-          if (Number(points[0].player1) > Number(points[0].player2)){
+          if (Number(points[0].player1) > Number(points[0].player2)) {
             n++
           }
-          else{
+          else {
             m++
           }
         }
 
         break
 
-      case 4 :
-        csv = points[0].player1+'-'+points[0].player2+','+points[1].player1+'-'+points[1].player2+','+points[2].player1+'-'+points[2].player2+','+points[3].player1+'-'+points[3].player2
+      case 4:
+        csv = points[0].player1 + '-' + points[0].player2 + ',' + points[1].player1 + '-' + points[1].player2 + ',' + points[2].player1 + '-' + points[2].player2 + ',' + points[3].player1 + '-' + points[3].player2
 
 
         for (i; 4 > i; i++) {
-          if (Number(points[0].player1) > Number(points[0].player2)){
+          if (Number(points[0].player1) > Number(points[0].player2)) {
             n++
           }
-          else{
+          else {
             m++
           }
         }
@@ -116,22 +124,22 @@ export default ({ eid, mid, players }) => {
 
         break
 
-      case 5 :
-        csv = points[0].player1+'-'+points[0].player2+','+points[1].player1+'-'+points[1].player2+','+points[2].player1+'-'+points[2].player2+','+points[3].player1+'-'+points[3].player2+','+points[4].player1+'-'+points[4].player2
+      case 5:
+        csv = points[0].player1 + '-' + points[0].player2 + ',' + points[1].player1 + '-' + points[1].player2 + ',' + points[2].player1 + '-' + points[2].player2 + ',' + points[3].player1 + '-' + points[3].player2 + ',' + points[4].player1 + '-' + points[4].player2
 
 
         for (i; 5 > i; i++) {
-          if (Number(points[0].player1) > Number(points[0].player2)){
+          if (Number(points[0].player1) > Number(points[0].player2)) {
             n++
           }
-          else{
+          else {
             m++
           }
         }
 
         break
-    
-      default :
+
+      default:
         csv = '0-0'
         console.log("error")
         break
@@ -145,9 +153,13 @@ export default ({ eid, mid, players }) => {
 
     console.log(csv)
 
-    request.put(url).send({match:{scoresCsv:csv,
-                           winnerId: winnerid}}
-                               ).end((err, res) => {
+    request.put(url).send({
+      match: {
+        scoresCsv: csv,
+        winnerId: winnerid
+      }
+    }
+    ).end((err, res) => {
       if (err) {
         console.log(err)
       } else {
@@ -157,15 +169,19 @@ export default ({ eid, mid, players }) => {
 
     // TODO::firestore側に送信する処理(progressを変える、得点を追加)
     db.collection('events').doc('E001').collection('matchs').doc('M001').collection('point_details').doc('1').update({
-      player1:11,
-      player2:5
+      player1: 11,
+      player2: 5
     })
   }
 
-  const handleChange = (e, player) => {
-    console.log('points[0] => ',points[1])
-    setPoints([
-    ])
+  const handleChange = (e, set, player) => {
+    console.log('points[0] => ', points[1])
+    setPoints(
+      {
+        ...points,
+        [set]: {[player]: e.target.value}
+      }
+    )
   }
   return (
     <>
@@ -182,7 +198,7 @@ export default ({ eid, mid, players }) => {
             </Grid>
 
             <Grid item xs>
-              {points.map((product, index) => (
+              {Object.keys(points).map((product, index) => (
                 <>
 
                   <TextField
@@ -190,7 +206,7 @@ export default ({ eid, mid, players }) => {
                     label={index + 1}
                     value={product.player1}
                     type='number'
-                    onChange={(e) => handleChange(e, 'player1')}
+                    onChange={(e) => handleChange(e, `set${index + 1}`,'player1')}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true
@@ -223,7 +239,7 @@ export default ({ eid, mid, players }) => {
             </Grid>
 
             <Grid item container>
-              {points.map((product, index) => (
+              {Object.keys(points).map((product, index) => (
                 <>
 
                   <TextField
