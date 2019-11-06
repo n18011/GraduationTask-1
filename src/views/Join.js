@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react'
+import { db } from '../Firebase'
 
 import {
   Grid,
@@ -8,7 +9,30 @@ import {
 import EventsCard from '../components/EventsCard' // propsにプレイヤーが過去に参加した大会データを入力
 
 export default ({ match }) => {
+  const [pushId, setPushId] = useState([])
   const PID = match.params.pid
+
+  useMemo(() => {
+    const evinfo = []
+    const evcounter = []
+    db.collection('users').doc(PID).get().then(
+      function(doc) {
+        const evarray = Object.keys(doc.data().join)
+        evcounter.push(evarray.length)
+        for(var i = 0; evarray.length > i; i++) {
+          db.collection('events').doc(evarray[i]).get().then(
+            function(evdoc) {
+              const pushObj = {...evdoc.data(), id: evdoc.id}
+              evinfo.push(pushObj)
+              if (evinfo.length === evcounter[0]){
+                setPushId(evinfo)
+              }
+            }
+          )
+        }
+      }
+    )
+  }, [PID])
 
   return (
     <>
@@ -19,7 +43,7 @@ export default ({ match }) => {
           </Grid>
 
           <Grid item>
-            <EventsCard />
+            <EventsCard cards={pushId}/>
           </Grid>
         </Grid>
       </Grid>
