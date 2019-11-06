@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react'
-import { db } from '../Firebase'
 
 import {
   Grid,
@@ -10,15 +9,6 @@ import EventsCard from '../components/EventsCard' // propsにプレイヤーが�
 
 export default ({ match }) => {
   const PID = match.params.pid
-  const [joinStatus, setJoinStatus] = useState()
-
-  useMemo(() => {
-    db.collection('events').where('joineventstatus', '==', true).onSnapshot(query => {
-      const data = []
-      query.forEach(doc => data.push({ ...doc.data()}))
-      setJoinStatus(data)
-    })
-  }, [])
 
   return (
     <>
@@ -29,7 +19,7 @@ export default ({ match }) => {
           </Grid>
 
           <Grid item>
-            <EventsCard cards={joinStatus}/>
+            <EventsCard />
           </Grid>
         </Grid>
       </Grid>

@@ -33,12 +33,12 @@ export default ({ players }) => {
   const [points, setPoints] = useState(
     [
       {
-        player1: '3',
-        player2: '2'
+        player1: '',
+        player2: ''
       },
       {
-        player1: '3',
-        player2: '1'
+        player1: '',
+        player2: ''
       },
       {
         player1: '',
@@ -64,18 +64,19 @@ export default ({ players }) => {
     // '11-9,10-13,11-5,11-4'ようなCSV形式で
 
 
-    const pushpoint = 'https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/'
     const setvalue = Object.keys(points).length
     const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
 
     var n = 0
     var m = 0
+    var csv = null
+    var winnerid = null
 
     switch(setvalue) {
 
       case 1 : 
         const set1Point = points[0].player1+'-'+points[0].player2
-        const csv = set1Point
+        csv = set1Point
         for (var i; 1 > i; i++) {
           if (Number(points[0].player1) > Number(points[0].player2)){
             n++
@@ -90,7 +91,7 @@ export default ({ players }) => {
         csv = points[0].player1+'-'+points[0].player2+','+points[1].player1+'-'+points[1].player2+','+points[2].player1+'-'+points[2].player2
 
 
-        for (var i; 3 > i; i++) {
+        for (i; 3 > i; i++) {
           if (Number(points[0].player1) > Number(points[0].player2)){
             n++
           }
@@ -105,7 +106,7 @@ export default ({ players }) => {
         csv = points[0].player1+'-'+points[0].player2+','+points[1].player1+'-'+points[1].player2+','+points[2].player1+'-'+points[2].player2+','+points[3].player1+'-'+points[3].player2
 
 
-        for (var i; 4 > i; i++) {
+        for (i; 4 > i; i++) {
           if (Number(points[0].player1) > Number(points[0].player2)){
             n++
           }
@@ -121,7 +122,7 @@ export default ({ players }) => {
         csv = points[0].player1+'-'+points[0].player2+','+points[1].player1+'-'+points[1].player2+','+points[2].player1+'-'+points[2].player2+','+points[3].player1+'-'+points[3].player2+','+points[4].player1+'-'+points[4].player2
 
 
-        for (var i; 5 > i; i++) {
+        for (i; 5 > i; i++) {
           if (Number(points[0].player1) > Number(points[0].player2)){
             n++
           }
@@ -139,12 +140,16 @@ export default ({ players }) => {
     }
 
     if (n > m) {
-      const winnerid = playerId.player1Id
+      winnerid = playerId.player1Id
     } else {
-      const winnerid = playerId.player2Id
+      winnerid = playerId.player2Id
     }
 
-    request.post(pushpoint).end((err, res) => {
+    console.log(csv)
+
+    request.put(url).send({match:{scoresCsv:csv,
+                           winnerId: winnerid}}
+                               ).end((err, res) => {
       if (err) {
         console.log(err)
       } else {
@@ -174,7 +179,7 @@ export default ({ players }) => {
             </Grid>
 
             <Grid item xs>
-              {values.map((product, index) => (
+              {points.map((product, index) => (
                 <>
 
                   <TextField
@@ -214,7 +219,7 @@ export default ({ players }) => {
             </Grid>
 
             <Grid item container>
-              {values.map((product, index) => (
+              {points.map((product, index) => (
                 <>
 
                   <TextField
@@ -242,7 +247,7 @@ export default ({ players }) => {
           <Button
             variant='contained'
             color='primary'
-            onClick={() => alert('これから実装')}
+            onClick={() => resultSend()}
           >得点入力</Button>
 
         </Grid>
