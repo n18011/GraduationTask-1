@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom'
 
 import {
-  Container,
   Grid,
   CssBaseline,
   Box
