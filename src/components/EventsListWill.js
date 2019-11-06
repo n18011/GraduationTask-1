@@ -28,7 +28,7 @@ import {
 export default ({ cards, button, pid }) => {
   const handleClickStart = async (id) => {
     // challongeのトーナメント表をランダムにする
-    const randomize = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/randomize`
+/*    const randomize = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/randomize`
     await request.post(randomize).end((err, res) => {
       if (err) {
         console.log(err)
@@ -44,7 +44,7 @@ export default ({ cards, button, pid }) => {
       } else {
         console.log(res.body)
       }
-    })
+    })*/
 
     // firestoreに追加する処理
     db.collection('events').doc(id).update({ status: { nowhold: true } })
@@ -58,6 +58,25 @@ export default ({ cards, button, pid }) => {
         )
       }
     )
+
+    const array = []
+    const getInfourl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/matches`
+
+    request.get(getInfourl).end((err, res) => {
+      console.log(res.body)
+      for (var i = 0; Object.keys(res.body).length > i; i++) {
+        console.log(res.body[i].match.id)
+        array.push(res.body[i].match.id)
+      }
+
+      for (var n = 0; array.length > n; n++) {
+        console.log(id)
+        db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).collection('point_details').doc('1').set({
+          'player1':0,
+          'player2':0
+        })
+      }
+    })
   }
 
   return (
