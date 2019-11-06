@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import {
-  Link
 } from 'react-router-dom'
 
 import {
@@ -10,6 +9,7 @@ import {
   Toolbar,
   Typography,
   CssBaseline,
+  Link,
   List,
   ListItem,
   ListItemText,
@@ -107,11 +107,11 @@ export default () => {
     >
       <List>
         {links.map((text, index) => (
-          <ListItem button key={text.title}>
-            <Link color='inherit' to={text.link} >
+          <Link color='inherit' href={text.link} underline='none'>
+            <ListItem button key={text.title}>
               <ListItemText primary={text.title} />
-            </Link>
-          </ListItem>
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>

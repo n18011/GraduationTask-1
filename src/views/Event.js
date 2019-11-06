@@ -4,6 +4,7 @@ import request from 'superagent'
 import {
   Paper,
   Button,
+  Link,
   Table,
   TableHead,
   TableBody,
@@ -23,6 +24,7 @@ export default ({ match }) => {
   const [infomation, setInfo] = useState([])
   const [infoandname, setName] = useState([])
 
+  console.log('infoandname => ', infoandname)
   useMemo(() => {
     const info = []
     request.get('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches').end((err, res) => {
@@ -124,30 +126,33 @@ export default ({ match }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {infoandname.map(info =>
-              <TableRow>
-                <TableCell>
-                  {info.round}回戦
-                </TableCell>
+            {infoandname.map(info => {
+              const path = `/events/${EID}/matchs/${info.id}`
+              return (
+                <TableRow>
+                  <TableCell>
+                    {info.round}回戦
+                  </TableCell>
 
-                <TableCell>
+                  <TableCell>
                   第{info.suggestedPlayOrder}試合
-                </TableCell>
+                  </TableCell>
 
-                <TableCell>
-                  {info.player1Name}
-                </TableCell>
+                  <TableCell>
+                    {info.player1Name}
+                  </TableCell>
 
-                <TableCell>
-                  {info.player2Name}
-                </TableCell>
-                <TableCell>
-                  <Button variant='outlined' href='{ここにPath}' onClick={() => alert('まだ未実装')} size='small'>
+                  <TableCell>
+                    {info.player2Name}
+                  </TableCell>
+                  <TableCell>
+                    <Link variant='body1' href={path} size='small' color='inherit' underline='always'>
                     詳細
-                  </Button>
-                </TableCell>
-              </TableRow>
-            )}
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </Paper>
