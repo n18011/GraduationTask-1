@@ -27,7 +27,7 @@ export default ({ match }) => {
   console.log('infoandname => ', infoandname)
   useMemo(() => {
     const info = []
-    request.get('https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches').end((err, res) => {
+    request.get(`https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${EID}/matches`).end((err, res) => {
       var length = Object.keys(res.body).length
       for (var i = 0; length > i; i++) {
         if (res.body[i].match['state'] === 'open') {
@@ -46,8 +46,8 @@ export default ({ match }) => {
     const matchLen = Object.keys(infomation).length
 
     for (var i = 0; matchLen > i; i++) {
-      const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/` + infomation[i].player1Id
-      const url2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/participants/` + infomation[i].player2Id
+      const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${EID}/participants/` + infomation[i].player1Id
+      const url2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${EID}/participants/` + infomation[i].player2Id
 
       const main = async () => {
         let func1 = () => {
