@@ -33,21 +33,17 @@ export default ({ eid, mid, players }) => {
   const [points, setPoints] = useState(
     [
       {
-        player1: '',
-        player2: ''
+        player1: 0,
+        player2: 0,
       },
       {
-        player1: '',
-        player2: ''
+        player1: 0,
+        player2: 0,
       },
       {
-        player1: '',
-        player2: ''
+        player1: 0,
+        player2: 0,
       },
-      {
-        player1: '',
-        player2: ''
-      }
     ])
 
   const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
@@ -164,6 +160,11 @@ export default ({ eid, mid, players }) => {
     })
   }
 
+  const handleChange = (e, player) => {
+    console.log('points[0] => ',points[1])
+    setPoints([
+    ])
+  }
   return (
     <>
       <Grid container alignItems='center' justify='center'>
@@ -187,6 +188,7 @@ export default ({ eid, mid, players }) => {
                     label={index + 1}
                     value={product.player1}
                     type='number'
+                    onChange={(e) => handleChange(e, 'player1')}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true
