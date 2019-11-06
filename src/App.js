@@ -82,8 +82,8 @@ export default () => {
                   <Route exact path='/events/:eid/matchs/:mid' component={Result} />
                   <Route exact path='/held' component={Held} />
                   <Route exact path='/player/:pid' component={PlayerHome} />
-                  <Route exact path='/nothold' component={NotHold} />
-                  <Route exact path='/events/:eid/apply' component={PlayerApply} />
+                  <Route exact path='/player/:pid/nothold' component={NotHold} />
+                  <Route exact path='/events/:eid/player/:pid/apply' component={PlayerApply} />
                   <Route exact path='/player/:pid/join' component={Join} />
                   <Route exact path='/events/:eid/matchs/:mid/users/:uid' component={PlayerResult} />
                   <Route exact path='/player/:pid/delete' component={PlayerDelete} />
