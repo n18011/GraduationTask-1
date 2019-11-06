@@ -23,6 +23,19 @@ const useStyles = makeStyles(theme => ({
   },
   text: {
     marginTop: theme.spacing(2)
+  },
+  x: {
+    marginTop: theme.spacing(2)
+  },
+  button: {
+    [theme.breakpoints.up('xs')]: {
+    width: '40vh',
+    marginLeft: theme.spacing(3)
+    },
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+    width: '80vh',
+    marginLeft: theme.spacing(1)
+    }
   }
 }))
 // VS以外の全てのTypography部にデータが入る
@@ -185,19 +198,14 @@ export default ({ eid, mid, players }) => {
   }
   return (
     <>
-      <Grid container alignItems='center' justify='center'>
-
-        <Grid item xs container direction='column' justify='center'>
-
           <Paper>
 
-            <Grid item xs>
+<Grid container justify='center'>
+<Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
                 {players ? players.player1 : 'unko'}
               </Typography>
-            </Grid>
 
-            <Grid item xs>
               {Object.keys(points).map((product, index) => (
                 <>
 
@@ -216,29 +224,19 @@ export default ({ eid, mid, players }) => {
                 </>
               ))
               }
-            </Grid>
-
-            <Grid item xs>
+              
               <Typography variant='h5' align='center' gutterBottom>0</Typography>
-            </Grid>
 
-          </Paper>
-        </Grid>
+</Grid>
+<Grid item md={1} xs={1}>
+          <Typography variant='h4' className={classes.x}>X</Typography>
+</Grid>
 
-        <Grid item xs={1}>
-          <Typography variant='h4' align='center'>X</Typography>
-        </Grid>
-
-        <Grid item xs container direction='column'>
-          <Paper>
-
-            <Grid item xs>
+<Grid item xs>
               <Typography variant='h5' align='center' className={classes.text}>
                 {players ? players.player2 : ''}
               </Typography>
-            </Grid>
 
-            <Grid item container>
               {Object.keys(points).map((product, index) => (
                 <>
 
@@ -246,6 +244,7 @@ export default ({ eid, mid, players }) => {
                     id='filled-number'
                     label={index + 1}
                     value={product.player2}
+                    onChange={(e) => handleChange(e, `set${index + 1}`,'player1')}
                     type='number'
                     className={classes.textField}
                     InputLabelProps={{
@@ -256,24 +255,21 @@ export default ({ eid, mid, players }) => {
                 </>
               ))
               }
-            </Grid>
 
-            <Grid item xs>
               <Typography variant='h5' align='center' gutterBottom>0</Typography>
-            </Grid>
+</Grid>
 
-          </Paper>
-
-
-        </Grid>
-
-      </Grid>
-
+<Grid item md={11} xs={11}>
           <Button
+            className={classes.button}
             variant='contained'
             color='primary'
             onClick={() => resultSend()}
           >得点入力</Button>
+          </Grid>
+
+          </Grid>
+          </Paper>
     </>
   )
 }
