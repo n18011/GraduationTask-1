@@ -54,7 +54,7 @@ const ResultFormProvider = ({ children }) => {
   }
   */
   useMemo(() => {
-    const eventRef = db.collection('events').doc('E002')
+    const eventRef = db.collection('events').doc('E001')
     eventRef.collection('matchs').doc('M001').get()
       .then(doc => {
         setIsProgresed(doc.data().match_status.progresed)
