@@ -80,7 +80,7 @@ export default ({ eid, mid, players }) => {
     })
 
   useEffect(() => {
-    const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
+    const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/${mid}`
     request.get(url).end((err, res) => {
       setPlayerid({
         player1Id: res.body['match'].player1Id,
@@ -95,7 +95,7 @@ export default ({ eid, mid, players }) => {
 
 
     const setvalue = Object.keys(points1).length
-    const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
+    const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/${mid}`
 
     var n = 0
     var m = 0

@@ -53,6 +53,8 @@ const japanese = {
 // 完了コンポーネント
 export default ({ match }) => {
   const EID = match.params.eid
+  const pid = match.params.pid
+  const home = `/player/${pid}`
   const [values, setValues] = useState({})
   const [activeStep, setActiveStep] = useState(0)
 
@@ -80,7 +82,7 @@ export default ({ match }) => {
 
   const handleNext = () => {
     const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${EID}/participants`
-    const participant = { name: 'U004' }
+    const participant = { name: pid }
     // challongeにプレイヤーを追加する処理
     request.post(url).send({ participant }).end((err, res) => {
       if (err) {
@@ -90,7 +92,7 @@ export default ({ match }) => {
     })
 
     // firestoreに追加
-    db.collection('users').doc('U004').set({ // doc.idはログインしてるuser
+    db.collection('users').doc(pid).set({ // doc.idはログインしてるuser
       join: { [values.name]: true }
     }, { merge: true })
     setActiveStep(activeStep + 1)}
@@ -136,7 +138,7 @@ export default ({ match }) => {
                   Thank you for your order.
             </Typography>
             <Typography className={classes.text} variant='h6'>
-              <Link href='/player/:pid'>
+              <Link href={home}>
                 個人ページ
               </Link>
             に戻る
