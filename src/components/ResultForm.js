@@ -262,15 +262,16 @@ export default ({ eid, mid, players }) => {
 
           </Paper>
 
+
+        </Grid>
+
+      </Grid>
+
           <Button
             variant='contained'
             color='primary'
             onClick={() => resultSend()}
           >得点入力</Button>
-
-        </Grid>
-
-      </Grid>
     </>
   )
 }
