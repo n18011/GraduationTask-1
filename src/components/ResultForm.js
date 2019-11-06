@@ -28,28 +28,40 @@ const useStyles = makeStyles(theme => ({
 // VS以外の全てのTypography部にデータが入る
 export default ({ eid, mid, players }) => {
   const classes = useStyles()
-  const values = ['', '', '', '', '']
   const [playerId, setPlayerid] = useState()
-  const [points, setPoints] = useState(
+  const [points1, setPoints1] = useState(
     {
       set1:  {
         player1: 0,
-        player2: 0,
       },
       set2: {
         player1: 0,
-        player2: 0,
       },
       set3: {
         player1: 0,
-        player2: 0,
       },
       set4: {
         player1: 0,
-        player2: 0,
       },
       set5: {
         player1: 0,
+      },
+    })
+  const [points2, setPoints2] = useState(
+    {
+      set1:  {
+        player2: 0,
+      },
+      set2: {
+        player2: 0,
+      },
+      set3: {
+        player2: 0,
+      },
+      set4: {
+        player2: 0,
+      },
+      set5: {
         player2: 0,
       },
     })
@@ -57,6 +69,7 @@ export default ({ eid, mid, players }) => {
   useEffect(() => {
     const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
     request.get(url).end((err, res) => {
+      console.log(res.body)
       console.log(res.body['match'].player1Id)
       setPlayerid({
         player1Id : res.body['match'].player1Id,
@@ -70,7 +83,7 @@ export default ({ eid, mid, players }) => {
     // '11-9,10-13,11-5,11-4'ようなCSV形式で
 
 
-    const setvalue = Object.keys(points).length
+    const setvalue = Object.keys(points1).length
     const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
 
     var n = 0
@@ -81,10 +94,10 @@ export default ({ eid, mid, players }) => {
     switch (setvalue) {
 
       case 1:
-        const set1Point = points[0].player1 + '-' + points[0].player2
+        const set1Point = points1['set1'].player1 + '-' + points2['set1'].player2
         csv = set1Point
         for (var i; 1 > i; i++) {
-          if (Number(points[0].player1) > Number(points[0].player2)) {
+          if (Number(points1['set1'].player1) > Number(points2['set1'].player2)) {
             n++
           }
           else {
@@ -94,11 +107,11 @@ export default ({ eid, mid, players }) => {
         break
 
       case 3:
-        csv = points[0].player1 + '-' + points[0].player2 + ',' + points[1].player1 + '-' + points[1].player2 + ',' + points[2].player1 + '-' + points[2].player2
+        csv = points1['set1'].player1 + '-' + points2['set1'].player2 + ',' + points1['set2'].player1 + '-' + points2['set2'].player2 + ',' + points1['set3'].player1 + '-' + points2['set3'].player2 + ',' + points1['set4'].player1 + '-' + points2['set4'].player2 + ',' + points1['set5'].player1 + '-' + points2['set5'].player2
 
 
-        for (i; 3 > i; i++) {
-          if (Number(points[0].player1) > Number(points[0].player2)) {
+        for (i=1; 3 >= i; i++) {
+          if (Number(points1['set'+i.toString()].player1) > Number(points2['set' + i.toString()].player2)) {
             n++
           }
           else {
@@ -109,11 +122,10 @@ export default ({ eid, mid, players }) => {
         break
 
       case 4:
-        csv = points[0].player1 + '-' + points[0].player2 + ',' + points[1].player1 + '-' + points[1].player2 + ',' + points[2].player1 + '-' + points[2].player2 + ',' + points[3].player1 + '-' + points[3].player2
+        csv = points1['set1'].player1 + '-' + points2['set1'].player2 + ',' + points1['set2'].player1 + '-' + points2['set2'].player2 + ',' + points1['set3'].player1 + '-' + points2['set3'].player2 + ',' + points1['set4'].player1 + '-' + points2['set4'].player2 + ',' + points1['set5'].player1 + '-' + points2['set5'].player2
 
-
-        for (i; 4 > i; i++) {
-          if (Number(points[0].player1) > Number(points[0].player2)) {
+        for (i=1; 4 >= i; i++) {
+          if (Number(points1['set'+i.toString()].player1) > Number(points2['set'+i.toString()].player2)) {
             n++
           }
           else {
@@ -125,11 +137,11 @@ export default ({ eid, mid, players }) => {
         break
 
       case 5:
-        csv = points[0].player1 + '-' + points[0].player2 + ',' + points[1].player1 + '-' + points[1].player2 + ',' + points[2].player1 + '-' + points[2].player2 + ',' + points[3].player1 + '-' + points[3].player2 + ',' + points[4].player1 + '-' + points[4].player2
+        csv = points1['set1'].player1 + '-' + points2['set1'].player2 + ',' + points1['set2'].player1 + '-' + points2['set2'].player2 + ',' + points1['set3'].player1 + '-' + points2['set3'].player2 + ',' + points1['set4'].player1 + '-' + points2['set4'].player2 + ',' + points1['set5'].player1 + '-' + points2['set5'].player2
 
 
-        for (i; 5 > i; i++) {
-          if (Number(points[0].player1) > Number(points[0].player2)) {
+        for (i = 1; 5 >= i; i++) {
+          if (Number(points1['set' + i.toString()].player1) > Number(points2['set' + i.toString()].player2)) {
             n++
           }
           else {
@@ -168,18 +180,33 @@ export default ({ eid, mid, players }) => {
     })
 
     // TODO::firestore側に送信する処理(progressを変える、得点を追加)
-    db.collection('events').doc('E001').collection('matchs').doc('M001').collection('point_details').doc('1').update({
-      player1: 11,
-      player2: 5
-    })
-  }
 
-  const handleChange = (e, set, player) => {
-    console.log('points[0] => ', points[1])
-    setPoints(
+    for (var j = 0; setvalue > j; j++){
+      var nj = j + 1
+      db.collection('events').doc('E001').collection('matchs').doc('M001').collection('point_details').doc(nj.toString()).update({
+        'player1':Number(points1['set' + nj.toString()].player1),
+        'player2':Number(points2['set' + nj.toString()].player2) 
+        })
+      }
+    }
+
+  const handleChange1 = (e, set) => {
+    setPoints1(
       {
-        ...points,
-        [set]: {[player]: e.target.value}
+        ...points1,
+        [set]: {
+          player1: e.target.value
+        }
+      }
+    )
+  }
+  const handleChange2 = (e, set) => {
+    setPoints2(
+      {
+        ...points2,
+        [set]: {
+          player2: e.target.value
+        }
       }
     )
   }
@@ -198,7 +225,7 @@ export default ({ eid, mid, players }) => {
             </Grid>
 
             <Grid item xs>
-              {Object.keys(points).map((product, index) => (
+              {Object.keys(points1).map((product, index) => (
                 <>
 
                   <TextField
@@ -206,7 +233,7 @@ export default ({ eid, mid, players }) => {
                     label={index + 1}
                     value={product.player1}
                     type='number'
-                    onChange={(e) => handleChange(e, `set${index + 1}`,'player1')}
+                    onChange={(e) => handleChange1(e, `set${index + 1}`)}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true
@@ -239,13 +266,14 @@ export default ({ eid, mid, players }) => {
             </Grid>
 
             <Grid item container>
-              {Object.keys(points).map((product, index) => (
+              {Object.keys(points2).map((product, index) => (
                 <>
 
                   <TextField
                     id='filled-number'
                     label={index + 1}
                     value={product.player2}
+                    onChange={(e) => handleChange2(e, `set${index + 1}`)}
                     type='number'
                     className={classes.textField}
                     InputLabelProps={{
