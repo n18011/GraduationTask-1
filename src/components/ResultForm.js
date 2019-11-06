@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
   Grid,
@@ -23,6 +23,19 @@ const useStyles = makeStyles(theme => ({
   },
   text: {
     marginTop: theme.spacing(2)
+  },
+  x: {
+    marginTop: theme.spacing(2)
+  },
+  button: {
+    [theme.breakpoints.up('xs')]: {
+      width: '40vh',
+      marginLeft: theme.spacing(3)
+    },
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      width: '80vh',
+      marginLeft: theme.spacing(1)
+    }
   }
 }))
 // VS以外の全てのTypography部にデータが入る
@@ -31,7 +44,7 @@ export default ({ eid, mid, players }) => {
   const [playerId, setPlayerid] = useState()
   const [points1, setPoints1] = useState(
     {
-      set1:  {
+      set1: {
         player1: 0,
       },
       set2: {
@@ -49,7 +62,7 @@ export default ({ eid, mid, players }) => {
     })
   const [points2, setPoints2] = useState(
     {
-      set1:  {
+      set1: {
         player2: 0,
       },
       set2: {
@@ -72,14 +85,14 @@ export default ({ eid, mid, players }) => {
       console.log(res.body)
       console.log(res.body['match'].player1Id)
       setPlayerid({
-        player1Id : res.body['match'].player1Id,
-        player2Id : res.body['match'].player2Id
+        player1Id: res.body['match'].player1Id,
+        player2Id: res.body['match'].player2Id
       })
     })
   }, [])
 
-  const resultSend = () => { // TODO:対戦結果を送信する処理
-    // TODO::challongeAPI側に送信する処理(Matchesのupdate)
+  const resultSend = () => { // 対戦結果を送信する処理
+    // challongeAPI側に送信する処理(Matchesのupdate)
     // '11-9,10-13,11-5,11-4'ようなCSV形式で
 
 
@@ -110,8 +123,8 @@ export default ({ eid, mid, players }) => {
         csv = points1['set1'].player1 + '-' + points2['set1'].player2 + ',' + points1['set2'].player1 + '-' + points2['set2'].player2 + ',' + points1['set3'].player1 + '-' + points2['set3'].player2 + ',' + points1['set4'].player1 + '-' + points2['set4'].player2 + ',' + points1['set5'].player1 + '-' + points2['set5'].player2
 
 
-        for (i=1; 3 >= i; i++) {
-          if (Number(points1['set'+i.toString()].player1) > Number(points2['set' + i.toString()].player2)) {
+        for (i = 1; 3 >= i; i++) {
+          if (Number(points1['set' + i.toString()].player1) > Number(points2['set' + i.toString()].player2)) {
             n++
           }
           else {
@@ -124,8 +137,8 @@ export default ({ eid, mid, players }) => {
       case 4:
         csv = points1['set1'].player1 + '-' + points2['set1'].player2 + ',' + points1['set2'].player1 + '-' + points2['set2'].player2 + ',' + points1['set3'].player1 + '-' + points2['set3'].player2 + ',' + points1['set4'].player1 + '-' + points2['set4'].player2 + ',' + points1['set5'].player1 + '-' + points2['set5'].player2
 
-        for (i=1; 4 >= i; i++) {
-          if (Number(points1['set'+i.toString()].player1) > Number(points2['set'+i.toString()].player2)) {
+        for (i = 1; 4 >= i; i++) {
+          if (Number(points1['set' + i.toString()].player1) > Number(points2['set' + i.toString()].player2)) {
             n++
           }
           else {
@@ -179,16 +192,16 @@ export default ({ eid, mid, players }) => {
       }
     })
 
-    // TODO::firestore側に送信する処理(progressを変える、得点を追加)
+    // firestore側に送信する処理(progressを変える、得点を追加)
 
-    for (var j = 0; setvalue > j; j++){
+    for (var j = 0; setvalue > j; j++) {
       var nj = j + 1
       db.collection('events').doc('E001').collection('matchs').doc('M001').collection('point_details').doc(nj.toString()).update({
-        'player1':Number(points1['set' + nj.toString()].player1),
-        'player2':Number(points2['set' + nj.toString()].player2) 
-        })
-      }
+        'player1': Number(points1['set' + nj.toString()].player1),
+        'player2': Number(points2['set' + nj.toString()].player2)
+      })
     }
+  }
 
   const handleChange1 = (e, set) => {
     setPoints1(
@@ -212,96 +225,77 @@ export default ({ eid, mid, players }) => {
   }
   return (
     <>
-      <Grid container alignItems='center' justify='center'>
+      <Paper>
 
-        <Grid item xs container direction='column' justify='center'>
+        <Grid container justify='center'>
+          <Grid item xs>
+            <Typography variant='h5' align='center' className={classes.text}>
+              {players ? players.player1 : 'unko'}
+            </Typography>
 
-          <Paper>
+            {Object.keys(points1).map((product, index) => (
+              <>
 
-            <Grid item xs>
-              <Typography variant='h5' align='center' className={classes.text}>
-                {players ? players.player1 : 'unko'}
-              </Typography>
-            </Grid>
+                <TextField
+                  id='filled-number'
+                  label={index + 1}
+                  value={product.player1}
+                  type='number'
+                  onChange={(e) => handleChange1(e, `set${index + 1}`)}
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  margin='normal'
+                />
+              </>
+            ))
+            }
+            <Typography variant='h5' align='center' gutterBottom>0</Typography>
+          </Grid>
 
-            <Grid item xs>
-              {Object.keys(points1).map((product, index) => (
-                <>
+          <Grid item md={1} xs={1}>
+            <Typography variant='h4' className={classes.x}>X</Typography>
+          </Grid>
 
-                  <TextField
-                    id='filled-number'
-                    label={index + 1}
-                    value={product.player1}
-                    type='number'
-                    onChange={(e) => handleChange1(e, `set${index + 1}`)}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true
-                    }}
-                    margin='normal'
-                  />
-                </>
-              ))
-              }
-            </Grid>
+          <Grid item xs>
+            <Typography variant='h5' align='center' className={classes.text}>
+              {players ? players.player2 : ''}
+            </Typography>
 
-            <Grid item xs>
-              <Typography variant='h5' align='center' gutterBottom>0</Typography>
-            </Grid>
+            {Object.keys(points2).map((product, index) => (
+              <>
 
-          </Paper>
-        </Grid>
+                <TextField
+                  id='filled-number'
+                  label={index + 1}
+                  value={product.player2}
+                  onChange={(e) => handleChange2(e, `set${index + 1}`)}
+                  type='number'
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  margin='normal'
+                />
+              </>
+            ))
+            }
 
-        <Grid item xs={1}>
-          <Typography variant='h4' align='center'>X</Typography>
-        </Grid>
+            <Typography variant='h5' align='center' gutterBottom>0</Typography>
+          </Grid>
 
-        <Grid item xs container direction='column'>
-          <Paper>
-
-            <Grid item xs>
-              <Typography variant='h5' align='center' className={classes.text}>
-                {players ? players.player2 : ''}
-              </Typography>
-            </Grid>
-
-            <Grid item container>
-              {Object.keys(points2).map((product, index) => (
-                <>
-
-                  <TextField
-                    id='filled-number'
-                    label={index + 1}
-                    value={product.player2}
-                    onChange={(e) => handleChange2(e, `set${index + 1}`)}
-                    type='number'
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true
-                    }}
-                    margin='normal'
-                  />
-                </>
-              ))
-              }
-            </Grid>
-
-            <Grid item xs>
-              <Typography variant='h5' align='center' gutterBottom>0</Typography>
-            </Grid>
-
-          </Paper>
-
+          <Grid item md={11} xs={11}>
+            <Button
+              className={classes.button}
+              variant='contained'
+              color='primary'
+              onClick={() => resultSend()}
+            >得点入力</Button>
+          </Grid>
 
         </Grid>
-
-      </Grid>
-
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={() => resultSend()}
-          >得点入力</Button>
+      </Paper>
     </>
   )
 }
