@@ -46,12 +46,14 @@ export default ({ eid, mid, players }) => {
       },
     ])
 
-  const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
-  request.get(url).end((err, res) => {
-    console.log(res.body['match'].player1Id)
-    setPlayerid({
-      player1Id : res.body['match'].player1Id,
-      player2Id : res.body['match'].player2Id
+  useEffect(() => {
+    const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/n18011no5/matches/178670634`
+    request.get(url).end((err, res) => {
+      console.log(res.body['match'].player1Id)
+      setPlayerid({
+        player1Id : res.body['match'].player1Id,
+        player2Id : res.body['match'].player2Id
+      })
     })
   })
 
