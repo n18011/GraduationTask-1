@@ -9,8 +9,3 @@
 その負担を少しでも取り除き今までより滑らかな進行をここで可能にして見せましょう。  
 
 Parimaは従来の大会運営に革命をもたらします...。
-
-
-## TODOリスト
-
-- src/components/ResultForm.js 54行目のfirestoreの処理
