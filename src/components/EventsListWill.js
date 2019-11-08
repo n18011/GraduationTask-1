@@ -62,7 +62,8 @@ export default ({ cards, button, pid }) => {
     const array = []
     const getInfourl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/matches`
 
-    request.get(getInfourl).end((err, res) => {
+    const twoloop = () => {
+      request.get(getInfourl).end((err, res) => {
       console.log(res.body)
       for (var i = 0; Object.keys(res.body).length > i; i++) {
         console.log(res.body[i].match.id)
@@ -77,6 +78,9 @@ export default ({ cards, button, pid }) => {
         })
       }
     })
+  }
+  twoloop()
+  twoloop()
   }
 
   return (
