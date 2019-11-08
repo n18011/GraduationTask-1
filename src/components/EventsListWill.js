@@ -64,23 +64,71 @@ export default ({ cards, button, pid }) => {
 
     const twoloop = () => {
       request.get(getInfourl).end((err, res) => {
-      console.log(res.body)
-      for (var i = 0; Object.keys(res.body).length > i; i++) {
-        console.log(res.body[i].match.id)
-        array.push(res.body[i].match.id)
-      }
+        console.log(res.body)
+        for (var i = 0; Object.keys(res.body).length > i; i++) {
+          console.log(res.body[i])
+          array.push(res.body[i].match.id)
+        }
 
-      for (var n = 0; array.length > n; n++) {
-        console.log(id)
-        db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).collection('point_details').doc('1').set({
-          'player1':0,
-          'player2':0
-        })
-      }
-    })
-  }
-  twoloop()
-  twoloop()
+        for (var n = 0; array.length > n; n++) {
+          console.log(id)
+          db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).collection('point_details').doc('1').set({
+            'player1':0,
+            'player2':0
+          })
+        }
+
+
+        for (n = 0; array.length/2 > n; n++) {
+          console.log(res.body[n])
+            
+          const getnameurl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/`+res.body[n].match.player1Id
+          const getname2url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/`+res.body[n].match.player2Id
+          
+          request.get(getnameurl).end((err, res) => {
+            var n = 0
+            console.log(res.body)
+            while (array.length/2 > n){
+              db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).set({
+              'players': {
+                'player1': res.body.participant.name,
+              },
+
+              'round': 0,
+
+              'match_status': {
+                'abstention': false,
+                'nonprogress': false,
+                'progresed': false,
+                'progress': false
+              }
+            })
+            n++
+            }
+        }) 
+
+          request.get(getname2url).end((err, res) => {
+            var n = 0
+            console.log(res.body)
+            while (array.length/2 > n){
+            db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).set({
+              'players': {
+                'player2': res.body.participant.name,
+              }
+            }, {merge: true})
+            n++
+            }
+            
+          }) 
+        
+        } 
+      
+      })
+    }
+
+    await twoloop()
+    await twoloop()
+
   }
 
   return (
