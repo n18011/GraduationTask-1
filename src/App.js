@@ -2,7 +2,8 @@ import React from 'react'
 
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom'
 
 import {
@@ -57,6 +58,10 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+const NotFound = () => {
+  return (<h2>ページが見つかりません</h2>)
+}
+
 export default () => {
   const classes = useStyles()
   return (
@@ -74,6 +79,7 @@ export default () => {
               <Box borderRadius='borderRadius' border={3} borderColor='grey.100'>
 
                 <main className={classes.layout}>
+                  <Switch>
                   <Route exact path='/' component={Top} />
                   <Route exact path='/login' component={Login} />
                   <Route exact path='/divide' component={Divide} />
@@ -90,6 +96,8 @@ export default () => {
                   <Route exact path='/admin/:aid' component={AdminHome} />
                   <Route exact path='/admin/:aid/input' component={AdminApply} />
                   <Route exact path='/admin/:aid/change' component={AdminChange} />
+                  <Route component={NotFound} />
+                  </Switch>
                 </main>
               </Box>
             </Grid>
