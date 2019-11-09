@@ -9,19 +9,35 @@ import {
   Toolbar,
   Typography,
   CssBaseline,
+  Fab,
   Link,
   List,
   ListItem,
   ListItemText,
   Drawer,
   IconButton,
-  Button
+  Button,
+  Zoom,
+useScrollTrigger
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 
 const useStyles = makeStyles(theme => ({
   bar: {
     background: 'linear-gradient(45deg, #77bb88 30%, #77bbdd 90%)'
+  },
+  fab : {
+    color: 'white',
+    backgroundColor: '#77bbdd',
+    '&:hover': {
+      backgroundColor: '#77bb88'
+    }
+  },
+  div: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2)
   },
   title: {
     flex: 1
@@ -92,6 +108,32 @@ const links = [
     title: 'adminchange'
   }
 ]
+const ScrollTop = props => {
+  const { children, window } = props
+  const classes = useStyles()
+
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = event => {
+    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor')
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }
+
+  return (
+    <Zoom in={trigger}>
+    <div onClick={handleClick} role='presentation' className={classes.div}>
+      {children}
+    </div>
+</Zoom>
+  )
+}
 
 export default () => {
   const classes = useStyles()
@@ -127,8 +169,9 @@ export default () => {
   )
   return (
     <>
+      <CssBaseline />
       <AppBar position='relative' className={classes.bar}>
-        <Toolbar>
+        <Toolbar id='back-to-top-anchor'>
           <IconButton
             color='inherit'
             aria-label='menu'
@@ -151,10 +194,14 @@ export default () => {
           </Button>
         </Toolbar>
       </AppBar>
-      <CssBaseline />
       <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
         {sideList('left')}
       </Drawer>
+      <ScrollTop>
+        <Fab  className={classes.fab} size='small' aria-label='scroll back to top'>
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </>
   )
 }

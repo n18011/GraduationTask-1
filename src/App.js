@@ -55,6 +55,9 @@ const useStyles = makeStyles(theme => ({
       marginLeft: 'auto',
       marginRight: 'auto'
     }
+  },
+  footer: {
+    maginBottom: theme.spacing(6)
   }
 }))
 
@@ -104,7 +107,7 @@ export default () => {
 
             <Grid item className={classes.right} md={2} xs />
           </Grid>
-          <footer className={classes.footer} />
+          <footer className={classes.footer}>2019 created by Parima</footer>
         </div>
       </Router>
 
