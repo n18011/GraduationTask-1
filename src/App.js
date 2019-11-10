@@ -48,6 +48,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.default
   },
   container: {
+    padding: 0
   },
   box: {
     backgroundColor: theme.palette.background.default,

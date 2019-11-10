@@ -4,12 +4,33 @@ import { db } from '../Firebase'
 import {
   Grid,
   Link,
+  Fab,
   Typography
 } from '@material-ui/core'
+import CreateIcon from '@material-ui/icons/Create';
 
 import EventsCard from '../components/EventsCard' // propsで開催状況データを入力
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  fab: {
+        color: 'white',
+        backgroundColor: '#77bbdd',
+        '&:hover': {
+            backgroundColor: '#77bb88'
+        }
+  },
+    div: {
+        position: 'fixed',
+        [theme.breakpoints.up('md')]: {
+        bottom: '50%',
+        right: theme.spacing(8),
+        }
+    },
+}))
 
 export default ({ match }) => {
+  const classes = useStyles()
   const PID = match.params.pid
   const notholdPath = `/player/${PID}/nothold`
   const [nowevents, setNevents] = useState([])
@@ -79,6 +100,11 @@ export default ({ match }) => {
           </Typography>
         </Grid>
       </Grid>
+      <div className={classes.div} role='presentation' >
+      <Fab className={classes.fab}>
+        <CreateIcon></CreateIcon>
+      </Fab>
+</div>
     </>
   )
 }
