@@ -16,11 +16,10 @@ import {
   Button,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-
-import { AuthProvider } from './components/Auth'
 import { makeStyles } from '@material-ui/core/styles'
 
-
+import { AuthProvider } from './components/Auth'
+import links from './links'
 import Routing from './Routing'
 import ScrollTop from './components/ScrollTop'
 
@@ -32,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   header: {
   },
   bar: {
-    background: 'linear-gradient(45deg, #77bb88 30%, #77bbdd 90%)'
+    background: 'linear-gradient(45deg, #77bb88 60%, #77bbdd 100%)'
   },
   title: {
     flex: 1
@@ -59,64 +58,6 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const links = [
-  {
-    link: '/',
-    title: 'Top'
-  },
-  {
-    link: '/login',
-    title: 'Login'
-  },
-  {
-    link: '/divide',
-    title: 'divede'
-  },
-  {
-    link: '/events/:eid/matchs/:mid',
-    title: 'result'
-  },
-  {
-    link: '/held',
-    title: 'held'
-  },
-  {
-    link: '/player/:pid',
-    title: 'playerhome'
-  },
-  {
-    link: '/nothold',
-    title: 'nothold'
-  },
-  {
-    link: '/events/:eid/apply',
-    title: 'playerapply'
-  },
-  {
-    link: '/player/:pid/join',
-    title: 'join'
-  },
-  {
-    link: '/events/:eid/matchs/:mid/users/:uid',
-    title: 'playerresult'
-  },
-  {
-    link: '/player/:pid/delete',
-    title: 'playerdelete'
-  },
-  {
-    link: '/admin/:aid',
-    title: 'adminhome'
-  },
-  {
-    link: '/admin/:aid/input',
-    title: 'adminapply'
-  },
-  {
-    link: '/admin/:aid/change',
-    title: 'adminchange'
-  }
-]
 
 
 export default () => {
