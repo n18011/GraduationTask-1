@@ -87,38 +87,37 @@ export default ({ cards, button, pid }) => {
           
           request.get(getnameurl).end((err, res) => {
             var n = 0
-            console.log(res.body)
+            console.log(res.body.participant)
             while (array.length/2 > n){
               db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).set({
-              'players': {
-                'player1': res.body.participant.name,
-              },
+                'players': {
+                  'player1': res.body.participant.name,
+                },
 
-              'round': 0,
+                'round': 0,
 
-              'match_status': {
-                'abstention': false,
-                'nonprogress': false,
-                'progresed': false,
-                'progress': false
-              }
-            })
-            n++
+                'match_status': {
+                  'abstention': false,
+                  'nonprogress': false,
+                  'progresed': false,
+                  'progress': false
+                }
+              })
+              n++
             }
-        }) 
+          }) 
 
           request.get(getname2url).end((err, res) => {
             var n = 0
             console.log(res.body)
             while (array.length/2 > n){
-            db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).set({
-              'players': {
-                'player2': res.body.participant.name,
-              }
-            }, {merge: true})
+              db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).set({
+                'players': {
+                  'player2': res.body.participant.name,
+                }
+              }, {merge: true})
             n++
             }
-            
           }) 
         
         } 
