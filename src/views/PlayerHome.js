@@ -7,26 +7,26 @@ import {
   Fab,
   Typography
 } from '@material-ui/core'
-import CreateIcon from '@material-ui/icons/Create';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import EventsCard from '../components/EventsCard' // propsで開催状況データを入力
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   fab: {
-        color: 'white',
-        backgroundColor: '#77bbdd',
-        '&:hover': {
-            backgroundColor: '#77bb88'
-        }
+    color: 'white',
+    backgroundColor: '#77bbdd',
+    '&:hover': {
+      backgroundColor: '#77bb88'
+    }
   },
-    div: {
-        position: 'fixed',
-        [theme.breakpoints.up('md')]: {
-        bottom: '50%',
-        right: theme.spacing(8),
-        }
-    },
+  div: {
+    position: 'fixed',
+    [theme.breakpoints.up('md')]: {
+      bottom: '50%',
+      right: theme.spacing(8),
+    }
+  },
 }))
 
 export default ({ match }) => {
@@ -70,7 +70,7 @@ export default ({ match }) => {
       <Grid container direction='column' spacing={3} item md={10}>
         <Grid item >
           <Typography variant='h4'>
-        開催中大会
+            開催中大会
           </Typography>
         </Grid>
         <Grid item>
@@ -78,7 +78,7 @@ export default ({ match }) => {
         </Grid>
         <Grid item>
           <Typography variant='h4'>
-      申し込み中の大会
+            申し込み中の大会
           </Typography>
         </Grid>
         <Grid item>
@@ -100,11 +100,12 @@ export default ({ match }) => {
           </Typography>
         </Grid>
       </Grid>
+
       <div className={classes.div} role='presentation' >
-      <Fab className={classes.fab}>
-        <CreateIcon></CreateIcon>
-      </Fab>
-</div>
+        <Fab className={classes.fab} href={notholdPath}>
+          <PersonAddIcon />
+        </Fab>
+      </div>
     </>
   )
 }
