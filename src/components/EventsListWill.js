@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { db } from '../Firebase.js'
 
 import request from 'superagent'
@@ -14,6 +14,7 @@ import {
   TableCell
 } from '@material-ui/core'
 
+
 /* const createData = (name, time, place) => {
   return { name, time, place }
 } */
@@ -26,8 +27,11 @@ import {
 
 // 開催済み大会一覧
 export default ({ cards, button, pid }) => {
+
   const handleClickStart = async (id) => {
+    
     // challongeのトーナメント表をランダムにする
+
     const randomize = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/randomize`
     await request.post(randomize).end((err, res) => {
       if (err) {
@@ -36,6 +40,7 @@ export default ({ cards, button, pid }) => {
         console.log(res.body)
       }
     })
+    
     // challongeのトーナメントを開始する処理
     const start = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/start`
     await request.post(start).end((err, res) => {
@@ -58,77 +63,68 @@ export default ({ cards, button, pid }) => {
         )
       }
     )
-
-    const array = []
+    
     const getInfourl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/matches`
 
-    const twoloop = () => {
-      request.get(getInfourl).end((err, res) => {
-        console.log(res.body)
-        for (var i = 0; Object.keys(res.body).length > i; i++) {
-          console.log(res.body[i])
-          array.push(res.body[i].match.id)
-        }
+    request.get(getInfourl).end((err, res) => {
 
-        for (var n = 0; array.length > n; n++) {
-          console.log(id)
-          db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).collection('point_details').doc('1').set({
-            'player1':0,
-            'player2':0
+      const nom = Object.keys(res.body).length // Number of Matches
+
+      const arrMatchid = []
+
+      for (var i = 0; nom > i; i++){
+        arrMatchid.push(res.body[i].match.id)
+      }
+
+      for (i = 0; nom > i; i++){
+        db.collection('events').doc(id).collection('matchs').doc(arrMatchid[i].toString()).collection('point_details').doc('1').set({
+          'player1':0,
+          'player2':0
+        })
+      }
+
+      for (var n = 0; nom > n; n++){
+        const MID = res.body[n].match.id
+        console.log(MID)
+        const P1Id = res.body[n].match.player1Id
+        const P2Id = res.body[n].match.player2Id
+
+        if (P1Id === null){
+          ;
+        } else {
+          const getnameurl1 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/`+P1Id
+
+          request.get(getnameurl1).end((err, res) => {
+            const addName = res.body.participant.name
+
+
+            db.collection('events').doc(id).collection('matchs').doc(MID.toString()).set({
+              'players': {
+                'player1':addName
+              }
+            }) 
           })
         }
 
+        if (P2Id === null){
+          ;
+        } else {
+          const getnameurl2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/`+P2Id
 
-        for (n = 0; array.length/2 > n; n++) {
-          console.log(res.body[n])
-            
-          const getnameurl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/`+res.body[n].match.player1Id
-          const getname2url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/`+res.body[n].match.player2Id
-          
-          request.get(getnameurl).end((err, res) => {
-            var n = 0
-            console.log(res.body.participant)
-            while (array.length/2 > n){
-              db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).set({
-                'players': {
-                  'player1': res.body.participant.name,
-                },
+          request.get(getnameurl2).end((err, res) => {
+            const addName = res.body.participant.name
 
-                'round': 0,
 
-                'match_status': {
-                  'abstention': false,
-                  'nonprogress': false,
-                  'progresed': false,
-                  'progress': false
-                }
-              })
-              n++
-            }
-          }) 
-
-          request.get(getname2url).end((err, res) => {
-            var n = 0
-            console.log(res.body)
-            while (array.length/2 > n){
-              db.collection('events').doc(id).collection('matchs').doc(array[n].toString()).set({
-                'players': {
-                  'player2': res.body.participant.name,
-                }
-              }, {merge: true})
-            n++
-            }
-          }) 
-        
-        } 
-      
-      })
-    }
-
-    await twoloop()
-    await twoloop()
-
-  }
+            db.collection('events').doc(id).collection('matchs').doc(MID.toString()).set({
+              'players': {
+                'player2': addName
+              }
+            }, {merge:true}) 
+          })
+        }
+      }
+    })
+  } 
 
   return (
     <>
