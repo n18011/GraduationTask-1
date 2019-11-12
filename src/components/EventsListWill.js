@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { db } from '../Firebase.js'
 
 import request from 'superagent'
@@ -100,7 +100,16 @@ export default ({ cards, button, pid }) => {
 
             db.collection('events').doc(id).collection('matchs').doc(MID.toString()).set({
               'players': {
-                'player1': addName
+                'player1':addName
+              },
+              
+              'round': 0,
+
+              'match_status': {
+                'abstention': false,
+                'nonprogress': false,
+                'progresed': false,
+                'progress': false,
               }
             })
           })
