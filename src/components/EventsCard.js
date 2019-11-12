@@ -71,18 +71,16 @@ export default ({ cards, button }) => {
                   <CardHeader className={classes.head} />
                   <CardContent className={classes.content}>
                     <Grid container direction='column'>
-                      <Grid container item xs>
-                        <Grid item xs={12}>
-                          <Typography className={classes.title} variant='h5' gutterBottom>{card.id}</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Typography color='textSecondary'>日時</Typography>
-                          <Typography variant='body2'>{data}</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Typography color='textSecondary'>場所</Typography>
-                          <Typography variant='body2' >{card.where}</Typography>
-                        </Grid>
+                      <Grid item xs={12}>
+                        <Typography className={classes.title} variant='h5' gutterBottom>{card.id}</Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography color='textSecondary'>日時</Typography>
+                        <Typography variant='body2'>{data}</Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography color='textSecondary'>場所</Typography>
+                        <Typography variant='body2' >{card.where}</Typography>
                       </Grid>
                     </Grid>
                   </CardContent>

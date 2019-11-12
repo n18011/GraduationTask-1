@@ -15,11 +15,13 @@ import EventsListWill from '../components/EventsListWill' // propsに開催予�
 
 const useStyles = makeStyles(theme => ({
   button: {
-    marginLeft: '65%',
     color: 'white',
     backgroundColor: '#77bbdd',
     '&:hover': {
       backgroundColor: '#77bb88'
+    },
+    [theme.breakpoints.up('md')]: {
+      marginLeft: '65%',
     }
   },
   div: {
@@ -98,15 +100,15 @@ export default ({ match }) => {
           />
         </Grid>
 
-        <Grid item container justify='center' xs>
+        <Grid item container spacing={2} justify='center' xs>
 
-          <Grid item md={6} xs>
+          <Grid item md={6} xs={12}>
             <Typography variant='h4'>
               大会開催予定一覧
           </Typography>
           </Grid>
 
-          <Grid item md={6} xs>
+          <Grid item md={6} xs={12}>
             <Button
               className={classes.button}
               variant='contained'
