@@ -4,7 +4,6 @@ import { db } from '../Firebase'
 import {
   Grid,
   Fab,
-  Link,
   Button,
   Typography
 } from '@material-ui/core'
@@ -99,23 +98,23 @@ export default ({ match }) => {
           />
         </Grid>
 
-        <Grid item container  justify='center' xs>
+        <Grid item container justify='center' xs>
 
           <Grid item md={6} xs>
-          <Typography variant='h4'>
-            大会開催予定一覧
+            <Typography variant='h4'>
+              大会開催予定一覧
           </Typography>
-</Grid>
+          </Grid>
 
           <Grid item md={6} xs>
-          <Button 
-          className={classes.button}
-          variant='contained'
-          href={inputPath}
-          >
-            大会開催申請
+            <Button
+              className={classes.button}
+              variant='contained'
+              href={inputPath}
+            >
+              大会開催申請
           </Button>
-</Grid>
+          </Grid>
 
         </Grid>
 
