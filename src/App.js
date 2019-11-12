@@ -1,113 +1,155 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch
-} from 'react-router-dom'
-
-import {
-  Grid,
+  Container,
+  Box,
+  AppBar,
+  Toolbar,
+  Typography,
   CssBaseline,
-  Box
+  Link,
+  List,
+  ListItem,
+  ListItemText,
+  Drawer,
+  IconButton,
+  Button,
 } from '@material-ui/core'
-
-import { AuthProvider } from './components/Auth'
+import MenuIcon from '@material-ui/icons/Menu'
 import { makeStyles } from '@material-ui/core/styles'
 
-import Header from './components/Header'
-import Top from './views/Top'
-import Login from './views/Login'
-import Divide from './views/Divide'
-import Events from './views/Events'
-import Event from './views/Event'
-import Result from './views/Result'
-import Held from './views/Held'
-import PlayerHome from './views/PlayerHome'
-import NotHold from './views/NotHold'
-import PlayerApply from './views/PlayerApply'
-import Join from './views/Join'
-import PlayerResult from './views/PlayerResult'
-import PlayerDelete from './views/PlayerDelete'
-import AdminHome from './views/AdminHome'
-import AdminApply from './views/AdminApply'
-import AdminChange from './views/AdminChange'
+import { AuthProvider } from './components/Auth'
+import links from './links'
+import Routing from './Routing'
+import ScrollTop from './components/ScrollTop'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: 'white',
-    minHeight: '100vh'
+    backgroundColor: theme.palette.background.paper
   },
+  // header Styles
+  header: {
+  },
+  bar: {
+    background: 'linear-gradient(45deg, #77bb88 60%, #77bbdd 100%)'
+  },
+  title: {
+    flex: 1
+  },
+  link: {
+    margin: theme.spacing(1, 1.5),
+    '&:hover': {
+      borderColor: '#77bb88',
+      backgroundColor: '#77bb88'
+    }
+  },
+  // main Styles
   main: {
     backgroundColor: theme.palette.background.default
   },
-  layout: {
-    width: 'auto',
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(4),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      minHeight: '100vh',
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    }
+  container: {
+    padding: 0
+  },
+  box: {
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(4)
+  },
+  // footer Styles
+  footer: {
+  },
+  text: {
+    marginTop: theme.spacing(5)
   }
 }))
 
-const NotFound = () => {
-  return (<h2>ページが見つかりません</h2>)
-}
+
 
 export default () => {
   const classes = useStyles()
+  const [state, setState] = useState({
+    left: false
+  })
+
+  const toggleDrawer = (side, open) => event => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return
+    }
+
+    setState({ ...state, [side]: open })
+  }
+
+  const sideList = side => (
+    <div
+      className={classes.list}
+      role='presentation'
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}
+    >
+      <List>
+        {links.map((text, index) => (
+          <Link color='inherit' href={text.link} underline='none'>
+            <ListItem button key={text.title}>
+              <ListItemText primary={text.title} />
+            </ListItem>
+          </Link>
+        ))}
+      </List>
+    </div>
+  )
+
   return (
     <AuthProvider>
+      <div className={classes.root}>
+        <CssBaseline />
 
-      <Router>
-        <div className={classes.root}>
-          <CssBaseline />
-          <Header />
+        <header className={classes.header}>
+          <AppBar className={classes.bar}>
+            <Toolbar >
+              <IconButton
+                color='inherit'
+                aria-label='menu'
+                edge='start'
+                onClick={toggleDrawer('left', true)}
+              >
+                <MenuIcon />
+              </IconButton>
 
-          <Grid container>
-            <Grid item xs className={classes.left} md={2} />
+              <Typography variant='h4' color='inherit' className={classes.title} noWrap>
+                Parima
+          </Typography>
 
-            <Grid item className={classes.main} xs={12} md>
-              <Box borderRadius='borderRadius' border={3} borderColor='grey.100'>
+              <Button href='/player/:pid' color='inherit' variant='outlined' className={classes.link}>
+                選手
+          </Button>
 
-                <main className={classes.layout}>
-                  <Switch>
-                  <Route exact path='/' component={Top} />
-                  <Route exact path='/login' component={Login} />
-                  <Route exact path='/divide' component={Divide} />
-                  <Route exact path='/events' component={Events} />
-                  <Route exact path='/events/:eid' component={Event} />
-                  <Route exact path='/events/:eid/matchs/:mid' component={Result} />
-                  <Route exact path='/held' component={Held} />
-                  <Route exact path='/player/:pid' component={PlayerHome} />
-                  <Route exact path='/player/:pid/nothold' component={NotHold} />
-                  <Route exact path='/events/:eid/player/:pid/apply' component={PlayerApply} />
-                  <Route exact path='/player/:pid/join' component={Join} />
-                  <Route exact path='/events/:eid/matchs/:mid/users/:uid' component={PlayerResult} />
-                  <Route exact path='/player/:pid/delete' component={PlayerDelete} />
-                  <Route exact path='/admin/:aid' component={AdminHome} />
-                  <Route exact path='/admin/:aid/input' component={AdminApply} />
-                  <Route exact path='/admin/:aid/change' component={AdminChange} />
-                  <Route component={NotFound} />
-                  </Switch>
-                </main>
-              </Box>
-            </Grid>
+              <Button href='/admin/:aid' color='inherit' variant='outlined' className={classes.link}>
+                主催者
+          </Button>
+            </Toolbar>
+          </AppBar>
+          <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
+            {sideList('left')}
+          </Drawer>
+          <Toolbar id='back-to-top-anchor' />
+        </header>
 
-            <Grid item className={classes.right} md={2} xs />
-          </Grid>
-          <footer className={classes.footer} />
-        </div>
-      </Router>
+        <main>
+          <Container maxWidth='md' className={classes.container} fixed>
+            <Box borderRadius='borderRadius' border={3} borderColor='grey.100' className={classes.box}>
+              <Routing />
+            </Box>
+          </Container>
+        </main>
 
+        <ScrollTop />
+
+        <footer className={classes.footer}>
+          <Typography variant='subtitle1' color='textSecondary' align='center' className={classes.text}>
+            2019 created by Parima
+        </Typography>
+        </footer>
+
+      </div>
     </AuthProvider>
   )
 }

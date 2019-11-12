@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { db } from '../Firebase.js'
 
 import request from 'superagent'
@@ -29,7 +29,7 @@ import {
 export default ({ cards, button, pid }) => {
 
   const handleClickStart = async (id) => {
-    
+
     // challongeのトーナメント表をランダムにする
 
     const randomize = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/randomize`
@@ -40,7 +40,7 @@ export default ({ cards, button, pid }) => {
         console.log(res.body)
       }
     })
-    
+
     // challongeのトーナメントを開始する処理
     const start = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/start`
     await request.post(start).end((err, res) => {
@@ -63,7 +63,7 @@ export default ({ cards, button, pid }) => {
         )
       }
     )
-    
+
     const getInfourl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/matches`
 
     request.get(getInfourl).end((err, res) => {
@@ -72,27 +72,27 @@ export default ({ cards, button, pid }) => {
 
       const arrMatchid = []
 
-      for (var i = 0; nom > i; i++){
+      for (var i = 0; nom > i; i++) {
         arrMatchid.push(res.body[i].match.id)
       }
 
-      for (i = 0; nom > i; i++){
+      for (i = 0; nom > i; i++) {
         db.collection('events').doc(id).collection('matchs').doc(arrMatchid[i].toString()).collection('point_details').doc('1').set({
-          'player1':0,
-          'player2':0
+          'player1': 0,
+          'player2': 0
         })
       }
 
-      for (var n = 0; nom > n; n++){
+      for (var n = 0; nom > n; n++) {
         const MID = res.body[n].match.id
         console.log(MID)
         const P1Id = res.body[n].match.player1Id
         const P2Id = res.body[n].match.player2Id
 
-        if (P1Id === null){
+        if (P1Id === null) {
           ;
         } else {
-          const getnameurl1 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/`+P1Id
+          const getnameurl1 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/` + P1Id
 
           request.get(getnameurl1).end((err, res) => {
             const addName = res.body.participant.name
@@ -111,14 +111,14 @@ export default ({ cards, button, pid }) => {
                 'progresed': false,
                 'progress': false,
               }
-            }) 
+            })
           })
         }
 
-        if (P2Id === null){
+        if (P2Id === null) {
           ;
         } else {
-          const getnameurl2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/`+P2Id
+          const getnameurl2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/` + P2Id
 
           request.get(getnameurl2).end((err, res) => {
             const addName = res.body.participant.name
@@ -128,12 +128,12 @@ export default ({ cards, button, pid }) => {
               'players': {
                 'player2': addName
               }
-            }, {merge:true}) 
+            }, { merge: true })
           })
         }
       }
     })
-  } 
+  }
 
   return (
     <>
