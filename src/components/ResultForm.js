@@ -202,7 +202,7 @@ export default ({ eid, mid, players }) => {
 
     for (var j = 0; setvalue > j; j++) {
       var nj = j + 1
-      db.collection('events').doc('E001').collection('matchs').doc('M001').collection('point_details').doc(nj.toString()).update({
+      db.collection('events').doc(eid).collection('matchs').doc(mid).collection('point_details').doc(nj.toString()).update({
         'player1': Number(points1['set' + nj.toString()].player1),
         'player2': Number(points2['set' + nj.toString()].player2)
       })
