@@ -33,9 +33,12 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2)
   },
   button: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.up('xs')]: {
     paddingLeft: '47%',
     paddingRight: '47%',
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: '80vh'
     },
     [theme.breakpoints.up('md')]: {
       width: '100vh'
@@ -228,7 +231,7 @@ export default ({ eid, mid, players }) => {
   }
   return (
     <>
-    <Grid container direction='column'>
+    <Grid container direction='column' justify='center' alignItems='center'>
 
       <Grid item xs>
       <Paper className={classes.paper}>
