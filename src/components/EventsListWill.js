@@ -99,9 +99,9 @@ export default ({ cards, button, pid }) => {
 
             db.collection('events').doc(id).collection('matchs').doc(MID.toString()).set({
               'players': {
-                'player1':addName
+                'player1': addName
               }
-            }, {merge: true})
+            }, { merge: true })
           })
         }
 
@@ -122,7 +122,7 @@ export default ({ cards, button, pid }) => {
 
               'round': 1,
 
-              'match_status':{
+              'match_status': {
                 'abstention': false,
                 'nonprogress': false,
                 'progresed': false,
