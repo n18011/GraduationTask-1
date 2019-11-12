@@ -19,7 +19,26 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       boxShadow: '0 4px 6px 2px rgba(100, 105, 105, .3)'
     }
-  }
+  },
+  head: {
+    background: 'linear-gradient(45deg, #77bb88 60%, #77bbdd 100%)',
+    padding: '3px'
+  },
+  content: {
+    paddingTop: 0,
+    paddingBottom: 0
+  },
+  title: {
+    marginTop: theme.spacing(1)
+  },
+  actions: {
+    paddingTop: 0
+  },
+  button: {
+    '&:hover': {
+      backgroundColor: '#77bbdd'
+    }
+  },
 }))
 
 export default ({ cards, button }) => {
@@ -46,13 +65,16 @@ export default ({ cards, button }) => {
           const data = JSON.stringify(card.when.toDate()).slice(1, 11)
           const path = '/events/' + card.id
           return (
-            <Grid item key={card.id} md={6} xs={6}>
+            <Grid item key={card.id} md={4} xs={6}>
               <Card className={classes.card}>
                 <Link href={path} color='inherit'>
-                  <CardHeader title={card.id} />
-                  <CardContent >
+                  <CardHeader className={classes.head} />
+                  <CardContent className={classes.content}>
                     <Grid container direction='column'>
                       <Grid container item xs>
+                        <Grid item xs={12}>
+                          <Typography className={classes.title} variant='h5' gutterBottom>{card.id}</Typography>
+                        </Grid>
                         <Grid item xs={12}>
                           <Typography color='textSecondary'>日時</Typography>
                           <Typography variant='body2'>{data}</Typography>
@@ -65,8 +87,8 @@ export default ({ cards, button }) => {
                     </Grid>
                   </CardContent>
                 </Link>
-                <CardActions>
-                  {button ? <Button onClick={() => handleClickStop(card.id)}>終了</Button> : ''}
+                <CardActions className={classes.actions}>
+                  {button ? <Button className={classes.button} size='small' onClick={() => handleClickStop(card.id)}>大会終了</Button> : ''}
                 </CardActions>
               </Card>
             </Grid>
