@@ -14,6 +14,11 @@ import request from 'superagent'
 import { db } from '../Firebase'
 
 const useStyles = makeStyles(theme => ({
+  paper: {
+    [theme.breakpoints.up('md')]: {
+    width: '100vh'
+    }
+  },
   card: {
     marginLeft: theme.spacing(3),
     marginBottom: theme.spacing(3)
@@ -29,12 +34,14 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     [theme.breakpoints.up('xs')]: {
-      width: '40vh',
-      marginLeft: theme.spacing(3)
+    paddingLeft: '47%',
+    paddingRight: '47%',
     },
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: '80vh',
-      marginLeft: theme.spacing(1)
+    [theme.breakpoints.up('sm')]: {
+      width: '80vh'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '100vh'
     }
   }
 }))
@@ -195,7 +202,7 @@ export default ({ eid, mid, players }) => {
 
     for (var j = 0; setvalue > j; j++) {
       var nj = j + 1
-      db.collection('events').doc('E001').collection('matchs').doc('M001').collection('point_details').doc(nj.toString()).update({
+      db.collection('events').doc(eid).collection('matchs').doc(mid).collection('point_details').doc(nj.toString()).set({
         'player1': Number(points1['set' + nj.toString()].player1),
         'player2': Number(points2['set' + nj.toString()].player2)
       })
@@ -224,7 +231,10 @@ export default ({ eid, mid, players }) => {
   }
   return (
     <>
-      <Paper>
+    <Grid container direction='column' justify='center' alignItems='center'>
+
+      <Grid item xs>
+      <Paper className={classes.paper}>
 
         <Grid container justify='center'>
           <Grid item xs>
@@ -284,17 +294,19 @@ export default ({ eid, mid, players }) => {
             <Typography variant='h5' align='center' gutterBottom>0</Typography>
           </Grid>
 
-          <Grid item md={11} xs={11}>
+
+        </Grid>
+      </Paper>
+</Grid>
+      <Grid item xs>
             <Button
               className={classes.button}
               variant='contained'
               color='primary'
               onClick={() => resultSend()}
-            >得点入力</Button>
-          </Grid>
-
-        </Grid>
-      </Paper>
+            >送信</Button>
+</Grid>
+</Grid>
     </>
   )
 }
