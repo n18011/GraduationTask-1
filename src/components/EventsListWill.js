@@ -85,7 +85,6 @@ export default ({ cards, button, pid }) => {
 
       for (var n = 0; nom > n; n++) {
         const MID = res.body[n].match.id
-        console.log(MID)
         const P1Id = res.body[n].match.player1Id
         const P2Id = res.body[n].match.player2Id
 
@@ -101,17 +100,8 @@ export default ({ cards, button, pid }) => {
             db.collection('events').doc(id).collection('matchs').doc(MID.toString()).set({
               'players': {
                 'player1':addName
-              },
-              
-              'round': 0,
-
-              'match_status': {
-                'abstention': false,
-                'nonprogress': false,
-                'progresed': false,
-                'progress': false,
               }
-            })
+            }, {merge: true})
           })
         }
 
@@ -122,12 +112,23 @@ export default ({ cards, button, pid }) => {
 
           request.get(getnameurl2).end((err, res) => {
             const addName = res.body.participant.name
+            console.log(addName)
 
 
             db.collection('events').doc(id).collection('matchs').doc(MID.toString()).set({
               'players': {
                 'player2': addName
+              },
+
+              'round': 1,
+
+              'match_status':{
+                'abstention': false,
+                'nonprogress': false,
+                'progresed': false,
+                'progress': false,
               }
+
             }, { merge: true })
           })
         }
