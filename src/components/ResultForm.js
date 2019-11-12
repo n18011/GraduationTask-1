@@ -14,6 +14,11 @@ import request from 'superagent'
 import { db } from '../Firebase'
 
 const useStyles = makeStyles(theme => ({
+  paper: {
+    [theme.breakpoints.up('md')]: {
+    width: '100vh'
+    }
+  },
   card: {
     marginLeft: theme.spacing(3),
     marginBottom: theme.spacing(3)
@@ -28,13 +33,12 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2)
   },
   button: {
-    [theme.breakpoints.up('xs')]: {
-      width: '40vh',
-      marginLeft: theme.spacing(3)
+    [theme.breakpoints.down('xs')]: {
+    paddingLeft: '47%',
+    paddingRight: '47%',
     },
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: '80vh',
-      marginLeft: theme.spacing(1)
+    [theme.breakpoints.up('md')]: {
+      width: '100vh'
     }
   }
 }))
@@ -224,7 +228,10 @@ export default ({ eid, mid, players }) => {
   }
   return (
     <>
-      <Paper>
+    <Grid container direction='column'>
+
+      <Grid item xs>
+      <Paper className={classes.paper}>
 
         <Grid container justify='center'>
           <Grid item xs>
@@ -284,17 +291,19 @@ export default ({ eid, mid, players }) => {
             <Typography variant='h5' align='center' gutterBottom>0</Typography>
           </Grid>
 
-          <Grid item md={11} xs={11}>
+
+        </Grid>
+      </Paper>
+</Grid>
+      <Grid item xs>
             <Button
               className={classes.button}
               variant='contained'
               color='primary'
               onClick={() => resultSend()}
-            >得点入力</Button>
-          </Grid>
-
-        </Grid>
-      </Paper>
+            >送信</Button>
+</Grid>
+</Grid>
     </>
   )
 }
