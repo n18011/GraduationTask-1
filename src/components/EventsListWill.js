@@ -28,12 +28,11 @@ import {
 // 開催済み大会一覧
 export default ({ cards, button, pid }) => {
 
-  const handleClickStart = async (id) => {
+  const handleClickStart = (id) => {
 
     // challongeのトーナメント表をランダムにする
-
     const randomize = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/randomize`
-    await request.post(randomize).end((err, res) => {
+    request.post(randomize).end((err, res) => {
       if (err) {
         console.log(err)
       } else {
@@ -43,7 +42,7 @@ export default ({ cards, button, pid }) => {
 
     // challongeのトーナメントを開始する処理
     const start = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/start`
-    await request.post(start).end((err, res) => {
+    request.post(start).end((err, res) => {
       if (err) {
         console.log(err)
       } else {
@@ -55,10 +54,8 @@ export default ({ cards, button, pid }) => {
     db.collection('events').doc(id).update({ status: { nowhold: true } })
     db.collection('users').doc(pid).get().then(
       function (doc) {
-        console.log(doc.data().holdplans)
         const newpush = doc.data().holdplans
         delete newpush[id]
-        console.log(newpush)
         db.collection('users').doc(pid).update({ holdplans: newpush }
         )
       }
