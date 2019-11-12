@@ -5,6 +5,7 @@ import {
   Grid,
   Fab,
   Link,
+  Button,
   Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -14,10 +15,20 @@ import EventsCard from '../components/EventsCard' // propsに開催中のデー�
 import EventsListWill from '../components/EventsListWill' // propsに開催予定のデータ入力
 
 const useStyles = makeStyles(theme => ({
+  button: {
+    marginLeft: '65%',
+    color: 'white',
+    backgroundColor: '#77bbdd',
+    '&:hover': {
+      backgroundColor: '#77bb88'
+    }
+  },
   div: {
     position: 'fixed',
+    right: '45%',
+    bottom: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
-      bottom: '50%',
+      bottom: '10%',
       right: theme.spacing(8),
     }
   },
@@ -73,11 +84,6 @@ export default ({ match }) => {
     <>
       <Grid item container direction='column' spacing={3} md={10}>
 
-        <Grid item xs>
-          <Typography variant='h4'>
-            <Link href={inputPath} color='inherit'>大会開催申請</Link>
-          </Typography>
-        </Grid>
 
         <Grid item xs>
           <Typography variant='h4'>
@@ -93,11 +99,26 @@ export default ({ match }) => {
           />
         </Grid>
 
-        <Grid item xs>
+        <Grid item container  justify='center' xs>
+
+          <Grid item md={6} xs>
           <Typography variant='h4'>
             大会開催予定一覧
           </Typography>
+</Grid>
+
+          <Grid item md={6} xs>
+          <Button 
+          className={classes.button}
+          variant='contained'
+          href={inputPath}
+          >
+            大会開催申請
+          </Button>
+</Grid>
+
         </Grid>
+
         <Grid item xs>
           <EventsListWill
             pid={AID}

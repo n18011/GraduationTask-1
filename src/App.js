@@ -57,6 +57,9 @@ const useStyles = makeStyles(theme => ({
   // footer Styles
   footer: {
   },
+  text: {
+    marginTop: theme.spacing(5)
+  }
 }))
 
 
@@ -141,7 +144,7 @@ export default () => {
         <ScrollTop />
 
         <footer className={classes.footer}>
-          <Typography variant='subtitle1' color='textSecondary' align='center'>
+          <Typography variant='subtitle1' color='textSecondary' align='center' className={classes.text}>
             2019 created by Parima
         </Typography>
         </footer>
