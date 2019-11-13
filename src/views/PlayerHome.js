@@ -8,6 +8,8 @@ import {
   Typography
 } from '@material-ui/core'
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import FolderSharedIcon from '@material-ui/icons/FolderShared';
+import HistoryIcon from '@material-ui/icons/History';
 
 import EventsCard from '../components/EventsCard' // propsで開催状況データを入力
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,11 +22,31 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: '#77bb88'
     }
   },
-  div: {
+  join: {
     position: 'fixed',
+      bottom: '3%',
+      right: '45%',
     [theme.breakpoints.up('md')]: {
       bottom: '50%',
       right: theme.spacing(8),
+    }
+  },
+  playerHistory: {
+    position: 'fixed',
+      bottom: '2%',
+      right: '65%',
+    [theme.breakpoints.up('md')]: {
+      bottom: '40%',
+      right: theme.spacing(9),
+    }
+  },
+  eventsHistory: {
+    position: 'fixed',
+      bottom: '2%',
+      right: '30%',
+    [theme.breakpoints.up('md')]: {
+      bottom: '30%',
+      right: theme.spacing(9),
     }
   },
 }))
@@ -32,7 +54,7 @@ const useStyles = makeStyles(theme => ({
 export default ({ match }) => {
   const classes = useStyles()
   const PID = match.params.pid
-  const notholdPath = `/player/${PID}/nothold`
+  const Path = `/player/${PID}`
   const [nowevents, setNevents] = useState([])
   const [eventjoin, setEvjoin] = useState([])
 
@@ -84,26 +106,23 @@ export default ({ match }) => {
         <Grid item>
           <EventsCard cards={eventjoin} />
         </Grid>
-        <Grid item>
-          <Typography variant='h4'>
-            <Link href='/player/:pid/join' color='inherit'>個人成績</Link>
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant='h4'>
-            <Link href='/held' color='inherit'>開催済み大会</Link>
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant='h4'>
-            <Link href={notholdPath} color='inherit'>大会参加申し込み</Link>
-          </Typography>
-        </Grid>
       </Grid>
 
-      <div className={classes.div} role='presentation' >
-        <Fab className={classes.fab} href={notholdPath}>
+      <div className={classes.join} role='presentation' >
+        <Fab className={classes.fab} href={Path + '/nothold'}>
           <PersonAddIcon />
+        </Fab>
+      </div>
+
+      <div className={classes.playerHistory} role='presentation' >
+        <Fab className={classes.fab} size='small' href={Path + '/join'}>
+          <FolderSharedIcon></FolderSharedIcon>
+        </Fab>
+      </div>
+
+      <div className={classes.eventsHistory} role='presentation' >
+        <Fab className={classes.fab} size='small' href='/held'>
+          <HistoryIcon></HistoryIcon>
         </Fab>
       </div>
     </>
