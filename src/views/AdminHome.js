@@ -4,6 +4,7 @@ import { db } from '../Firebase'
 import {
   Grid,
   Fab,
+  Tooltip,
   Button,
   Typography
 } from '@material-ui/core'
@@ -114,7 +115,7 @@ export default ({ match }) => {
               variant='contained'
               href={inputPath}
             >
-              大会開催申請
+              大会作成
           </Button>
           </Grid>
 
@@ -131,9 +132,11 @@ export default ({ match }) => {
       </Grid>
 
       <div className={classes.div} role='presentation' >
-        <Fab className={classes.fab} href={inputPath}>
-          <CreateIcon />
-        </Fab>
+        <Tooltip title='大会作成' aria-label='input'>
+          <Fab className={classes.fab} href={inputPath}>
+            <CreateIcon />
+          </Fab>
+        </Tooltip>
       </div>
 
     </>

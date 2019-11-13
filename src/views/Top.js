@@ -31,26 +31,26 @@ export default () => {
   }, [])
 
   return (
-      <>
-        <Grid container direction='column' spacing={3} item md={10}>
+    <>
+      <Grid container direction='column' spacing={3} item md={10}>
 
-          <Grid item container xs>
-            <Grid item md={6} xs>
+        <Grid item container xs>
+          <Grid item md={6} xs>
             <Typography variant='h4'>開催中大会</Typography>
-</Grid>
+          </Grid>
           <Grid item md={6} xs>
             <Typography className={classes.linktext} variant='h6' align='right'>
               <Link href='/held' color='inherit'>過去の大会一覧へ>></Link>
             </Typography>
           </Grid>
-          </Grid>
-
-
-          <Grid item xs>
-            <EventsCard cards={nowEvents} />
-          </Grid>
-
         </Grid>
+
+
+        <Grid item xs>
+          <EventsCard cards={nowEvents} />
+        </Grid>
+
+      </Grid>
     </>
   )
 }

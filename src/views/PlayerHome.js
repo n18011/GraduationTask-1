@@ -3,9 +3,9 @@ import { db } from '../Firebase'
 
 import {
   Grid,
-  Link,
   Fab,
-  Typography
+  Tooltip,
+  Typography,
 } from '@material-ui/core'
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
@@ -24,8 +24,8 @@ const useStyles = makeStyles(theme => ({
   },
   join: {
     position: 'fixed',
-      bottom: '3%',
-      right: '45%',
+    bottom: '3%',
+    right: '45%',
     [theme.breakpoints.up('md')]: {
       bottom: '50%',
       right: theme.spacing(8),
@@ -33,8 +33,8 @@ const useStyles = makeStyles(theme => ({
   },
   playerHistory: {
     position: 'fixed',
-      bottom: '2%',
-      right: '65%',
+    bottom: '2%',
+    right: '65%',
     [theme.breakpoints.up('md')]: {
       bottom: '40%',
       right: theme.spacing(9),
@@ -42,8 +42,8 @@ const useStyles = makeStyles(theme => ({
   },
   eventsHistory: {
     position: 'fixed',
-      bottom: '2%',
-      right: '30%',
+    bottom: '2%',
+    right: '30%',
     [theme.breakpoints.up('md')]: {
       bottom: '30%',
       right: theme.spacing(9),
@@ -109,21 +109,27 @@ export default ({ match }) => {
       </Grid>
 
       <div className={classes.join} role='presentation' >
-        <Fab className={classes.fab} href={Path + '/nothold'}>
-          <PersonAddIcon />
-        </Fab>
+        <Tooltip title='大会に参加' aria-label='join'>
+          <Fab className={classes.fab} href={Path + '/nothold'}>
+            <PersonAddIcon />
+          </Fab>
+        </Tooltip>
       </div>
 
       <div className={classes.playerHistory} role='presentation' >
-        <Fab className={classes.fab} size='small' href={Path + '/join'}>
-          <FolderSharedIcon></FolderSharedIcon>
-        </Fab>
+        <Tooltip title='個人成績' aria-label='pHistory'>
+          <Fab className={classes.fab} size='small' href={Path + '/join'}>
+            <FolderSharedIcon></FolderSharedIcon>
+          </Fab>
+        </Tooltip>
       </div>
 
       <div className={classes.eventsHistory} role='presentation' >
-        <Fab className={classes.fab} size='small' href='/held'>
-          <HistoryIcon></HistoryIcon>
-        </Fab>
+        <Tooltip title='過去の大会一覧' aria-label='eHistory'>
+          <Fab className={classes.fab} size='small' href='/held'>
+            <HistoryIcon></HistoryIcon>
+          </Fab>
+        </Tooltip>
       </div>
     </>
   )
