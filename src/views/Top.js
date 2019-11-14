@@ -7,8 +7,16 @@ import {
   Typography,
   Link
 } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
+
+const useStyles = makeStyles(theme => ({
+  linktext: {
+    marginTop: '20px'
+  }
+}))
 
 export default () => {
+  const classes = useStyles()
   const [nowEvents, setNowEvents] = useState([])
 
   useMemo(() => {
@@ -23,23 +31,29 @@ export default () => {
   }, [])
 
   return (
-      <>
-        <Grid container direction='column' spacing={3} item md={10}>
+    <>
+      <Grid container direction='column' spacing={3} item md={10}>
 
-          <Grid item xs>
+        <Grid item container xs>
+
+          <Grid item md={6} xs>
             <Typography variant='h4'>開催中大会</Typography>
           </Grid>
 
-          <Grid item xs>
-            <EventsCard cards={nowEvents} />
-          </Grid>
-
-          <Grid item xs>
-            <Typography variant='h4'>
-              <Link href='/held' color='inherit'>過去の大会一覧</Link>
+          <Grid item md={6} xs>
+            <Typography className={classes.linktext} variant='h6' align='right'>
+              <Link href='/held' color='inherit'>過去の大会一覧へ>></Link>
             </Typography>
           </Grid>
+
         </Grid>
+
+
+        <Grid item xs>
+          <EventsCard cards={nowEvents} />
+        </Grid>
+
+      </Grid>
     </>
   )
 }
