@@ -107,14 +107,14 @@ export default () => {
           <AppBar className={classes.bar}>
             <Toolbar >
               <Link color='inherit' underline='none' href='/'>
-              <img src={Image} alt="" width="50" height="50"/>
-</Link>
+                <img src={Image} alt="" width="50" height="50" />
+              </Link>
 
               <Typography variant='h4' color='inherit' className={classes.title} noWrap>
-              <Link color='inherit' underline='none' href='/'>
-                Parima
+                <Link color='inherit' underline='none' href='/'>
+                  Parima
 </Link>
-          </Typography>
+              </Typography>
 
               <Button href='/player/:pid' color='inherit' variant='outlined' className={classes.link}>
                 選手
