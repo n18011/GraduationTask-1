@@ -12,16 +12,16 @@ import {
   ListItem,
   ListItemText,
   Drawer,
-  IconButton,
   Button,
 } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { AuthProvider } from './components/Auth'
 import links from './links'
 import Routing from './Routing'
 import ScrollTop from './components/ScrollTop'
+
+import Image from './parima_logo_img.png'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,7 +34,8 @@ const useStyles = makeStyles(theme => ({
     background: 'linear-gradient(45deg, #77bb88 60%, #77bbdd 100%)'
   },
   title: {
-    flex: 1
+    flex: 1,
+    marginLeft: '8px'
   },
   link: {
     margin: theme.spacing(1, 1.5),
@@ -105,18 +106,15 @@ export default () => {
         <header className={classes.header}>
           <AppBar className={classes.bar}>
             <Toolbar >
-              <IconButton
-                color='inherit'
-                aria-label='menu'
-                edge='start'
-                onClick={toggleDrawer('left', true)}
-              >
-                <MenuIcon />
-              </IconButton>
+              <Link color='inherit' underline='none' href='/'>
+                <img src={Image} alt="" width="50" height="50" />
+              </Link>
 
               <Typography variant='h4' color='inherit' className={classes.title} noWrap>
-                Parima
-          </Typography>
+                <Link color='inherit' underline='none' href='/'>
+                  Parima
+</Link>
+              </Typography>
 
               <Button href='/player/:pid' color='inherit' variant='outlined' className={classes.link}>
                 選手
