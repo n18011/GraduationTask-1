@@ -87,7 +87,9 @@ export default ({ eid, mid, players }) => {
     })
 
   useEffect(() => {
+
     const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/${mid}`
+
     request.get(url).end((err, res) => {
       setPlayerid({
         player1Id: res.body['match'].player1Id,
@@ -181,9 +183,6 @@ export default ({ eid, mid, players }) => {
       winnerid = playerId.player2Id
     }
 
-    console.log(csv)
-    console.log(winnerid)
-
     request.put(url).send({
       match: {
         scoresCsv: csv,
@@ -192,9 +191,173 @@ export default ({ eid, mid, players }) => {
     }
     ).end((err, res) => {
       if (err) {
+
         console.log(err)
+        const checkId =  winnerid
+        const checkRound = res.body['match'].round
+        const checkState1 = "pending"
+        const checkState2 = "open"
+        const turl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/`
+        
+        request.get(turl).end((err, res) => {
+          if (err) {
+            ;
+          } else {
+            var matchLen = Object.keys(res.body).length
+            for (var i = 0; matchLen > i; i++){
+
+
+              if (res.body[i].match.round === checkRound+1 && (res.body[i].match.state === checkState1 || res.body[i].match.state === checkState2) && (res.body[i].match.player1Id === checkId || res.body[i].match.player2Id === checkId)){
+                
+                const NMI = res.body[i].match.id  // Next Match Id
+                const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/`+NMI.toString()
+                request.get(url).end((err, res) => {
+                   
+                  const ANU = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/participants/` + checkId
+                  if (checkId === res.body.match.player1Id){
+                    request.get(ANU).end((err, res) => {
+                      const addName = res.body.participant.name
+                      db.collection('events').doc(eid).collection('matchs').doc(NMI.toString()).set({
+                        
+                        'players': {
+                          'player1': addName
+                        },
+
+                        'round':checkRound+1,
+
+                        'match_status': {
+                          'abstention': false,
+                          'nonprogress': false,
+                          'progresed': false,
+                          'progress': true,
+                        }
+                          
+                      }, { merge: true })
+                    
+                    })
+                  } else {
+                    ;
+                  }
+                  if (checkId === res.body.match.player2Id){
+
+                    request.get(ANU).end((err, res) => {
+                      const addName = res.body.participant.name
+                      db.collection('events').doc(eid).collection('matchs').doc(NMI.toString()).set({
+                        
+                        'players': {
+                          'player2': addName
+                        },
+
+                        'round':checkRound+1,
+
+                        'match_status': {
+                          'abstention': false,
+                          'nonprogress': false,
+                          'progresed': false,
+                          'progress': true,
+                        }
+                          
+                      }, { merge: true })
+                    
+                    })
+
+                  } else {
+                    ;
+                  }
+                  
+                })
+
+              } else {
+                ;
+              }
+
+            }
+          }
+        })
+
       } else {
-        console.log(res.body)
+
+        console.log('resok')
+
+        const checkId =  winnerid
+        const checkRound = res.body['match'].round
+        const checkState1 = "pending"
+        const checkState2 = "open"
+        const turl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/`
+
+        request.get(turl).end((err, res) => {
+          if (err) {
+            console.log('error num288')
+          } else {
+            var matchLen = Object.keys(res.body).length
+            for (var i = 0; matchLen > i; i++){
+              if (res.body[i].match.round === checkRound+1 && (res.body[i].match.state === checkState1 || res.body[i].match.state === checkState2 ) && (res.body[i].match.player1Id === checkId || res.body[i].match.player2Id === checkId)){
+                
+                const NMI = res.body[i].match.id  // Next Match Id
+                const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/`+NMI.toString()
+                request.get(url).end((err, res) => {
+                    const ANU = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/participants/` + checkId
+                  if (checkId === res.body.match.player1Id){
+                    request.get(ANU).end((err, res) => {
+                      const addName = res.body.participant.name
+                      db.collection('events').doc(eid).collection('matchs').doc(NMI.toString()).set({
+                        
+                        'players': {
+                          'player1': addName
+                        },
+
+                        'round':checkRound+1,
+
+                        'match_status': {
+                          'abstention': false,
+                          'nonprogress': false,
+                          'progresed': false,
+                          'progress': true,
+                        }
+                          
+                      }, { merge: true })
+                    
+                    })
+                  } else {
+                    ;
+                  }
+                  if (checkId === res.body.match.player2Id){
+
+                    request.get(ANU).end((err, res) => {
+                      const addName = res.body.participant.name
+                      db.collection('events').doc(eid).collection('matchs').doc(NMI.toString()).set({
+                        
+                        'players': {
+                          'player2': addName
+                        },
+
+                        'round':checkRound+1,
+
+                        'match_status': {
+                          'abstention': false,
+                          'nonprogress': false,
+                          'progresed': false,
+                          'progress': true,
+                        }
+                          
+                      }, { merge: true })
+                    
+                    })
+
+                  } else {
+                    ;
+                  }
+                })
+              } else {
+                ;
+              }
+            
+            }
+          
+          }
+        
+        })
+
       }
     })
 
@@ -207,6 +370,15 @@ export default ({ eid, mid, players }) => {
         'player2': Number(points2['set' + nj.toString()].player2)
       })
     }
+
+
+
+
+
+
+
+
+
   }
 
   const handleChange1 = (e, set) => {
