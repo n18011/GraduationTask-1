@@ -85,6 +85,7 @@ export default ({ eid, mid, players }) => {
         player2: 0,
       },
     })
+    const eventHome = `/events/${eid}`
 
   useEffect(() => {
 
@@ -371,14 +372,6 @@ export default ({ eid, mid, players }) => {
       })
     }
 
-
-
-
-
-
-
-
-
   }
 
   const handleChange1 = (e, set) => {
@@ -411,7 +404,7 @@ export default ({ eid, mid, players }) => {
             <Grid container justify='center'>
               <Grid item xs>
                 <Typography variant='h5' align='center' className={classes.text}>
-                  {players ? players.player1 : 'unko'}
+                  {players ? players.player1 : ''}
                 </Typography>
 
                 {Object.keys(points1).map((product, index) => (
@@ -476,6 +469,7 @@ export default ({ eid, mid, players }) => {
             variant='contained'
             color='primary'
             onClick={() => resultSend()}
+            href={eventHome}
           >送信</Button>
         </Grid>
       </Grid>
