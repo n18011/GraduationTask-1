@@ -96,7 +96,7 @@ export default ({ match }) => {
           </Typography>
         </Grid>
         <Grid item>
-          <EventsCard cards={nowevents} />
+          {nowevents.length !== 0 ? <EventsCard cards={nowevents} /> : <Typography color='textSecondary'>現在開催中の大会はありません</Typography>}
         </Grid>
         <Grid item>
           <Typography variant='h4'>
@@ -104,7 +104,7 @@ export default ({ match }) => {
           </Typography>
         </Grid>
         <Grid item>
-          <EventsCard cards={eventjoin} />
+          {eventjoin.lenght !== 0 ? <EventsCard cards={eventjoin} /> : '現在申し込み中の大会はありません'}
         </Grid>
       </Grid>
 

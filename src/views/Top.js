@@ -50,7 +50,7 @@ export default () => {
 
 
         <Grid item xs>
-          <EventsCard cards={nowEvents} />
+          {nowEvents.length !== 0 ? <EventsCard cards={nowEvents} /> : <Typography color='textSecondary'>現在開催中の大会はありません</Typography>}
         </Grid>
 
       </Grid>

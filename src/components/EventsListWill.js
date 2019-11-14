@@ -130,78 +130,78 @@ export default ({ cards, button, pid }) => {
       }
     )
   }
-      /*
-    const getInfourl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/matches`
+  /*
+const getInfourl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/matches`
 
-    request.get(getInfourl).end((err, res) => {
+request.get(getInfourl).end((err, res) => {
 
-      const nom = Object.keys(res.body).length // Number of Matches
+  const nom = Object.keys(res.body).length // Number of Matches
 
-      const arrMatchid = []
+  const arrMatchid = []
 
-      for (var i = 0; nom > i; i++) {
-        arrMatchid.push(res.body[i].match.id)
-      }
+  for (var i = 0; nom > i; i++) {
+    arrMatchid.push(res.body[i].match.id)
+  }
 
-      for (i = 0; nom > i; i++) {
-        db.collection('events').doc(id).collection('matchs').doc(arrMatchid[i].toString()).collection('point_details').doc('1').set({
-          'player1': 0,
-          'player2': 0
-        })
-      }
-
-      for (var n = 0; nom > n; n++) {
-        const MID = res.body[n].match.id
-        const P1Id = res.body[n].match.player1Id
-        const P2Id = res.body[n].match.player2Id
-
-        if (P1Id === null) {
-          ;
-        } else {
-          const getnameurl1 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/` + P1Id
-
-          request.get(getnameurl1).end((err, res) => {
-            const addName = res.body.participant.name
-
-
-            db.collection('events').doc(id).collection('matchs').doc(MID.toString()).set({
-              'players': {
-                'player1': addName
-              }
-            }, { merge: true })
-          })
-        }
-
-        if (P2Id === null) {
-          ;
-        } else {
-          const getnameurl2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/` + P2Id
-
-          request.get(getnameurl2).end((err, res) => {
-            const addName = res.body.participant.name
-            console.log(addName)
-
-
-            db.collection('events').doc(id).collection('matchs').doc(MID.toString()).set({
-              'players': {
-                'player2': addName
-              },
-
-              'round': 1,
-
-              'match_status': {
-                'abstention': false,
-                'nonprogress': false,
-                'progresed': false,
-                'progress': false,
-              }
-
-            }, { merge: true })
-          })
-        }
-      }
+  for (i = 0; nom > i; i++) {
+    db.collection('events').doc(id).collection('matchs').doc(arrMatchid[i].toString()).collection('point_details').doc('1').set({
+      'player1': 0,
+      'player2': 0
     })
   }
+
+  for (var n = 0; nom > n; n++) {
+    const MID = res.body[n].match.id
+    const P1Id = res.body[n].match.player1Id
+    const P2Id = res.body[n].match.player2Id
+
+    if (P1Id === null) {
+      ;
+    } else {
+      const getnameurl1 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/` + P1Id
+
+      request.get(getnameurl1).end((err, res) => {
+        const addName = res.body.participant.name
+
+
+        db.collection('events').doc(id).collection('matchs').doc(MID.toString()).set({
+          'players': {
+            'player1': addName
+          }
+        }, { merge: true })
+      })
+    }
+
+    if (P2Id === null) {
+      ;
+    } else {
+      const getnameurl2 = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${id}/participants/` + P2Id
+
+      request.get(getnameurl2).end((err, res) => {
+        const addName = res.body.participant.name
+        console.log(addName)
+
+
+        db.collection('events').doc(id).collection('matchs').doc(MID.toString()).set({
+          'players': {
+            'player2': addName
+          },
+
+          'round': 1,
+
+          'match_status': {
+            'abstention': false,
+            'nonprogress': false,
+            'progresed': false,
+            'progress': false,
+          }
+
+        }, { merge: true })
+      })
+    }
+  }
+})
+}
 
 */
 

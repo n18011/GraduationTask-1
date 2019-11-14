@@ -16,7 +16,7 @@ import { db } from '../Firebase'
 const useStyles = makeStyles(theme => ({
   paper: {
     [theme.breakpoints.up('md')]: {
-    width: '100vh'
+      width: '100vh'
     }
   },
   card: {
@@ -34,8 +34,8 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     [theme.breakpoints.up('xs')]: {
-    paddingLeft: '47%',
-    paddingRight: '47%',
+      paddingLeft: '47%',
+      paddingRight: '47%',
     },
     [theme.breakpoints.up('sm')]: {
       width: '80vh'
@@ -193,37 +193,37 @@ export default ({ eid, mid, players }) => {
       if (err) {
 
         console.log(err)
-        const checkId =  winnerid
+        const checkId = winnerid
         const checkRound = res.body['match'].round
         const checkState1 = "pending"
         const checkState2 = "open"
         const turl = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/`
-        
+
         request.get(turl).end((err, res) => {
           if (err) {
             ;
           } else {
             var matchLen = Object.keys(res.body).length
-            for (var i = 0; matchLen > i; i++){
+            for (var i = 0; matchLen > i; i++) {
 
 
-              if (res.body[i].match.round === checkRound+1 && (res.body[i].match.state === checkState1 || res.body[i].match.state === checkState2) && (res.body[i].match.player1Id === checkId || res.body[i].match.player2Id === checkId)){
-                
+              if (res.body[i].match.round === checkRound + 1 && (res.body[i].match.state === checkState1 || res.body[i].match.state === checkState2) && (res.body[i].match.player1Id === checkId || res.body[i].match.player2Id === checkId)) {
+
                 const NMI = res.body[i].match.id  // Next Match Id
-                const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/`+NMI.toString()
+                const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/` + NMI.toString()
                 request.get(url).end((err, res) => {
-                   
+
                   const ANU = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/participants/` + checkId
-                  if (checkId === res.body.match.player1Id){
+                  if (checkId === res.body.match.player1Id) {
                     request.get(ANU).end((err, res) => {
                       const addName = res.body.participant.name
                       db.collection('events').doc(eid).collection('matchs').doc(NMI.toString()).set({
-                        
+
                         'players': {
                           'player1': addName
                         },
 
-                        'round':checkRound+1,
+                        'round': checkRound + 1,
 
                         'match_status': {
                           'abstention': false,
@@ -231,24 +231,24 @@ export default ({ eid, mid, players }) => {
                           'progresed': false,
                           'progress': true,
                         }
-                          
+
                       }, { merge: true })
-                    
+
                     })
                   } else {
                     ;
                   }
-                  if (checkId === res.body.match.player2Id){
+                  if (checkId === res.body.match.player2Id) {
 
                     request.get(ANU).end((err, res) => {
                       const addName = res.body.participant.name
                       db.collection('events').doc(eid).collection('matchs').doc(NMI.toString()).set({
-                        
+
                         'players': {
                           'player2': addName
                         },
 
-                        'round':checkRound+1,
+                        'round': checkRound + 1,
 
                         'match_status': {
                           'abstention': false,
@@ -256,15 +256,15 @@ export default ({ eid, mid, players }) => {
                           'progresed': false,
                           'progress': true,
                         }
-                          
+
                       }, { merge: true })
-                    
+
                     })
 
                   } else {
                     ;
                   }
-                  
+
                 })
 
               } else {
@@ -279,7 +279,7 @@ export default ({ eid, mid, players }) => {
 
         console.log('resok')
 
-        const checkId =  winnerid
+        const checkId = winnerid
         const checkRound = res.body['match'].round
         const checkState1 = "pending"
         const checkState2 = "open"
@@ -290,23 +290,23 @@ export default ({ eid, mid, players }) => {
             console.log('error num288')
           } else {
             var matchLen = Object.keys(res.body).length
-            for (var i = 0; matchLen > i; i++){
-              if (res.body[i].match.round === checkRound+1 && (res.body[i].match.state === checkState1 || res.body[i].match.state === checkState2 ) && (res.body[i].match.player1Id === checkId || res.body[i].match.player2Id === checkId)){
-                
+            for (var i = 0; matchLen > i; i++) {
+              if (res.body[i].match.round === checkRound + 1 && (res.body[i].match.state === checkState1 || res.body[i].match.state === checkState2) && (res.body[i].match.player1Id === checkId || res.body[i].match.player2Id === checkId)) {
+
                 const NMI = res.body[i].match.id  // Next Match Id
-                const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/`+NMI.toString()
+                const url = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/matches/` + NMI.toString()
                 request.get(url).end((err, res) => {
-                    const ANU = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/participants/` + checkId
-                  if (checkId === res.body.match.player1Id){
+                  const ANU = `https://asia-northeast1-graduation-task-d7fc3.cloudfunctions.net/api/tournaments/${eid}/participants/` + checkId
+                  if (checkId === res.body.match.player1Id) {
                     request.get(ANU).end((err, res) => {
                       const addName = res.body.participant.name
                       db.collection('events').doc(eid).collection('matchs').doc(NMI.toString()).set({
-                        
+
                         'players': {
                           'player1': addName
                         },
 
-                        'round':checkRound+1,
+                        'round': checkRound + 1,
 
                         'match_status': {
                           'abstention': false,
@@ -314,24 +314,24 @@ export default ({ eid, mid, players }) => {
                           'progresed': false,
                           'progress': true,
                         }
-                          
+
                       }, { merge: true })
-                    
+
                     })
                   } else {
                     ;
                   }
-                  if (checkId === res.body.match.player2Id){
+                  if (checkId === res.body.match.player2Id) {
 
                     request.get(ANU).end((err, res) => {
                       const addName = res.body.participant.name
                       db.collection('events').doc(eid).collection('matchs').doc(NMI.toString()).set({
-                        
+
                         'players': {
                           'player2': addName
                         },
 
-                        'round':checkRound+1,
+                        'round': checkRound + 1,
 
                         'match_status': {
                           'abstention': false,
@@ -339,9 +339,9 @@ export default ({ eid, mid, players }) => {
                           'progresed': false,
                           'progress': true,
                         }
-                          
+
                       }, { merge: true })
-                    
+
                     })
 
                   } else {
@@ -351,11 +351,11 @@ export default ({ eid, mid, players }) => {
               } else {
                 ;
               }
-            
+
             }
-          
+
           }
-        
+
         })
 
       }
@@ -403,82 +403,82 @@ export default ({ eid, mid, players }) => {
   }
   return (
     <>
-    <Grid container direction='column' justify='center' alignItems='center'>
+      <Grid container direction='column' justify='center' alignItems='center'>
 
-      <Grid item xs>
-      <Paper className={classes.paper}>
+        <Grid item xs>
+          <Paper className={classes.paper}>
 
-        <Grid container justify='center'>
-          <Grid item xs>
-            <Typography variant='h5' align='center' className={classes.text}>
-              {players ? players.player1 : 'unko'}
-            </Typography>
+            <Grid container justify='center'>
+              <Grid item xs>
+                <Typography variant='h5' align='center' className={classes.text}>
+                  {players ? players.player1 : 'unko'}
+                </Typography>
 
-            {Object.keys(points1).map((product, index) => (
-              <>
+                {Object.keys(points1).map((product, index) => (
+                  <>
 
-                <TextField
-                  id='filled-number'
-                  label={index + 1}
-                  value={product.player1}
-                  type='number'
-                  onChange={(e) => handleChange1(e, `set${index + 1}`)}
-                  className={classes.textField}
-                  InputLabelProps={{
-                    shrink: true
-                  }}
-                  margin='normal'
-                />
-              </>
-            ))
-            }
-            <Typography variant='h5' align='center' gutterBottom>0</Typography>
-          </Grid>
+                    <TextField
+                      id='filled-number'
+                      label={index + 1}
+                      value={product.player1}
+                      type='number'
+                      onChange={(e) => handleChange1(e, `set${index + 1}`)}
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      margin='normal'
+                    />
+                  </>
+                ))
+                }
+                <Typography variant='h5' align='center' gutterBottom>0</Typography>
+              </Grid>
 
-          <Grid item md={1} xs={1}>
-            <Typography variant='h4' className={classes.x}>X</Typography>
-          </Grid>
+              <Grid item md={1} xs={1}>
+                <Typography variant='h4' className={classes.x}>X</Typography>
+              </Grid>
 
-          <Grid item xs>
-            <Typography variant='h5' align='center' className={classes.text}>
-              {players ? players.player2 : ''}
-            </Typography>
+              <Grid item xs>
+                <Typography variant='h5' align='center' className={classes.text}>
+                  {players ? players.player2 : ''}
+                </Typography>
 
-            {Object.keys(points2).map((product, index) => (
-              <>
+                {Object.keys(points2).map((product, index) => (
+                  <>
 
-                <TextField
-                  id='filled-number'
-                  label={index + 1}
-                  value={product.player2}
-                  onChange={(e) => handleChange2(e, `set${index + 1}`)}
-                  type='number'
-                  className={classes.textField}
-                  InputLabelProps={{
-                    shrink: true
-                  }}
-                  margin='normal'
-                />
-              </>
-            ))
-            }
+                    <TextField
+                      id='filled-number'
+                      label={index + 1}
+                      value={product.player2}
+                      onChange={(e) => handleChange2(e, `set${index + 1}`)}
+                      type='number'
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      margin='normal'
+                    />
+                  </>
+                ))
+                }
 
-            <Typography variant='h5' align='center' gutterBottom>0</Typography>
-          </Grid>
+                <Typography variant='h5' align='center' gutterBottom>0</Typography>
+              </Grid>
 
 
+            </Grid>
+          </Paper>
         </Grid>
-      </Paper>
-</Grid>
-      <Grid item xs>
-            <Button
-              className={classes.button}
-              variant='contained'
-              color='primary'
-              onClick={() => resultSend()}
-            >送信</Button>
-</Grid>
-</Grid>
+        <Grid item xs>
+          <Button
+            className={classes.button}
+            variant='contained'
+            color='primary'
+            onClick={() => resultSend()}
+          >送信</Button>
+        </Grid>
+      </Grid>
     </>
   )
 }
