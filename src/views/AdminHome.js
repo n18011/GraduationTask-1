@@ -94,11 +94,12 @@ export default ({ match }) => {
         </Grid>
 
         <Grid item xs>
-          <EventsCard
-            cards={nowevents}
-            pid={AID}
-            button
-          />
+          {nowevents.length !== 0 ? (
+            <EventsCard
+              cards={nowevents}
+              pid={AID}
+              button
+            />) : <Typography color='textSecondary'>現在開催中の大会はありません</Typography>}
         </Grid>
 
         <Grid item container spacing={2} justify='center' xs>
