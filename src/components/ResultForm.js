@@ -425,7 +425,7 @@ export default ({ eid, mid, players }) => {
                   </>
                 ))
                 }
-                <Typography variant='h5' align='center' gutterBottom>0</Typography>
+                <Typography variant='h5' align='center' gutterBottom>''</Typography>
               </Grid>
 
               <Grid item md={1} xs={1}>
@@ -456,7 +456,7 @@ export default ({ eid, mid, players }) => {
                 ))
                 }
 
-                <Typography variant='h5' align='center' gutterBottom>0</Typography>
+                <Typography variant='h5' align='center' gutterBottom>''</Typography>
               </Grid>
 
 
